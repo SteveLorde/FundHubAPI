@@ -1,8 +1,13 @@
+import {Project} from "./Project";
+
 export interface User {
-  userId : string
+  userId : string | number
   username : string
   password : string
-  phonenumber : string
-  email : string
-  socialmedia : string[]
+  description : string
+  phonenumber? : string
+  email? : string
+  socialmedia? : string[]
+  projects? : Project[]
+
 }

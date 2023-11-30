@@ -12,5 +12,6 @@ export const routes: Routes = [
   { path: 'loginregister', component: LoginRegisterPageComponent },
   { path: 'viewproject', component: ProjectViewComponent },
   { path: 'profile', component: ProfilePageComponent  },
+  { path: 'donation', component: DonationPageComponent  },
 
 ];

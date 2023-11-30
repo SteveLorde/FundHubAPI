@@ -1,1 +1,23 @@
 <p>login-register-page works!</p>
+
+<div>
+  <form [hidden]="hideloginform" [formGroup]="loginform" (ngSubmit)="Login()">
+    <h3>Username</h3>
+    <input type="text" placeholder="Enter Username" />
+    <h3>Password</h3>
+    <input type="text" placeholder="Enter Password" />
+    <div class="donationbutton">
+      <input type="submit" />
+    </div>
+  </form>
+
+  <form [hidden]="hideregisterform" [formGroup]="registerformm" (ngSubmit)="Register()">
+    <h3>Username</h3>
+    <input type="text" placeholder="Enter Username" />
+    <h3>Password</h3>
+    <input type="text" placeholder="Enter Password" />
+    <div class="donationbutton">
+      <input type="submit" />
+    </div>
+  </form>
+</div>

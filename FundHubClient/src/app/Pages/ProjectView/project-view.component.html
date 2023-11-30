@@ -1,1 +1,26 @@
 <p>project-view works!</p>
+
+<div>
+
+  <div>
+    <!--Images Carousel -->
+    <img src="" />
+
+
+    <div>
+      <h1>{{project().projectname}}</h1>
+      <p>{{project().projectdesc}}</p>
+    </div>
+
+    <!--Donate -->
+    <a (click)="GoDonate()" routerLink="/donate">Donate</a>
+  </div>
+  <div>
+    <!--Project Owner Info -->
+    <img src="" />
+    <h2>{{project().userowner.username}}</h2>
+    <h3>About Me</h3>
+    <p>{{project().userowner.description}}</p>
+  </div>
+
+</div>
