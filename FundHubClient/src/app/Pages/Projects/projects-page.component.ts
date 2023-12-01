@@ -25,6 +25,7 @@ export class ProjectsPageComponent {
 
   async GetProjects() {
     let projectz = await this.backend.GetProjects()
+    this.projects = projectz
   }
 
   ViewProject(project : Project) {

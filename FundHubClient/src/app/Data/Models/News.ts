@@ -3,4 +3,5 @@ export interface News {
   newstitle : string
   newssubtitle? : string
   newsdesc : string
+  publishdate : string
 }
