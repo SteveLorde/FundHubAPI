@@ -25,7 +25,7 @@ export class AuthenticationService {
 
   constructor() { }
 
-  async Login(loginrequest : AuthRequest): Promise<any> {
+  async Login(loginrequest: { password: string | null | undefined; username: string | null | undefined }): Promise<any> {
     try {
       let userinfo : User = await axios.post('http://localhost:5116/Authentication/Login', loginrequest)
       this.activeuser = userinfo

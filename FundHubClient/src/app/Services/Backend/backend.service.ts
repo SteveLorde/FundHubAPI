@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import axios from "axios";
 import {Project} from "../../Data/Models/Project";
 import {News} from "../../Data/Models/News";
@@ -9,7 +8,7 @@ import {News} from "../../Data/Models/News";
 })
 export class BackendService {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   async GetProjects() {
     let projects : Project[] = await axios.get('http://localhost:5116')

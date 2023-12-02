@@ -1,9 +1,12 @@
-<p>home-page works!</p>
+<div class="homepage">
 
-<div>
+  <div class="titles">
+    <h1 class="headtitle">Welcome to FundHub</h1>
+    <h2 class="subtitle">our goal is to provide funding through donations, for people's projects they wish to achieve</h2>
+  </div>
 
-  <div>
-    <div *ngFor="let news of allnews">
+  <div class="news">
+    <div class="newselement" *ngFor="let news of allnews">
       <p>{{news.publishdate}}</p>
       <img />
       <h2>{{news.newstitle}}</h2>

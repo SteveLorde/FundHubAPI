@@ -7,7 +7,7 @@ import {LoginRegisterPageComponent} from "./Pages/LoginRegister/login-register-p
 import {DonationPageComponent} from "./Pages/Donation/donation-page.component";
 
 export const routes: Routes = [
-  { path: 'home', component: HomePageComponent },
+  { path: '', component: HomePageComponent },
   { path: 'projects', component: ProjectsPageComponent },
   { path: 'loginregister', component: LoginRegisterPageComponent },
   { path: 'viewproject', component: ProjectViewComponent },

@@ -2,6 +2,7 @@ import {Component, signal, WritableSignal} from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {RouterLink} from "@angular/router";
 import {selectedproject, setSelectedProject} from "../../Services/GlobalMemoryStorage";
+import {User} from "../../Data/Models/User";
 
 @Component({
   selector: 'app-project-view',
@@ -15,10 +16,13 @@ import {selectedproject, setSelectedProject} from "../../Services/GlobalMemorySt
 export class ProjectViewComponent {
 
   public project= signal<Project>({
-    email: "", projectId: "", projectdesc: "", projectname: "", socialmedia: []
+    email: "", projectId: "", projectdesc: "", projectname: "", socialmedia: [], userowner: {
+      username: ' ', description: ' '
+    } as User
   })
 
   constructor() {
+
   }
 
   SetProject(projectoview : Project) {

@@ -5,6 +5,7 @@ import {NgForOf} from "@angular/common";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {Project} from "../../Data/Models/Project";
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home-page',
@@ -22,7 +23,7 @@ export class HomePageComponent {
   public allnews : News[] = []
 
   constructor(private backend: BackendService) {
-
+    this.GetNews()
   }
 
   ngoninit() {
