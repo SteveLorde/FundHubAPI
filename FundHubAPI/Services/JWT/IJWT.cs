@@ -1,7 +1,6 @@
 ﻿using FundHubAPI.Data.Models;
 
-
-namespace API.Services.JWT;
+namespace FundHubAPI.Services.JWT;
 
 public interface IJWT
 {

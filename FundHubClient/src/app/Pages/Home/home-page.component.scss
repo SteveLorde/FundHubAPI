@@ -31,3 +31,15 @@
   color: #969696;
   font-family: Dubai, serif;
 }
+
+.newsgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.newselement {
+  padding: 20px;
+  margin: 20px;
+  background-color: red;
+}

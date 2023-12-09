@@ -1,7 +1,8 @@
 export interface News {
-  newsId : string
-  newstitle : string
-  newssubtitle? : string
-  newsdesc : string
-  publishdate : string
+  id : string
+  title : string
+  subtitle? : string
+  description : string
+  published : string
+  image? : string
 }

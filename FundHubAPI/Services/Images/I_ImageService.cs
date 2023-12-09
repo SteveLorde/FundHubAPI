@@ -1,4 +1,4 @@
-﻿namespace API.Services.Images;
+﻿namespace FundHubAPI.Services.Images;
 
 public interface I_ImageService
 {

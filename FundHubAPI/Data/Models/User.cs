@@ -8,7 +8,7 @@ namespace FundHubAPI.Data.Models;
 public class User
 {
     [Key]
-    public Guid UserId { get; set; }
+    public Guid Id { get; set; }
     public string username { get; set; }
     [NotMapped]
     public string? password { get; set; }

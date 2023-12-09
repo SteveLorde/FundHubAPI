@@ -1,0 +1,18 @@
+
+.projectsgrid {
+  display: grid;
+  grid-template: 1f 1f 1f 1f;
+  gap: 50px;
+}
+
+.projectcard {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  padding: 20px;
+  align-items: center;
+}
+
+.projectcard:hover {
+  background: #e5e5e5;
+}

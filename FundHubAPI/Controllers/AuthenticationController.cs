@@ -2,6 +2,7 @@
 using API.Services.JWT;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Services.JWT;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
@@ -20,25 +21,25 @@ public class AuthenticationController : Controller
     }
     
     
-    [HttpPut("Login")]
+    [HttpPost("Login")]
     public async Task<bool> Login(UserDTO loginrequest)
     {
         return await _auth.Login(loginrequest);
     }
     
-    [HttpPut("Register")]
+    [HttpPost("Register")]
     public async Task<bool> Register(UserDTO registerrequest)
     {
         return await _auth.Register(registerrequest);
     }
     
-    [HttpPut("GetUserInfo")]
+    [HttpPost("GetUserInfo")]
     public async Task<User> GetUserInfo(AuthRequestDTO inforequest)
     {
         return await _auth.GetUserInfo(inforequest);
     }
 
-    [HttpPut("CheckToken")]
+    [HttpPost("CheckToken")]
     public async Task<bool> CheckToken(string token)
     {
         var check = _jwt.VerifyToken(token);

@@ -1,8 +1,8 @@
 <p>projects-page works!</p>
 
 <div>
-  <div>
-    <div *ngFor="let project of projects">
+  <div class="projectsgrid">
+    <div class="projectcard" *ngFor="let project of projects">
       <img src="" />
       <h2>{{project.projectname}}</h2>
       <a (click)="ViewProject(project)">View</a>

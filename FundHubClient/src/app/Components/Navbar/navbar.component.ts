@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -11,5 +11,13 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 export class NavbarComponent {
 
   public authstatus : string = 'LoginRegister/Register'
+
+  constructor(private router: Router) {
+  }
+
+
+  GoHome() {
+    this.router.navigate([''])
+  }
 
 }

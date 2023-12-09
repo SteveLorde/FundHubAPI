@@ -5,7 +5,7 @@ namespace FundHubAPI.Data.Models;
 public class News
 {
     [Key]
-    public Guid NewsId { get; set; }
+    public Guid Id { get; set; }
     public string title { get; set; }
     public string? subtitle { get; set; }
     public string? description { get; set; }

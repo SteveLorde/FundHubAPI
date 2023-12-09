@@ -1,6 +1,5 @@
-﻿using API.Services.NewsRepository;
-using FundHubAPI.Services.NewsRepository;
-using FundHubAPI.Services.ProductsRepository;
+﻿using FundHubAPI.Services.NewsRepository;
+using FundHubAPI.Services.Projects;
 
 namespace FundHubAPI.Services.StartupService;
 
@@ -21,8 +20,8 @@ public class Startup
         newsservice.CreateNewsFolders();
         var scope2 = _serviceprovider.CreateScope();
         var servicescoper2 = scope2.ServiceProvider;
-        var productservice = servicescoper2.GetRequiredService<IProductsRepository>();
-        productservice.CreateAssetsFolders();
+        var projectsservice = servicescoper2.GetRequiredService<IProjectService>();
+        projectsservice.CreateFolders();
     }
         
         

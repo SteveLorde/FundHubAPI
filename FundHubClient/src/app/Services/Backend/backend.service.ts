@@ -21,8 +21,9 @@ export class BackendService {
   }
 
   async GetNews() {
-    let news : News[] = await axios.get(`http://localhost:5116/News/GetNews`)
-    return news
+    let data = await axios.get(`http://localhost:5116/News/GetNews`)
+    let parsednews : News[] = data.data
+    return parsednews
   }
 
   async AddProjectRequest(projecttoadd : Project) {

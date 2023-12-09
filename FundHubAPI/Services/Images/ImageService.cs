@@ -1,7 +1,6 @@
 ﻿using FundHubAPI.Data;
-using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace API.Services.Images;
+namespace FundHubAPI.Services.Images;
 
 class ImageService : I_ImageService {
     

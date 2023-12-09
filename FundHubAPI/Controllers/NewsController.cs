@@ -1,5 +1,4 @@
-﻿using API.Services.NewsRepository;
-using FundHubAPI.Data.Models;
+﻿using FundHubAPI.Data.Models;
 using FundHubAPI.Services.NewsRepository;
 using Microsoft.AspNetCore.Mvc;
 

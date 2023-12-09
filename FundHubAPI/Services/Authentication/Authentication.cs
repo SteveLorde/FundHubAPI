@@ -75,7 +75,7 @@ class Authentication : IAuthentication
 
     public async Task<User> GetUserInfo(AuthRequestDTO request)
     {
-        User user = await _db.Users.FirstAsync(x => x.UserId == request.user.UserId);
+        User user = await _db.Users.FirstAsync(x => x.Id == request.user.Id);
         return user;
     }
     

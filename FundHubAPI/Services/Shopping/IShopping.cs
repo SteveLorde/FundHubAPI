@@ -21,7 +21,7 @@ class Shopping : IShopping
 
     public async Task<bool> AddProductToCartCheck(Guid productid)
     {
-        return await _db.FundProjects.AnyAsync(x => x.Id == productid);
+        return await _db.Projects.AnyAsync(x => x.Id == productid);
     }
 
     public async Task Checkout()
