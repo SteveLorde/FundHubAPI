@@ -23,6 +23,10 @@ export class ProjectsPageComponent {
 
   }
 
+  ngOnInit() {
+    this.GetProjects()
+  }
+
   async GetProjects() {
     let projectz = await this.backend.GetProjects()
     this.projects = projectz

@@ -5,6 +5,7 @@ using API.Services.Authentication.Model;
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Services.JWT;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Services.Authentication;
@@ -12,36 +13,34 @@ namespace FundHubAPI.Services.Authentication;
 class Authentication : IAuthentication
 {
     private readonly DataContext _db;
+    private readonly IJWT _jwtservice;
 
-    public Authentication(DataContext db)
+    public Authentication(DataContext db, IJWT jwtservice)
     {
         _db = db;
+        _jwtservice = jwtservice;
     }
     
-    public async Task<bool> Login(UserDTO usertologin)
+    public async Task<string> Login(UserDTO usertologin)
     {
         try
         {
-            bool checklogin = false;
             //1st, check username in database
+            var token = "";
             bool checkuser = await _db.Users.AnyAsync(x => x.username == usertologin.username);
             if (checkuser)
             {
+                var loginuser = await _db.Users.FirstAsync(x => x.username == usertologin.username);
                 //2nd verify password
                 bool checkpassword = await VerifyPassword(usertologin);
+
                 if (checkpassword)
                 {
-                    checklogin = true;
+                     token = _jwtservice.CreateToken(loginuser);
                 }
 
-                return true;
             }
-            else
-            {
-                checklogin = false;
-            }
-            
-            return checklogin;
+            return token;
         }
         catch (Exception ex)
         {

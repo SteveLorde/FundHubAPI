@@ -15,7 +15,11 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 })
 export class DonationPageComponent {
 
-  public project = signal<Project>({email: "", projectId: "", projectdesc: "", projectname: "", socialmedia: []})
+  public project = signal<Project>({
+    currentfund: 0,
+    subtitle: "",
+    totalfundrequired: 0,
+    email: "", id: "", description: "", title: "", socialmedia: []})
   public donationreceiptnumber : string = ''
   public donationamountview : number = 0
 

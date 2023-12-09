@@ -16,9 +16,8 @@ import {User} from "../../Data/Models/User";
 export class ProjectViewComponent {
 
   public project= signal<Project>({
-    email: "", projectId: "", projectdesc: "", projectname: "", socialmedia: [], userowner: {
-      username: ' ', description: ' '
-    } as User
+    currentfund: 0, images: [], subtitle: "", totalfundrequired: 0, userowner: {} as User,
+    email: "", id: "", description: "", title: "", socialmedia: []
   })
 
   constructor() {

@@ -11,12 +11,14 @@ export class BackendService {
   constructor() { }
 
   async GetProjects() {
-    let projects : Project[] = await axios.get('http://localhost:5116')
+    let response= await axios.get('http://localhost:5116/Projects/GetProjects')
+    let projects : Project[] = response.data
     return projects
   }
 
   async GetProject(projectid : string) {
-    let project : Project = await axios.get(`http://localhost:5116/Projects/GetProject/${projectid}`)
+    let response = await axios.get(`http://localhost:5116/Projects/GetProject/${projectid}`)
+    let project = response.data
     return project
   }
 

@@ -44,18 +44,35 @@ class ProjectService : IProjectService
         }
     }
 
-    public async Task CreateNewProject()
+    public async Task<bool> CreateNewProject(Project newproject)
     {
-        throw new NotImplementedException();
+        await _db.Projects.AddAsync(newproject);
+        await _db.SaveChangesAsync();
+        return true;
     }
 
-    public async Task UpdateProject()
+    public async Task<bool> UpdateProject(Project projecttoupdate)
     {
-        throw new NotImplementedException();
+        var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projecttoupdate.Id);
+        {
+            selectedproject.category = projecttoupdate.category;
+            selectedproject.title = projecttoupdate.title;
+            selectedproject.currentfund = projecttoupdate.currentfund;
+            selectedproject.totalfundrequired = projecttoupdate.totalfundrequired;
+            selectedproject.description = projecttoupdate.description;
+            selectedproject.images = projecttoupdate.images;
+        }
+        _db.Projects.Update(selectedproject);
+        await _db.SaveChangesAsync();
+        return true;
     }
 
-    public async Task RemoveProject()
+    public async Task<bool> RemoveProject(string projectid)
     {
-        throw new NotImplementedException();
+        var projectguid = Guid.Parse(projectid);
+        var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projectguid);
+        _db.Projects.Remove(selectedproject);
+        await _db.SaveChangesAsync();
+        return true;
     }
 }

@@ -7,8 +7,8 @@
 
   <div class="newsgrid">
     <div class="newselement" *ngFor="let news of allnews">
-      <p>{{news.published}}</p>
       <img src="http://localhost:5116/storage/News/{{news.id}}/Images/{{news.image}}" />
+      <p>{{news.published}}</p>
       <h2>{{news.title}}</h2>
     </div>
   </div>

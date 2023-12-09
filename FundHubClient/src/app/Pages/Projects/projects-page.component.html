@@ -1,11 +1,13 @@
-<p>projects-page works!</p>
-
-<div>
+<div class="projectspage">
   <div class="projectsgrid">
     <div class="projectcard" *ngFor="let project of projects">
-      <img src="" />
-      <h2>{{project.projectname}}</h2>
-      <a (click)="ViewProject(project)">View</a>
+      <img src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{project.images ? project.images : [0]}}" />
+      <div class="titleandcategoryimage">
+        <h2 class="title">{{project.title}}</h2>
+        <img class="category" src="" />
+      </div>
+      <p class="funding">{{project.currentfund}} / {{project.totalfundrequired}} Egp</p>
+      <a class="viewbutton" (click)="ViewProject(project)">View</a>
     </div>
   </div>
 </div>
