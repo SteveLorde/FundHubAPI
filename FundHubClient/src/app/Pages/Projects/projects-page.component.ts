@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {BackendService} from "../../Services/Backend/backend.service";
-import {NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
@@ -10,7 +10,8 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
   imports: [
     NgForOf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    CurrencyPipe
   ],
   templateUrl: './projects-page.component.html',
   styleUrl: './projects-page.component.scss'

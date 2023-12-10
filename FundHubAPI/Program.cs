@@ -1,8 +1,9 @@
 using FundHubAPI.Data;
-using FundHubAPI.Services.Images;
+using FundHubAPI.Services.AutoMapper;
 using FundHubAPI.Services.NewsRepository;
 using FundHubAPI.Services.Projects;
 using FundHubAPI.Services.StartupService;
+using FundHubAPI.Services.Users;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,10 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddScoped<IUsers,Users>();
 builder.Services.AddScoped<IProjectService,ProjectService>();
-builder.Services.AddScoped<I_ImageService,ImageService>();
 builder.Services.AddScoped<INewsRepository,NewsRepository>();
 builder.Services.AddScoped<Startup>();
+builder.Services.AddAutoMapper(typeof(AutoProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(opt =>

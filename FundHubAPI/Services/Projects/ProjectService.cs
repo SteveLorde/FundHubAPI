@@ -1,4 +1,6 @@
-﻿using FundHubAPI.Data;
+﻿using AutoMapper;
+using FundHubAPI.Data;
+using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,11 +10,13 @@ class ProjectService : IProjectService
 {
     private readonly DataContext _db;
     private readonly IWebHostEnvironment _hostingenv;
+    private readonly IMapper _mapper;
 
-    public ProjectService(DataContext db, IWebHostEnvironment hostenv)
+    public ProjectService(DataContext db, IWebHostEnvironment hostenv, IMapper mapper)
     {
         _db = db;
         _hostingenv = hostenv;
+        _mapper = mapper;
     }
     
     public async Task<List<Project>> GetProjects()
@@ -44,24 +48,18 @@ class ProjectService : IProjectService
         }
     }
 
-    public async Task<bool> CreateNewProject(Project newproject)
+    public async Task<bool> CreateNewProject(ProjectDTO newprojecttocreate)
     {
+        Project newproject = _mapper.Map<Project>(newprojecttocreate);
         await _db.Projects.AddAsync(newproject);
         await _db.SaveChangesAsync();
         return true;
     }
 
-    public async Task<bool> UpdateProject(Project projecttoupdate)
+    public async Task<bool> UpdateProject(ProjectDTO projecttoupdate)
     {
         var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projecttoupdate.Id);
-        {
-            selectedproject.category = projecttoupdate.category;
-            selectedproject.title = projecttoupdate.title;
-            selectedproject.currentfund = projecttoupdate.currentfund;
-            selectedproject.totalfundrequired = projecttoupdate.totalfundrequired;
-            selectedproject.description = projecttoupdate.description;
-            selectedproject.images = projecttoupdate.images;
-        }
+        selectedproject = _mapper.Map<Project>(projecttoupdate);
         _db.Projects.Update(selectedproject);
         await _db.SaveChangesAsync();
         return true;

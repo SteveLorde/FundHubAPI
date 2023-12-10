@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
+  align-items: center;
 }
 
 .titles {
@@ -35,11 +36,37 @@
 .newsgrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-gap: 0;
+}
+
+.newsdate {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-family: Dubai, serif;
+}
+
+.newstitle {
+  font-family: Dubai, serif;
 }
 
 .newselement {
   padding: 10px;
-  margin: 20px;
-  background-color: red;
+  margin: 10px;
+  background-color: #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  cursor: pointer;
+}
+
+.newselement:hover {
+  background-color: #e8e8e8;
+}
+
+.newsimage {
+  height: 400px;
+}
+
+.newsimage:hover {
+  background-color: #e8e8e8;
 }

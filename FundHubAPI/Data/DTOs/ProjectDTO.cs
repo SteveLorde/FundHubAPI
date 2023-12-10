@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FundHubAPI.Data.Models;
 
-namespace FundHubAPI.Data.Models;
+namespace FundHubAPI.Data.DTOs;
 
-public class Project
+public interface ProjectDTO
 {
-    [Key]
     public Guid Id { get; set; }
     public string title { get; set; }
     public string? subtitle { get; set; }
@@ -15,5 +14,4 @@ public class Project
     public int currentfund { get; set; }
     public int totalfundrequired { get; set; }
     public string[] images { get; set; }
-
 }

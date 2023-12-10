@@ -1,4 +1,5 @@
-﻿using FundHubAPI.Data.Models;
+﻿using FundHubAPI.Data.DTOs;
+using FundHubAPI.Data.Models;
 using FundHubAPI.Services.NewsRepository;
 using FundHubAPI.Services.Projects;
 using Microsoft.AspNetCore.Mvc;
@@ -27,13 +28,13 @@ public class ProjectsController : Controller
     }
     
     [HttpPost("AddProject")]
-    public async Task<bool> AddProject(Project projecttoadd)
+    public async Task<bool> AddProject(ProjectDTO projecttoadd)
     {
         return await _projectsservice.CreateNewProject(projecttoadd);
     }
     
     [HttpPost("UpdateProject")]
-    public async Task<bool> UpdateProject(Project projecttoadd)
+    public async Task<bool> UpdateProject(ProjectDTO projecttoadd)
     {
         return await _projectsservice.UpdateProject(projecttoadd);
     }

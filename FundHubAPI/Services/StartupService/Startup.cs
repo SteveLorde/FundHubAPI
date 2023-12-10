@@ -1,5 +1,6 @@
 ﻿using FundHubAPI.Services.NewsRepository;
 using FundHubAPI.Services.Projects;
+using FundHubAPI.Services.Users;
 
 namespace FundHubAPI.Services.StartupService;
 
@@ -14,6 +15,7 @@ public class Startup
 
     public void ExecuteServices()
     {
+
         var scope1 = _serviceprovider.CreateScope();
         var servicescoper1 = scope1.ServiceProvider;
         var newsservice = servicescoper1.GetRequiredService<INewsRepository>();
@@ -22,6 +24,11 @@ public class Startup
         var servicescoper2 = scope2.ServiceProvider;
         var projectsservice = servicescoper2.GetRequiredService<IProjectService>();
         projectsservice.CreateFolders();
+        var scope3 = _serviceprovider.CreateScope();
+        var servicescoper3 = scope3.ServiceProvider;
+        var usersservice = servicescoper3.GetRequiredService<IUsers>();
+        usersservice.CreateFolders();
+
     }
         
         

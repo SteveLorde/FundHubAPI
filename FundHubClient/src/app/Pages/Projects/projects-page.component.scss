@@ -1,6 +1,10 @@
 
 .projectspage {
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
 }
 
 .titleandcategoryimage {
@@ -24,12 +28,14 @@
   font-weight: bolder;
   color: #969696;
   font-family: Dubai;
+  margin-top: 0;
+  margin-bottom: 50px;
 }
 
 .viewbutton {
   border-radius: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: #00be55;
@@ -42,18 +48,23 @@
 
 .projectsgrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 50px;
 }
 
 .projectcard {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  background-color: #eeeeee;
-  padding: 10px;
   align-items: center;
+  background-color: #eeeeee;
+  padding: 20px;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.projectimage {
+  width: max(300px);
+  height: max(300px);
 }
 
 .projectcard:hover {

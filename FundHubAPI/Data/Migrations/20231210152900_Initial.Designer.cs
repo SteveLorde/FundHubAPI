@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FundHubAPI.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231209094753_addedfundpropertiestoprojects")]
-    partial class addedfundpropertiestoprojects
+    [Migration("20231210152900_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,7 +81,7 @@ namespace FundHubAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6569b211-2ea3-44ca-9580-972a05c8d82d"),
+                            Id = new Guid("0f97ea1d-e247-4cf5-a6d9-5f9d3265e220"),
                             description = "Desc Test",
                             image = "newscover.jpg",
                             published = new DateOnly(2024, 1, 1),
@@ -89,7 +89,7 @@ namespace FundHubAPI.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("212d823f-0946-4e71-b484-5b89930fc3f4"),
+                            Id = new Guid("1a55b12e-65b8-4542-b4c1-6676c30311e7"),
                             description = "Desc Test",
                             image = "newscover.jpg",
                             published = new DateOnly(2024, 1, 1),
@@ -97,7 +97,7 @@ namespace FundHubAPI.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6b6d27b3-832c-4f7d-a818-d6fb598b55ab"),
+                            Id = new Guid("93097c20-6558-4ed9-a27e-8bf07fb59b8a"),
                             description = "Desc Test",
                             image = "newscover.jpg",
                             published = new DateOnly(2024, 1, 1),
@@ -105,7 +105,7 @@ namespace FundHubAPI.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b9699eda-35a8-482c-9416-03a9dd709869"),
+                            Id = new Guid("598004de-bc37-4300-8271-3c1c0bb5c430"),
                             description = "Desc Test",
                             image = "newscover.jpg",
                             published = new DateOnly(2024, 1, 1),
@@ -119,7 +119,7 @@ namespace FundHubAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("category")
@@ -148,56 +148,58 @@ namespace FundHubAPI.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Projects");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("50f86273-8768-43d1-9a02-d74a38397462"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Id = new Guid("7e4788cd-77a9-4b03-9412-385a482cf489"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "enviornment",
-                            currentfund = 0,
+                            currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
                             subtitle = "Subtitle Test",
                             title = "Greener Egypt",
-                            totalfundrequired = 0
+                            totalfundrequired = 2000
                         },
                         new
                         {
-                            Id = new Guid("5cbe793b-26af-4c5c-9ab7-698ce3a66827"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Id = new Guid("694d6683-d3e6-4bc1-ab5d-f2f67f887332"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "health",
-                            currentfund = 0,
+                            currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
                             subtitle = "Subtitle Test",
                             title = "My Super Awesome Health Machine",
-                            totalfundrequired = 0
+                            totalfundrequired = 1000000
                         },
                         new
                         {
-                            Id = new Guid("3d200ef5-68da-435a-911b-0d5eca0bd7a1"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Id = new Guid("a9437a37-1d37-4a9b-adbd-a18ef0490942"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "enviornment",
-                            currentfund = 0,
+                            currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
                             subtitle = "Subtitle Test",
                             title = "Electric Koshary Machine",
-                            totalfundrequired = 0
+                            totalfundrequired = 120000
                         },
                         new
                         {
-                            Id = new Guid("f6c75da3-85bd-48f5-9982-5d0ae33a65d9"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            Id = new Guid("e9c8eccf-76aa-42d6-be67-803d8622c951"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "enviornment",
-                            currentfund = 0,
+                            currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
                             subtitle = "Subtitle Test",
                             title = "Indie Egyptian Game",
-                            totalfundrequired = 0
+                            totalfundrequired = 60000
                         });
                 });
 
@@ -210,7 +212,13 @@ namespace FundHubAPI.Data.Migrations
                     b.Property<string>("email")
                         .HasColumnType("text");
 
+                    b.Property<string>("facebook")
+                        .HasColumnType("text");
+
                     b.Property<string>("hashedpassword")
+                        .HasColumnType("text");
+
+                    b.Property<string>("instagram")
                         .HasColumnType("text");
 
                     b.Property<string>("pass_salt")
@@ -218,6 +226,9 @@ namespace FundHubAPI.Data.Migrations
 
                     b.Property<int?>("phonenumber")
                         .HasColumnType("integer");
+
+                    b.Property<string>("profileimage")
+                        .HasColumnType("text");
 
                     b.Property<string>("username")
                         .IsRequired()
@@ -227,9 +238,24 @@ namespace FundHubAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("x_socialmedia")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            email = "test@gmail.com",
+                            facebook = "",
+                            phonenumber = 123456789,
+                            profileimage = "profile.jpg",
+                            username = "testuser",
+                            usertype = "user"
+                        });
                 });
 
             modelBuilder.Entity("FundHubAPI.Data.Models.FundLogs", b =>
@@ -249,6 +275,20 @@ namespace FundHubAPI.Data.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FundHubAPI.Data.Models.Project", b =>
+                {
+                    b.HasOne("FundHubAPI.Data.Models.User", "User")
+                        .WithMany("projects")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FundHubAPI.Data.Models.User", b =>
+                {
+                    b.Navigation("projects");
                 });
 #pragma warning restore 612, 618
         }

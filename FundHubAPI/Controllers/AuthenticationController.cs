@@ -27,6 +27,12 @@ public class AuthenticationController : Controller
         return await _auth.Login(loginrequest);
     }
     
+    [HttpGet("LoginTest")]
+    public async Task<string> LoginTest()
+    {
+        return await _auth.LoginTest();
+    }
+    
     [HttpPost("Register")]
     public async Task<bool> Register(UserDTO registerrequest)
     {

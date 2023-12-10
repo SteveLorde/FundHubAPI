@@ -10,16 +10,7 @@ export class AuthenticationService {
 
   isloggedin : boolean = false
   token: string | number = ''
-  activeuser : User = {
-    description: "",
-    email: "",
-    password: "",
-    phonenumber: "",
-    projects: [],
-    socialmedia: [],
-    userId: 0,
-    username: ""
-  }
+  activeuser : User = {description: "", id: "", password: "", username: ""}
 
 
 

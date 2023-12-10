@@ -2,6 +2,7 @@
 using System.Text;
 using API.Services.Authentication;
 using API.Services.Authentication.Model;
+using AutoMapper;
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
@@ -14,11 +15,13 @@ class Authentication : IAuthentication
 {
     private readonly DataContext _db;
     private readonly IJWT _jwtservice;
+    private IMapper _mapper;
 
-    public Authentication(DataContext db, IJWT jwtservice)
+    public Authentication(DataContext db, IJWT jwtservice, IMapper mapper)
     {
         _db = db;
         _jwtservice = jwtservice;
+        _mapper = mapper;
     }
     
     public async Task<string> Login(UserDTO usertologin)
@@ -48,6 +51,13 @@ class Authentication : IAuthentication
         }
     }
 
+    public async Task<string> LoginTest()
+    {
+        var testuser = await _db.Users.FirstAsync(user => user.username == "testuser");
+        var token = _jwtservice.CreateToken(testuser);
+        return token;
+    }
+
     public async Task<bool> Register(UserDTO usertoregister)
     {
         try
@@ -55,13 +65,7 @@ class Authentication : IAuthentication
             //1-hash password
             Hash hashedpassword = await HashPassword(usertoregister);
             //2-create new user
-            User newuser = new User
-            {
-                username = usertoregister.username,
-                pass_salt = hashedpassword.salt,
-                hashedpassword = hashedpassword.hash,
-                usertype = "user"
-            };
+            User newuser = _mapper.Map<User>(usertoregister);
             //3-add to database
             await _db.Users.AddAsync(newuser);
             return true;

@@ -116,7 +116,7 @@ namespace FundHubAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("category")
@@ -145,13 +145,15 @@ namespace FundHubAPI.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Projects");
 
                     b.HasData(
                         new
                         {
                             Id = new Guid("7e4788cd-77a9-4b03-9412-385a482cf489"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "enviornment",
                             currentfund = 500,
                             description = "Description Test",
@@ -163,7 +165,7 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("694d6683-d3e6-4bc1-ab5d-f2f67f887332"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "health",
                             currentfund = 500,
                             description = "Description Test",
@@ -175,7 +177,7 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("a9437a37-1d37-4a9b-adbd-a18ef0490942"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "enviornment",
                             currentfund = 500,
                             description = "Description Test",
@@ -187,7 +189,7 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("e9c8eccf-76aa-42d6-be67-803d8622c951"),
-                            UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             category = "enviornment",
                             currentfund = 500,
                             description = "Description Test",
@@ -207,7 +209,13 @@ namespace FundHubAPI.Data.Migrations
                     b.Property<string>("email")
                         .HasColumnType("text");
 
+                    b.Property<string>("facebook")
+                        .HasColumnType("text");
+
                     b.Property<string>("hashedpassword")
+                        .HasColumnType("text");
+
+                    b.Property<string>("instagram")
                         .HasColumnType("text");
 
                     b.Property<string>("pass_salt")
@@ -215,6 +223,9 @@ namespace FundHubAPI.Data.Migrations
 
                     b.Property<int?>("phonenumber")
                         .HasColumnType("integer");
+
+                    b.Property<string>("profileimage")
+                        .HasColumnType("text");
 
                     b.Property<string>("username")
                         .IsRequired()
@@ -224,6 +235,9 @@ namespace FundHubAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("x_socialmedia")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -231,9 +245,11 @@ namespace FundHubAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0a9714cc-87cc-489d-9ba6-26fe5faf19e1"),
+                            Id = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             email = "test@gmail.com",
+                            facebook = "",
                             phonenumber = 123456789,
+                            profileimage = "profile.jpg",
                             username = "testuser",
                             usertype = "user"
                         });
@@ -256,6 +272,20 @@ namespace FundHubAPI.Data.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FundHubAPI.Data.Models.Project", b =>
+                {
+                    b.HasOne("FundHubAPI.Data.Models.User", "User")
+                        .WithMany("projects")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FundHubAPI.Data.Models.User", b =>
+                {
+                    b.Navigation("projects");
                 });
 #pragma warning restore 612, 618
         }
