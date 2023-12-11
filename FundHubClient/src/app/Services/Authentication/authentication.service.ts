@@ -9,19 +9,18 @@ import {AuthRequest} from "./DTO/AuthRequest";
 export class AuthenticationService {
 
   isloggedin : boolean = false
-  token: string | number = ''
+  activetoken: string | number = ''
   activeuser : User = {description: "", id: "", password: "", username: ""}
 
 
 
   constructor() { }
 
-  async Login(loginrequest: { password: string | null | undefined; username: string | null | undefined }): Promise<any> {
+  async Login(loginrequest: { password: string | null | undefined, username: string | null | undefined }): Promise<any> {
     try {
-      let userinfo : User = await axios.post('http://localhost:5116/Authentication/Login', loginrequest)
-      this.activeuser = userinfo
-      let check = true
-      return check
+      let response = await axios.post('http://localhost:5116/Authentication/Login', loginrequest)
+      this.activetoken = response.data
+      return true
     }
     catch (err) {
       console.log(err)
@@ -41,6 +40,15 @@ export class AuthenticationService {
 
   async ChecKToken() {
 
+  }
+
+  async SetActiveUser(userid : string) {
+    let user : User = await axios.post('http://localhost:5116/Authentication/GetUser', userid)
+    this.activeuser = user
+  }
+
+  async GetActiveUser() {
+    return this.activeuser
   }
 
 

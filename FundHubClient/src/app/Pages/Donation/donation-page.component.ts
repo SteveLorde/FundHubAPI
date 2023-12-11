@@ -2,6 +2,8 @@ import {Component, signal} from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {selectedproject} from "../../Services/GlobalMemoryStorage";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {BackendService} from "../../Services/Backend/backend.service";
 
 
 @Component({
@@ -14,7 +16,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
   styleUrl: './donation-page.component.scss'
 })
 export class DonationPageComponent {
-
+  public projectid : string | null = ""
   public project = signal<Project>({
     currentfund: 0,
     subtitle: "",
@@ -23,12 +25,19 @@ export class DonationPageComponent {
   public donationreceiptnumber : string = ''
   public donationamountview : number = 0
 
-  constructor() {
-    this.GetSelectedProject()
+  constructor(private router : Router,private route: ActivatedRoute, private backend: BackendService) {
+
   }
 
   ngOnInit() {
-    this.donationreceiptnumber = this.GenerateDonationNumber()
+    this.route.paramMap.subscribe(params => {
+      this.projectid = params.get('id')
+    })
+    if (this.projectid != null) {
+      this.donationreceiptnumber = this.GenerateDonationNumber()
+      this.GetSelectedProject(this.projectid)
+    }
+
   }
 
   donationform = new FormGroup({
@@ -36,11 +45,13 @@ export class DonationPageComponent {
     donationamount: new FormControl(''),
   })
 
-  GetSelectedProject() {
-    this.project.set(selectedproject)
+  async GetSelectedProject(projectid : string) {
+    let projecttodonate = await this.backend.GetProject(projectid)
+    this.project.set(projecttodonate)
   }
 
   SubmitDonation() {
+    //create log
 
   }
 

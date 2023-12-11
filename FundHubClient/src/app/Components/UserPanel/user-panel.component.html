@@ -1,0 +1,24 @@
+<div>
+
+  <div class="userinfo">
+    <p></p>
+
+  </div>
+
+  <div class="projectinfo">
+    <h3 *ngIf="!userownsproject">No Project associated</h3>
+    <div *ngIf="userownsproject">
+      <img src="http://localhost:5116/storage/Projects/{{project().id}}/Images/{{project().images?.[0]}}" />
+      <p>{{project().title}}</p>
+      <p>{{project().description}}</p>
+      <p>{{project().email}}</p>
+      <p>{{project().currentfund}}</p>
+      <p>{{project().totalfundrequired}}</p>
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
+  </div>
+
+
+</div>

@@ -19,10 +19,9 @@ public class AuthenticationController : Controller
         _auth = auth;
         _jwt = jwt;
     }
-    
-    
+
     [HttpPost("Login")]
-    public async Task<string> Login(UserDTO loginrequest)
+    public async Task<LoginResponseDTO?> Login(UserDTO loginrequest)
     {
         return await _auth.Login(loginrequest);
     }
@@ -39,10 +38,10 @@ public class AuthenticationController : Controller
         return await _auth.Register(registerrequest);
     }
     
-    [HttpPost("GetUserInfo")]
-    public async Task<User> GetUserInfo(AuthRequestDTO inforequest)
+    [HttpPost("GetUser")]
+    public async Task<User> GetUserInfo(string userid)
     {
-        return await _auth.GetUserInfo(inforequest);
+        return await _auth.GetUser(userid);
     }
 
     [HttpPost("CheckToken")]

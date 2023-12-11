@@ -10,8 +10,8 @@ export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'projects', component: ProjectsPageComponent },
   { path: 'loginregister', component: LoginRegisterPageComponent },
-  { path: 'viewproject', component: ProjectViewComponent },
+  { path: 'viewproject/:id', component: ProjectViewComponent },
   { path: 'profile', component: ProfilePageComponent  },
-  { path: 'donation', component: DonationPageComponent  },
+  { path: 'donation/:id', component: DonationPageComponent  },
 
 ];

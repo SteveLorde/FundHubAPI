@@ -6,7 +6,7 @@
         <h2 class="title">{{project.title}}</h2>
       </div>
       <p class="funding">{{project.currentfund | currency : "EGP"}} / {{project.totalfundrequired | currency : "EGP"}}</p>
-      <a class="viewbutton" (click)="ViewProject(project)">View</a>
+      <a class="viewbutton" (click)="ViewProject(project.id)">View</a>
     </div>
   </div>
 </div>

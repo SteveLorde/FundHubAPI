@@ -24,12 +24,13 @@ class Authentication : IAuthentication
         _mapper = mapper;
     }
     
-    public async Task<string> Login(UserDTO usertologin)
+    public async Task<LoginResponseDTO?> Login(UserDTO usertologin)
     {
         try
         {
             //1st, check username in database
             var token = "";
+            LoginResponseDTO loginresponse = null;
             bool checkuser = await _db.Users.AnyAsync(x => x.username == usertologin.username);
             if (checkuser)
             {
@@ -39,11 +40,11 @@ class Authentication : IAuthentication
 
                 if (checkpassword)
                 {
-                     token = _jwtservice.CreateToken(loginuser);
+                    loginresponse.token  = _jwtservice.CreateToken(loginuser);
+                    loginresponse.userid = loginuser.Id.ToString();
                 }
-
             }
-            return token;
+            return loginresponse;
         }
         catch (Exception ex)
         {
@@ -76,9 +77,10 @@ class Authentication : IAuthentication
         }
     }
 
-    public async Task<User> GetUserInfo(AuthRequestDTO request)
+    public async Task<User> GetUser(string userid)
     {
-        User user = await _db.Users.FirstAsync(x => x.Id == request.user.Id);
+        Guid userguid = Guid.Parse(userid);
+        User user = await _db.Users.FirstAsync(x => x.Id == userguid);
         return user;
     }
     

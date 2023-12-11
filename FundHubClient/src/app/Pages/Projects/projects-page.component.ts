@@ -33,8 +33,8 @@ export class ProjectsPageComponent {
     this.projects = projectz
   }
 
-  ViewProject(project : Project) {
-
+  ViewProject(projectid : string) {
+    this.router.navigate(['/viewproject', projectid])
   }
 
 
