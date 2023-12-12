@@ -5,9 +5,10 @@
 }
 
 .innerdonationtemplate{
-  background-color: #dcdcdc;
+  background-color: #eaeaea;
   border-radius: 10px;
   padding: 25px;
+  margin-top: 100px;
 
 }
 
@@ -35,9 +36,27 @@
   gap: 50px;
 }
 
-.donationbutton {
+.donationarea {
   display: flex;
   margin-top: 50px;
   flex-direction: column;
   align-items: center;
+}
+
+.donationbutton {
+
+  border: none;
+  background: none;
+  border-radius: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #00be55;
+  color: whitesmoke;
+  font-size: 18px;
+  font-weight: bolder;
+  font-family: Dubai, serif;
+  cursor: pointer;
+  text-decoration: none;
 }

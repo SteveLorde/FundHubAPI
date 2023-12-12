@@ -1,7 +1,7 @@
 import {Project} from "./Project";
 
 export interface User {
-  id : string | number
+  id : string
   username : string
   password : string
   description : string
@@ -11,5 +11,7 @@ export interface User {
   x_socialmedia? : string
   instagram? : string
   project? : Project
+  profileimage? : string
+  usertype? : string
 
 }

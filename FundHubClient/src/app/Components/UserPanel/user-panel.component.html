@@ -1,23 +1,58 @@
 <div>
 
   <div class="userinfo">
-    <p></p>
+    <form [formGroup]="userform">
+      <img src="http://localhost:5116/storage/Users/{{user.id}}/Images/{{user.profileimage}}" />
+      <p>{{user.username}}</p>
+      <input [disabled]="edituserinfo" type="text" placeholder="{{user.username}}" />
+      <p>{{user.description}}</p>
+      <input type="text" placeholder="{{user.description}}" />
+      <p>{{user.email}}</p>
+      <input type="text" placeholder="{{user.email}}" />
+      <p>{{user.facebook}}</p>
+      <input type="text" placeholder="{{user.facebook}}" />
+      <p>{{user.instagram}}</p>
+      <input type="text" placeholder="{{user.instagram}}" />
+      <p>{{user.x_socialmedia}}</p>
+      <input type="text" placeholder="{{user.x_socialmedia}}" />
+      <p>{{user.phonenumber}}</p>
+      <input type="text" placeholder="{{user.phonenumber}}" />
+      <input type="submit" value="Update User Info" />
+    </form>
 
+    <div>
+      <h2>Donation logs</h2>
+      <div *ngFor="let donation of userdonations">
+        
+      </div>
+    </div>
   </div>
 
   <div class="projectinfo">
-    <h3 *ngIf="!userownsproject">No Project associated</h3>
-    <div *ngIf="userownsproject">
-      <img src="http://localhost:5116/storage/Projects/{{project().id}}/Images/{{project().images?.[0]}}" />
-      <p>{{project().title}}</p>
-      <p>{{project().description}}</p>
-      <p>{{project().email}}</p>
-      <p>{{project().currentfund}}</p>
-      <p>{{project().totalfundrequired}}</p>
-      <p></p>
-      <p></p>
-      <p></p>
+
+    <div *ngIf="!userownsproject">
+      <button (click)="OpenFundForm()">No Project associated, would you like to create one...?</button>
+      <app-fund-request-form *ngIf="openprojectform"></app-fund-request-form>
     </div>
+
+    <div *ngIf="userownsproject">
+      <img src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
+      <form [formGroup]="projectform">
+        <div *ngFor="let image of project.images">
+          <img src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{image}}" />
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" style="display:none">
+        </div>
+        <p>{{project.title}}</p>
+        <p>{{project.description}}</p>
+        <p>{{project.email}}</p>
+        <input type="text" />
+        <p>{{project.currentfund}}</p>
+        <p>{{project.totalfundrequired}}</p>
+        <input type="submit" value="Update Project Info" />
+      </form>
+      <button (click)="RemoveProject()">Remove Project</button>
+    </div>
+
   </div>
 
 

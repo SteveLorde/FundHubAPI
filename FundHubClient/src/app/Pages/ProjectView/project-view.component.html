@@ -1,26 +1,35 @@
-<p>project-view works!</p>
+<div class="viewprojectpage">
 
-<div>
-
-  <div>
+  <div class="projectinfo">
     <!--Images Carousel -->
-    <img src="" />
+    <img class="selectedimage" src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
+    <div class="projectgallery">
+      <div  *ngFor="let image of project.images">
+        <img class="galleryimage"  src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{image}}" />
+      </div>
+    </div>
 
 
     <div>
-      <h1>{{project().title}}</h1>
-      <p>{{project().description}}</p>
+      <h1>{{project.title}}</h1>
+      <h2>Category: {{project.category}}</h2>
+      <p>{{project.description}}</p>
+      <p>total fund required: {{project.totalfundrequired}}</p>
     </div>
 
     <!--Donate -->
-    <a (click)="GoDonate()" routerLink="/donate">Donate</a>
+    <a class="donatebutton" (click)="GoDonate()" routerLink="/donate">Donate</a>
   </div>
-  <div>
+  <div class="projectownerinfo">
     <!--Project Owner Info -->
-    <img src="" />
-    <h2>{{project().userowner?.username}}</h2>
     <h3>About Me</h3>
-    <p>{{project().userowner?.description}}</p>
+    <img class="projectownerimage" src="http://localhost:5116/storage/Users/{{projectowner.id}}/Images/{{projectowner.profileimage}}" />
+    <h2>Project Owner: {{projectowner.username}}</h2>
+    <p>Description</p>
+    <p>{{projectowner.description}}</p>
+    <p>contact info</p>
+    <p>Phone Number: {{projectowner.phonenumber}}</p>
+
   </div>
 
 </div>

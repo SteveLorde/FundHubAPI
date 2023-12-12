@@ -6,6 +6,7 @@ namespace FundHubAPI.Services.Projects;
 public interface IProjectService
 {
     public Task<List<Project>> GetProjects();
+    public Task<Project> GetProject(string projectid);
     public Task<List<Project>> GetProjectsOfCategory(string category);
     public Task CreateFolders();
     public Task<bool> CreateNewProject(ProjectDTO newproject);

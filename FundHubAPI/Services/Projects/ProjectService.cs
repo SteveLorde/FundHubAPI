@@ -24,6 +24,12 @@ class ProjectService : IProjectService
         return await _db.Projects.ToListAsync();
     }
 
+    public async Task<Project> GetProject(string projectid)
+    {
+        Guid projectguid = Guid.Parse(projectid);
+        return await _db.Projects.FirstAsync(x => x.Id == projectguid);
+    }
+
     public async Task<List<Project>> GetProjectsOfCategory(string category)
     {
         return await _db.Projects.Where(x => x.category == category).ToListAsync();

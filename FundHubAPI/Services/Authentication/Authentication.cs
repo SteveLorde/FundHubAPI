@@ -52,11 +52,14 @@ class Authentication : IAuthentication
         }
     }
 
-    public async Task<string> LoginTest()
+    public async Task<LoginResponseDTO?> LoginTest()
     {
+        LoginResponseDTO? loginresponse = new LoginResponseDTO();
         var testuser = await _db.Users.FirstAsync(user => user.username == "testuser");
         var token = _jwtservice.CreateToken(testuser);
-        return token;
+        loginresponse.token = token;
+        loginresponse.userid = testuser.Id.ToString();
+        return loginresponse;
     }
 
     public async Task<bool> Register(UserDTO usertoregister)

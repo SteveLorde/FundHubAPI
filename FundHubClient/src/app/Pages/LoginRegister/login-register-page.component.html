@@ -1,23 +1,20 @@
-<p>login-register-page works!</p>
+<div class="authpage">
 
-<div>
-  <form [hidden]="hideloginform" [formGroup]="loginform" (ngSubmit)="Login()">
-    <h3>Username</h3>
+  <form class="form" *ngIf="Loginform" [formGroup]="loginform" (ngSubmit)="LoginTest()">
+    <button class="formselection" (click)="SwitchForm()">Go {{status}}</button>
+    <h3 class="username">Username</h3>
     <input type="text" placeholder="Enter Username" />
-    <h3>Password</h3>
+    <h3 class="password">Password</h3>
     <input type="text" placeholder="Enter Password" />
-    <div class="donationbutton">
-      <input type="submit" />
-    </div>
+      <input class="submit" type="submit" value="Login" />
   </form>
 
-  <form [hidden]="hideregisterform" [formGroup]="registerformm" (ngSubmit)="Register()">
-    <h3>Username</h3>
+  <form class="form" *ngIf="Registerform" [formGroup]="registerformm" (ngSubmit)="Register()">
+    <button class="formselection" (click)="SwitchForm()">Go {{status}}</button>
+    <h3 class="username">Username</h3>
     <input type="text" placeholder="Enter Username" />
-    <h3>Password</h3>
+    <h3 class="username">Password</h3>
     <input type="text" placeholder="Enter Password" />
-    <div class="donationbutton">
-      <input type="submit" />
-    </div>
+      <input class="submit" type="submit" value="Register" />
   </form>
 </div>

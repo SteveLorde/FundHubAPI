@@ -19,7 +19,9 @@ export class DonationPageComponent {
   public projectid : string | null = ""
   public project = signal<Project>({
     currentfund: 0,
+     category: "",
     subtitle: "",
+    userId: "",
     totalfundrequired: 0,
     email: "", id: "", description: "", title: "", socialmedia: []})
   public donationreceiptnumber : string = ''

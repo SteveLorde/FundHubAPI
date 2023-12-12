@@ -1,5 +1,9 @@
+using API.Services.Authentication;
+using API.Services.JWT;
 using FundHubAPI.Data;
+using FundHubAPI.Services.Authentication;
 using FundHubAPI.Services.AutoMapper;
+using FundHubAPI.Services.JWT;
 using FundHubAPI.Services.NewsRepository;
 using FundHubAPI.Services.Projects;
 using FundHubAPI.Services.StartupService;
@@ -12,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddScoped<IAuthentication,Authentication>();
+builder.Services.AddScoped<IJWT,Jwt>();
 builder.Services.AddScoped<IUsers,Users>();
 builder.Services.AddScoped<IProjectService,ProjectService>();
 builder.Services.AddScoped<INewsRepository,NewsRepository>();

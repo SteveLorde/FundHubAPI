@@ -27,6 +27,12 @@ public class ProjectsController : Controller
         return await _projectsservice.GetProjects();
     }
     
+        [HttpGet("GetProject/{projectid}")]
+        public async Task<Project> GetProject(string projectid)
+        {
+            return await _projectsservice.GetProject(projectid);
+        }
+    
     [HttpPost("AddProject")]
     public async Task<bool> AddProject(ProjectDTO projecttoadd)
     {

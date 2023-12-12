@@ -4,22 +4,22 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {selectedproject, setSelectedProject} from "../../Services/GlobalMemoryStorage";
 import {User} from "../../Data/Models/User";
 import {BackendService} from "../../Services/Backend/backend.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-project-view',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    NgForOf
   ],
   templateUrl: './project-view.component.html',
   styleUrl: './project-view.component.scss'
 })
 export class ProjectViewComponent {
   public projectid: string | null = ""
-  public project= signal<Project>({
-    currentfund: 0, images: [], subtitle: "", totalfundrequired: 0, userowner: {} as User,
-    email: "", id: "", description: "", title: "", socialmedia: []
-  })
+  public project : Project = {category: "", currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
+  public projectowner : User = {description: "", password: "", username: "", id: " "}
 
   constructor(private router : Router,private route: ActivatedRoute, private backend: BackendService) {
 
@@ -32,11 +32,20 @@ export class ProjectViewComponent {
     if (this.projectid != null) {
       this.SetProject(this.projectid)
     }
+    let ownid = "c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"
+    this.SetProjectOwner(ownid)
   }
 
+
+
   async SetProject(projectid : string) {
-    let projecttoview = await this.backend.GetProject(projectid)
-    this.project.set(projecttoview)
+    let projecttoview : Project = await this.backend.GetProject(projectid)
+    this.project = projecttoview
+  }
+
+  async SetProjectOwner(ownerid : string) {
+      let projectowner: User = await this.backend.GetProjectOwnerInfo(ownerid)
+      this.projectowner = projectowner
   }
 
   GoDonate() {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {AuthenticationService} from "../../Services/Authentication/authentication.service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,14 +11,20 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 })
 export class NavbarComponent {
 
-  public authstatus : string = 'LoginRegister/Register'
+  authstatus : string = " "
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authservice : AuthenticationService) {
+  }
+
+  ngOnInit() {
+    this.authstatus = this.authservice.authstatus
   }
 
 
   GoHome() {
     this.router.navigate([''])
   }
+
+
 
 }

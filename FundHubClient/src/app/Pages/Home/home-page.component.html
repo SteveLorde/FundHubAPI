@@ -7,7 +7,7 @@
 
   <div class="newsgrid">
     <div class="newselement" *ngFor="let news of allnews">
-      <img class="newsimage" src="http://localhost:5116/storage/News/{{news.id}}/Images/{{news.image}}" />
+      <img #newsimage id="image-{{news.id}}" class="newsimage" src="http://localhost:5116/storage/News/{{news.id}}/Images/{{news.image}}" (error)="handleImageError(news)" />
       <p class="newsdate">{{news.published}}</p>
       <h2 class="newstitle">{{news.title}}</h2>
     </div>

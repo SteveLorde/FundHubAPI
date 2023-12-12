@@ -27,7 +27,7 @@ public class AuthenticationController : Controller
     }
     
     [HttpGet("LoginTest")]
-    public async Task<string> LoginTest()
+    public async Task<LoginResponseDTO?> LoginTest()
     {
         return await _auth.LoginTest();
     }
@@ -38,10 +38,10 @@ public class AuthenticationController : Controller
         return await _auth.Register(registerrequest);
     }
     
-    [HttpPost("GetUser")]
-    public async Task<User> GetUserInfo(string userid)
+    [HttpGet("GetUser/{id}")]
+    public async Task<User> GetUserInfo(string id)
     {
-        return await _auth.GetUser(userid);
+        return await _auth.GetUser(id);
     }
 
     [HttpPost("CheckToken")]
