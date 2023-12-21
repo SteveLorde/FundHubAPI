@@ -1,6 +1,8 @@
-﻿using FundHubAPI.Services.NewsRepository;
+﻿using FundHubAPI.Data;
+using FundHubAPI.Services.NewsRepository;
 using FundHubAPI.Services.Projects;
 using FundHubAPI.Services.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Services.StartupService;
 
@@ -18,7 +20,11 @@ public class Startup
     public void ExecuteServices()
     {
         var storagefolder = Path.Combine(_webenv.ContentRootPath, "Storage");
-        Directory.CreateDirectory(storagefolder); 
+        Directory.CreateDirectory(storagefolder);
+        var scopedb = _serviceprovider.CreateScope();
+        var servicescopedb = scopedb.ServiceProvider;
+        var dbservice = servicescopedb.GetRequiredService<DataContext>();
+        dbservice.Database.Migrate();
         var scope1 = _serviceprovider.CreateScope();
         var servicescoper1 = scope1.ServiceProvider;
         var newsservice = servicescoper1.GetRequiredService<INewsRepository>();
