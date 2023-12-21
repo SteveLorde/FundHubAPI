@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {BackendService} from "../../Services/Backend/backend.service";
-import {CurrencyPipe, NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import environment from "../../../environments/environment";
 
@@ -12,7 +12,9 @@ import environment from "../../../environments/environment";
     NgForOf,
     RouterLink,
     RouterLinkActive,
-    CurrencyPipe
+    CurrencyPipe,
+    NgSwitch,
+    NgSwitchCase
   ],
   templateUrl: './projects-page.component.html',
   styleUrl: './projects-page.component.scss'

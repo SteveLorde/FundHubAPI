@@ -4,6 +4,11 @@
       <img class="projectimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
       <div class="titleandcategoryimage">
         <h2 class="title">{{project.title}}</h2>
+        <div [ngSwitch]="project.category.name">
+          <img class="categoryicon" *ngSwitchCase=" 'product' "  src="assets/ProductIcon.png"/>
+          <img class="categoryicon" *ngSwitchCase=" 'societalproject' "  src="assets/SocietalProjectIcon.png"/>
+          <img class="categoryicon" *ngSwitchCase=" 'environmentproject' "  src="assets/EnvironmentProject.png"/>
+        </div>
       </div>
       <p class="funding">{{project.currentfund | currency : "EGP"}} / {{project.totalfundrequired | currency : "EGP"}}</p>
       <a class="viewbutton" (click)="ViewProject(project.id)">View</a>
