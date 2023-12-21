@@ -14,7 +14,7 @@ public class DataContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configenv["DatabaseConnection"]);
+        optionsBuilder.UseNpgsql(_configenv["DatabaseConnectionweb"]);
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
