@@ -3,6 +3,7 @@ import {User} from "../../Data/Models/User";
 import axios from "axios";
 import {AuthRequest} from "./DTO/AuthRequest";
 import {LoginResponse} from "./DTO/LoginResponse";
+import environment from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthenticationService {
 
   async Login(loginrequest: { password: string | null | undefined, username: string | null | undefined }): Promise<any> {
     try {
-      let response = await axios.post('http://localhost:5116/Authentication/Login', loginrequest)
+      let response = await axios.post(environment.backendurl + '/Authentication/Login', loginrequest)
       let loginresponse : LoginResponse = response.data
       this.activetoken = loginresponse.token
       this.SetActiveUser(loginresponse.userid)
@@ -42,10 +43,11 @@ export class AuthenticationService {
 
   async LoginTest(): Promise<any> {
     try {
-      let response = await axios.get('http://localhost:5116/Authentication/LoginTest')
+      let response = await axios.get(environment.backendurl + '/Authentication/LoginTest')
       let loginresponse : LoginResponse = response.data
       this.activetoken = loginresponse.token
       this.SetActiveUser(loginresponse.userid)
+      localStorage.setItem("usertoken", loginresponse.token)
       this.authstatus = `${this.activeuser.username}`
       return true
     }
@@ -56,7 +58,7 @@ export class AuthenticationService {
 
   async Register(registerrequest : AuthRequest) : Promise<any> {
     try {
-      let check : boolean = await axios.post('http://localhost:5116/Authentication/Register', registerrequest)
+      let check : boolean = await axios.post(environment.backendurl + 'http://localhost:5116/Authentication/Register', registerrequest)
       return check
     }
     catch (err) {
@@ -70,7 +72,7 @@ export class AuthenticationService {
   }
 
   async SetActiveUser(userid : string) {
-    let user : User = await axios.post('http://localhost:5116/Authentication/GetUser', userid)
+    let user : User = await axios.post( environment.backendurl + '/Authentication/GetUser', userid)
     this.activeuser = user
   }
 

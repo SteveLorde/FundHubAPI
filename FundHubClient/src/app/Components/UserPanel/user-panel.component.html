@@ -23,7 +23,9 @@
     <div>
       <h2>Donation logs</h2>
       <div *ngFor="let donation of userdonations">
-        
+        <p>{{donation.donationamount}}</p>
+        <p>donated to {{donation.project.title}}</p>
+        <p> {{donation.paymenttype}}</p>
       </div>
     </div>
   </div>

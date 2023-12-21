@@ -4,6 +4,7 @@ import {selectedproject} from "../../Services/GlobalMemoryStorage";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BackendService} from "../../Services/Backend/backend.service";
+import {SocialMedia} from "../../Data/Models/SocialMedia";
 
 
 @Component({
@@ -23,7 +24,7 @@ export class DonationPageComponent {
     subtitle: "",
     userId: "",
     totalfundrequired: 0,
-    email: "", id: "", description: "", title: "", socialmedia: []})
+    email: "", id: "", description: "", title: "", socialmedia: {} as SocialMedia})
   public donationreceiptnumber : string = ''
   public donationamountview : number = 0
 

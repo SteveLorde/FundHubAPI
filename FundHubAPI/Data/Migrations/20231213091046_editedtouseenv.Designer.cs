@@ -3,6 +3,7 @@ using System;
 using FundHubAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FundHubAPI.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231213091046_editedtouseenv")]
+    partial class editedtouseenv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +24,6 @@ namespace FundHubAPI.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("FundHubAPI.Data.Models.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"),
-                            name = "Product"
-                        },
-                        new
-                        {
-                            Id = new Guid("fafaad46-3fbe-40ac-ad63-c311829668a4"),
-                            name = "SocietalProject"
-                        },
-                        new
-                        {
-                            Id = new Guid("59cb7c8b-8e33-45d6-b066-214f3145a3c0"),
-                            name = "EnvironmentProject"
-                        });
-                });
 
             modelBuilder.Entity("FundHubAPI.Data.Models.FundLogs", b =>
                 {
@@ -148,11 +119,11 @@ namespace FundHubAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("category")
+                        .HasColumnType("text");
 
                     b.Property<int>("currentfund")
                         .HasColumnType("integer");
@@ -177,8 +148,6 @@ namespace FundHubAPI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Projects");
@@ -187,8 +156,8 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("7e4788cd-77a9-4b03-9412-385a482cf489"),
-                            CategoryId = new Guid("59cb7c8b-8e33-45d6-b066-214f3145a3c0"),
                             UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            category = "enviornment",
                             currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
@@ -199,8 +168,8 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("694d6683-d3e6-4bc1-ab5d-f2f67f887332"),
-                            CategoryId = new Guid("fafaad46-3fbe-40ac-ad63-c311829668a4"),
                             UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            category = "health",
                             currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
@@ -211,8 +180,8 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("a9437a37-1d37-4a9b-adbd-a18ef0490942"),
-                            CategoryId = new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"),
                             UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            category = "enviornment",
                             currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
@@ -223,8 +192,8 @@ namespace FundHubAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("e9c8eccf-76aa-42d6-be67-803d8622c951"),
-                            CategoryId = new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"),
                             UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            category = "enviornment",
                             currentfund = 500,
                             description = "Description Test",
                             images = new[] { "1.jpg", "2.jpg" },
@@ -310,19 +279,11 @@ namespace FundHubAPI.Data.Migrations
 
             modelBuilder.Entity("FundHubAPI.Data.Models.Project", b =>
                 {
-                    b.HasOne("FundHubAPI.Data.Models.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FundHubAPI.Data.Models.User", "User")
                         .WithMany("projects")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-
-                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("FundHubAPI.Data.Models.User", b =>

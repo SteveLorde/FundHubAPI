@@ -33,6 +33,8 @@ builder.Services.AddCors(opt =>
     });
 });
 
+var urlkey = builder.Configuration["URL"];
+
 var app = builder.Build();
 
 var servicescope = app.Services.CreateScope();
@@ -60,4 +62,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Run(urlkey);

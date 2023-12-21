@@ -1,13 +1,21 @@
 <p>fund-request-form works!</p>
 
-<form>
+<form (ngSubmit)="SubmitNewProject()">
   <h3>Project Name</h3>
   <input type="text">
   <h3>Project Description</h3>
+  <h3>Category</h3>
+  <input >
   <input type="text">
   <h3>Requested Funding</h3>
   <input type="number">
   <h3>Project Photos</h3>
-  <input type="file">
+  <div>
+    <div *ngFor="let image of imagesurls">
+      <img [src]="image" />
+    </div>
+    <input type="file" (change)="onFileChange($event)" multiple>
+  </div>
+
   <input type="submit" value="Submit Project">
 </form>

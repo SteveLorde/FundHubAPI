@@ -7,15 +7,18 @@ namespace FundHubAPI.Services.StartupService;
 public class Startup
 {
     private readonly IServiceProvider _serviceprovider;
+    private readonly IWebHostEnvironment _webenv;
 
-    public Startup(IServiceProvider serviceProvider)
+    public Startup(IServiceProvider serviceProvider, IWebHostEnvironment webenv)
     {
         _serviceprovider = serviceProvider;
+        _webenv = webenv;
     }
 
     public void ExecuteServices()
     {
-
+        var storagefolder = Path.Combine(_webenv.ContentRootPath, "Storage");
+        Directory.CreateDirectory(storagefolder); 
         var scope1 = _serviceprovider.CreateScope();
         var servicescoper1 = scope1.ServiceProvider;
         var newsservice = servicescoper1.GetRequiredService<INewsRepository>();

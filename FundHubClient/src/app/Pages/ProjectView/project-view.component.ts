@@ -5,6 +5,7 @@ import {selectedproject, setSelectedProject} from "../../Services/GlobalMemorySt
 import {User} from "../../Data/Models/User";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {NgForOf} from "@angular/common";
+import environment from "../../../environments/environment";
 
 @Component({
   selector: 'app-project-view',
@@ -55,5 +56,5 @@ export class ProjectViewComponent {
   }
 
 
-
+  protected readonly environment = environment;
 }

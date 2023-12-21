@@ -3,6 +3,7 @@ import {Project} from "../../Data/Models/Project";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import environment from "../../../environments/environment";
 
 @Component({
   selector: 'app-projects-page',
@@ -38,4 +39,5 @@ export class ProjectsPageComponent {
   }
 
 
+  protected readonly environment = environment;
 }

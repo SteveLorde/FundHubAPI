@@ -1,4 +1,5 @@
 import {User} from "./User";
+import {SocialMedia} from "./SocialMedia";
 
 export interface Project {
   id : string
@@ -9,7 +10,7 @@ export interface Project {
   currentfund : number
   totalfundrequired : number
   email? : string
-  socialmedia? : string[]
+  socialmedia? : SocialMedia
   images? : string[]
   userId? : string
   userowner? : User

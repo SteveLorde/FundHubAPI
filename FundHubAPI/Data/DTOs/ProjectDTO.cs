@@ -14,4 +14,5 @@ public interface ProjectDTO
     public int currentfund { get; set; }
     public int totalfundrequired { get; set; }
     public string[] images { get; set; }
+    public IFormFile[]? imagefiles { get; set; }
 }

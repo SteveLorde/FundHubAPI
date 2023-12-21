@@ -77,4 +77,8 @@ export class UserPanelComponent {
     }
   }
 
+  onFileSelected(e : any) {
+
+  }
+
 }

@@ -2,10 +2,10 @@
 
   <div class="projectinfo">
     <!--Images Carousel -->
-    <img class="selectedimage" src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
+    <img class="selectedimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
     <div class="projectgallery">
       <div  *ngFor="let image of project.images">
-        <img class="galleryimage"  src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{image}}" />
+        <img class="galleryimage"  src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{image}}" />
       </div>
     </div>
 
@@ -23,7 +23,7 @@
   <div class="projectownerinfo">
     <!--Project Owner Info -->
     <h3>About Me</h3>
-    <img class="projectownerimage" src="http://localhost:5116/storage/Users/{{projectowner.id}}/Images/{{projectowner.profileimage}}" />
+    <img class="projectownerimage" src="{{environment.backendurl}}/storage/Users/{{projectowner.id}}/Images/{{projectowner.profileimage}}" />
     <h2>Project Owner: {{projectowner.username}}</h2>
     <p>Description</p>
     <p>{{projectowner.description}}</p>

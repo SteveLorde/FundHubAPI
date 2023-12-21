@@ -24,4 +24,10 @@
       <Folder Include="Storage\" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="Storage\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>

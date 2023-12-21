@@ -32,7 +32,7 @@ class ProjectService : IProjectService
 
     public async Task<List<Project>> GetProjectsOfCategory(string category)
     {
-        return await _db.Projects.Where(x => x.category == category).ToListAsync();
+        return await _db.Projects.Where(x => x.category.name == category).ToListAsync();
     }
 
     public async Task CreateFolders()
@@ -56,7 +56,18 @@ class ProjectService : IProjectService
 
     public async Task<bool> CreateNewProject(ProjectDTO newprojecttocreate)
     {
+
         Project newproject = _mapper.Map<Project>(newprojecttocreate);
+        newproject.Id = Guid.NewGuid();
+        var productfoldertocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
+        Directory.CreateDirectory(productfoldertocreate); 
+        foreach (var imagefile in newprojecttocreate.imagefiles)
+        {
+            newproject.images.Append(imagefile.FileName);
+            var filetocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images", $"{imagefile.FileName}");
+            var stream = new FileStream(filetocreate, FileMode.Create);
+            await imagefile.CopyToAsync(stream);
+        }
         await _db.Projects.AddAsync(newproject);
         await _db.SaveChangesAsync();
         return true;

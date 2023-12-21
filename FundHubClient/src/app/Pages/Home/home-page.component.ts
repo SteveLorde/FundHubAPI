@@ -6,6 +6,7 @@ import {BackendService} from "../../Services/Backend/backend.service";
 import {Project} from "../../Data/Models/Project";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import environment from "../../../environments/environment";
 
 @Component({
   selector: 'app-home-page',
@@ -45,4 +46,5 @@ export class HomePageComponent {
     }
   }
 
+  protected readonly environment = environment;
 }
