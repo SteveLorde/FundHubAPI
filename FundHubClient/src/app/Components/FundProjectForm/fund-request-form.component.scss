@@ -1,0 +1,26 @@
+.form {
+  padding: 25px;
+}
+
+.titles {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.inputelements {
+  border-radius: 25px;
+}
+
+.imagessection {
+  display: flex;
+  flex-direction: row;
+}
+
+.image {
+  width: max(200px);
+  height: max(200px);
+}
+
+.uploadbutton {
+  display: none;
+}

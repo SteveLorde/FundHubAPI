@@ -24,7 +24,7 @@ export class UserPanelComponent {
   userownsproject : boolean = false;
 
   public project : Project = {
-    category: "",
+    category: {id: "", name: ""},
     currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
   public user : User = {description: "", id: "", password: "", username: ""}
   edituserinfo : boolean = false

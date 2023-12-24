@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
-import {FormControl, FormGroup, FormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Project} from "../../Data/Models/Project";
 import {User} from "../../Data/Models/User";
 import {AuthenticationService} from "../../Services/Authentication/authentication.service";
 import {BackendService} from "../../Services/Backend/backend.service";
+import {Category} from "../../Data/Models/Category";
 
 @Component({
   selector: 'app-fund-request-form',
   standalone: true,
   imports: [
     NgForOf,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './fund-request-form.component.html',
   styleUrl: './fund-request-form.component.scss'
@@ -20,6 +22,7 @@ export class FundRequestFormComponent {
 
   imagestoupload : File[] = []
   imagesurls : string[] = []
+  categories: Category[] = []
 
   constructor(private auth: AuthenticationService, private backend: BackendService) {
   }
@@ -28,7 +31,7 @@ export class FundRequestFormComponent {
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     totalfundrequired: new FormControl(0, Validators.required),
-    category: new FormControl('', Validators.required),
+    category: new FormControl( null, Validators.required),
     instagram: new FormControl(''),
     facebook: new FormControl(''),
     x: new FormControl(''),
@@ -43,7 +46,9 @@ export class FundRequestFormComponent {
       newproject.title = formvalues.title as string
       newproject.totalfundrequired = formvalues.totalfundrequired as number
       newproject.userowner = this.auth.activeuser
-      newproject.category = formvalues.category as string
+      if (formvalues.category != undefined) {
+        newproject.category = formvalues.category
+      }
       newproject.email = formvalues.email as string
       for (let i = 0; i < this.imagestoupload.length; i++) {
         newproject.images?.push(this.imagestoupload[i].name)

@@ -9,7 +9,7 @@ namespace FundHubAPI.Controllers;
 [Route("Shopping")]
 public class ShoppingController : Controller
 {
-    [HttpGet("AddToCartCheck/${id}")]
+    [HttpGet("AddToCartCheck/{id}")]
     public IActionResult AddToCartCheck(int productid)
     {
         return Ok();

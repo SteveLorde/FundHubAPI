@@ -20,7 +20,7 @@ export class DonationPageComponent {
   public projectid : string | null = ""
   public project = signal<Project>({
     currentfund: 0,
-     category: "",
+     category: {id: "", name: ""},
     subtitle: "",
     userId: "",
     totalfundrequired: 0,

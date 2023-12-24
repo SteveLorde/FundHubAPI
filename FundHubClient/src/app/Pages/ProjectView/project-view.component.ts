@@ -19,7 +19,7 @@ import environment from "../../../environments/environment";
 })
 export class ProjectViewComponent {
   public projectid: string | null = ""
-  public project : Project = {category: "", currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
+  public project : Project = {category: {id: "", name: ""}, currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
   public projectowner : User = {description: "", password: "", username: "", id: " "}
 
   constructor(private router : Router,private route: ActivatedRoute, private backend: BackendService) {
