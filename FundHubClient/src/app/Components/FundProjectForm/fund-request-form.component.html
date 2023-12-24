@@ -1,16 +1,16 @@
 <form [formGroup]="newprojectform" (ngSubmit)="SubmitNewProject()">
   <div>
-    <h3>Project Name</h3>
+    <h3 class="formtitle">Project Name</h3>
     <input type="text" formControlName="title">
-    <h3>Project Description</h3>
+    <h3 class="formtitle">Project Description</h3>
     <input type="text" formControlName="description">
-    <h3>Category</h3>
+    <h3 class="formtitle">Category</h3>
     <select *ngFor="let category of categories" formControlName="categoryid">
       <option value="{{category}}" >{{category.name}}</option>
     </select>
-    <h3>Requested Funding</h3>
+    <h3 class="formtitle">Requested Funding</h3>
     <input type="number" formControlName="totalfundrequired">
-    <h3>Project Photos</h3>
+    <h3 class="formtitle">Project Photos</h3>
     <div>
       <div class="imagessection" *ngFor="let image of imagesurls">
         <img class="image" [src]="image" />
@@ -19,12 +19,12 @@
     </div>
   </div>
   <div>
-    <h3>Social Media platforms</h3>
-    <p>Facebook</p>
+    <h3 class="formtitle">Social Media platforms</h3>
+    <p class="formtitle">Facebook</p>
     <input type="text" formControlName="facebook"/>
-    <p>X</p>
+    <p class="formtitle">X</p>
     <input type="text" formControlName="x"/>
-    <p>instagram</p>
+    <p class="formtitle">instagram</p>
     <input type="text" formControlName="instagram"/>
   </div>
   <input type="submit" value="Submit Project">

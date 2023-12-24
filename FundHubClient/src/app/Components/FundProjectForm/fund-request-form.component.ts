@@ -74,10 +74,10 @@ export class FundRequestFormComponent {
 
   readImageFile(file: File) {
     const reader = new FileReader()
+    reader.readAsDataURL(file);
     reader.onload = (e: any) => {
       this.imagesurls.push(e.target.result)
     }
-    reader.readAsDataURL(file);
   }
 
 
