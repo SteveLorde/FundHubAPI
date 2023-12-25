@@ -10,11 +10,31 @@ import environment from "../../../environments/environment";
 })
 export class AuthenticationService {
 
+   axiosapi = axios.create({});
+
   isloggedin : boolean = false
   activeuser : User = {description: "", id: "", password: "", username: ""}
   authstatus : string = 'Login/Register'
 
-  constructor() { }
+  constructor() {
+    this.axiosapi.interceptors.request.use(
+      (config : any) =>  {
+        const token = localStorage.getItem("usertoken")
+        const clonedReq = {
+          ...config,
+          headers: {
+            ...config.headers,
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        return clonedReq;
+      },
+      (error) => {
+        // Handle request error
+        return Promise.reject(error);
+      }
+    )
+  }
 
   async Login(loginrequest: { password: string | null | undefined, username: string | null | undefined }): Promise<any> {
     try {
@@ -66,7 +86,7 @@ export class AuthenticationService {
 
   async SetActiveUser(token : string) {
     try {
-      let response = await axios.post( environment.backendurl + '/Authentication/GetUser', token)
+      let response = await this.axiosapi.post( environment.backendurl + '/Authentication/GetUser')
       this.activeuser = response.data
       this.authstatus = `Welcome ${this.activeuser.username}`
     }

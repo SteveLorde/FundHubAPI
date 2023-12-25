@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("Authentication")]
 public class AuthenticationController : Controller
@@ -40,10 +39,12 @@ public class AuthenticationController : Controller
         return await _auth.Register(registerrequest);
     }
     
+    [Authorize]
     [HttpGet("GetUser")]
     public async Task<User> GetUserInfo()
     {
-        return await _auth.GetUser();
+        var userid = HttpContext.User.FindFirst("userid")?.Value;
+        return await _auth.GetUser(userid);
     }
 
     [HttpPost("CheckToken")]

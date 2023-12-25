@@ -1,3 +1,4 @@
+using System.Text;
 using API.Services.Authentication;
 using API.Services.JWT;
 using FundHubAPI.Data;
@@ -10,7 +11,9 @@ using FundHubAPI.Services.Repositories.CategoriesRepository;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
 using FundHubAPI.Services.StartupService;
 using FundHubAPI.Services.Users;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,22 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IAuthentication,Authentication>();
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["secretkey"]))
+        };
+    });
 builder.Services.AddScoped<IJWT,Jwt>();
 builder.Services.AddScoped<IUsers,Users>();
 builder.Services.AddScoped<IProjectsRepository,ProjectsRepository>();
@@ -62,9 +81,8 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(builder.Environment.ContentRootPath, "Storage")),
     RequestPath = "/storage"
 });
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

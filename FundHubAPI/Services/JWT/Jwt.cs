@@ -9,13 +9,14 @@ namespace API.Services.JWT;
 
 class Jwt : IJWT
 {
-    private const string jwtseckey = "V4XnjsgnRQuUecN27lwoCB82i4AbDMoX1GIFLbtolN4P8P18IRXFVLojx4vwLi7";
-
     private IConfiguration _config;
+
+    private string jwtseckey;
 
     public Jwt(IConfiguration config)
     {
         _config = config;
+        jwtseckey = _config["secretkey"];
     }
 
     public string CreateToken(User user)
@@ -23,6 +24,7 @@ class Jwt : IJWT
         List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.username),
+            new Claim("userid", user.Id.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtseckey));
@@ -30,7 +32,6 @@ class Jwt : IJWT
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
         var token = new JwtSecurityToken(
-            issuer: "",
             claims: claims,
             expires: DateTime.Now.AddDays(1),
             signingCredentials: cred
