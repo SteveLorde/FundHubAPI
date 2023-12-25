@@ -7,6 +7,7 @@ using FundHubAPI.Services.AutoMapper;
 using FundHubAPI.Services.JWT;
 using FundHubAPI.Services.Repositories;
 using FundHubAPI.Services.Repositories.CategoriesRepository;
+using FundHubAPI.Services.Repositories.ProjectsRepository;
 using FundHubAPI.Services.StartupService;
 using FundHubAPI.Services.Users;
 using Microsoft.Extensions.FileProviders;

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Repositories;
@@ -19,9 +20,16 @@ class GenericRepository<T> : IGenericRepository<T> where T : class, new()
         _hostenv = hostingEnvironment;
     }
     
-    public async Task<List<T>> GetAll()
-    {
-        return await _db.Set<T>().ToListAsync();
+    public async Task<List<T>> GetAll(params Expression<Func<T, object>>[] includes)
+    { 
+        IQueryable<T> query = _db.Set<T>().AsQueryable();
+        
+        if (includes != null)
+        {
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<T?> Get(string entityid)

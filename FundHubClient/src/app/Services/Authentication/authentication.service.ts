@@ -11,21 +11,16 @@ import environment from "../../../environments/environment";
 export class AuthenticationService {
 
   isloggedin : boolean = false
-  activetoken: string = ''
   activeuser : User = {description: "", id: "", password: "", username: ""}
-
   authstatus : string = 'Login/Register'
-
-
 
   constructor() { }
 
   async Login(loginrequest: { password: string | null | undefined, username: string | null | undefined }): Promise<any> {
     try {
       let response = await axios.post(environment.backendurl + '/Authentication/Login', loginrequest)
-      let loginresponse : LoginResponse = response.data
-      this.activetoken = loginresponse.token
-      this.SetActiveUser(loginresponse.userid)
+      let token = response.data
+      this.SetActiveUser(token)
       return true
     }
     catch (err) {
@@ -36,7 +31,7 @@ export class AuthenticationService {
   Logout() {
     this.activeuser = {description: "", id: "", password: "", username: ""}
     this.isloggedin = false
-    this.activetoken = " "
+    localStorage.removeItem("usertoken")
     this.authstatus = "Login/Register"
     return true
   }
@@ -44,11 +39,9 @@ export class AuthenticationService {
   async LoginTest(): Promise<any> {
     try {
       let response = await axios.get(environment.backendurl + '/Authentication/LoginTest')
-      let loginresponse : LoginResponse = response.data
-      this.activetoken = loginresponse.token
-      this.SetActiveUser(loginresponse.userid)
-      localStorage.setItem("usertoken", loginresponse.token)
-      this.authstatus = `${this.activeuser.username}`
+      let token : string = response.data
+      localStorage.setItem("usertoken", token)
+      this.SetActiveUser(token)
       return true
     }
     catch (err) {
@@ -58,22 +51,28 @@ export class AuthenticationService {
 
   async Register(registerrequest : AuthRequest) : Promise<any> {
     try {
-      let check : boolean = await axios.post(environment.backendurl + 'http://localhost:5116/Authentication/Register', registerrequest)
+      let response = await axios.post(environment.backendurl + 'http://localhost:5116/Authentication/Register', registerrequest)
+      let check = response.data
       return check
     }
     catch (err) {
       console.log(err)
     }
-
   }
 
   async ChecKToken() {
 
   }
 
-  async SetActiveUser(userid : string) {
-    let user : User = await axios.post( environment.backendurl + '/Authentication/GetUser', userid)
-    this.activeuser = user
+  async SetActiveUser(token : string) {
+    try {
+      let response = await axios.post( environment.backendurl + '/Authentication/GetUser', token)
+      this.activeuser = response.data
+      this.authstatus = `Welcome ${this.activeuser.username}`
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
 
   async GetActiveUser() {

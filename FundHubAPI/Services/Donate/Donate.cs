@@ -2,6 +2,7 @@
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Data.Repositories;
+using FundHubAPI.Services.Repositories.ProjectsRepository;
 
 namespace FundHubAPI.Services.Donate;
 

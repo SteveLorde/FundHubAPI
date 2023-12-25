@@ -3,7 +3,26 @@
   font-size: 20px;
 }
 
+.testheader{
+  color: #0088ff;
+  padding: 5px;
+  font-weight: 800;
+}
+
 .form {
+  display: flex;
+  flex-direction: column;
+  background-color: #eaeaea;
+}
+
+.forminput {
+  padding: 10px;
+  border-radius: 20px;
+  border: 0px solid;
+  background-color: #ffffff;
+}
+
+.formsection {
   display: flex;
   flex-direction: column;
   padding: 50px;

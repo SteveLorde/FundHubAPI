@@ -3,10 +3,12 @@ using API.Services.JWT;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Services.JWT;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("Authentication")]
 public class AuthenticationController : Controller
@@ -38,10 +40,10 @@ public class AuthenticationController : Controller
         return await _auth.Register(registerrequest);
     }
     
-    [HttpGet("GetUser/{id}")]
-    public async Task<User> GetUserInfo(string id)
+    [HttpGet("GetUser")]
+    public async Task<User> GetUserInfo()
     {
-        return await _auth.GetUser(id);
+        return await _auth.GetUser();
     }
 
     [HttpPost("CheckToken")]

@@ -1,7 +1,8 @@
 ﻿using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Data.Repositories;
 
-namespace FundHubAPI.Data.Repositories;
+namespace FundHubAPI.Services.Repositories.ProjectsRepository;
 
 public interface IProjectsRepository : IGenericRepository<Project>
 {

@@ -76,8 +76,7 @@ class Authentication : IAuthentication
 
     public async Task<User> GetUser(string userid)
     {
-        Guid userguid = Guid.Parse(userid);
-        User user = await _db.Users.FirstAsync(x => x.Id == userguid);
+        User user = await _db.Users.FirstAsync(x => x.Id == Guid.Parse(userid));
         return user;
     }
     

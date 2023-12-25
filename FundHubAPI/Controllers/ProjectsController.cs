@@ -1,6 +1,7 @@
 ﻿using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Data.Repositories;
+using FundHubAPI.Services.Repositories.ProjectsRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
@@ -23,7 +24,7 @@ public class ProjectsController : Controller
     [HttpGet("GetProjects")]
     public async Task<List<Project>> GetProjects()
     {
-        return await _projectsservice.GetAll();
+        return await _projectsservice.GetAll(x => x.category);
     }
     
         [HttpGet("GetProject/{projectid}")]

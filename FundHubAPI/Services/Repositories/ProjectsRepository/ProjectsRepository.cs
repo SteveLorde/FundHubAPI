@@ -2,6 +2,7 @@
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Repositories;
+using FundHubAPI.Services.Repositories.ProjectsRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Data.Repositories;
