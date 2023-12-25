@@ -1,6 +1,5 @@
 ﻿using FundHubAPI.Data;
-using FundHubAPI.Services.NewsRepository;
-using FundHubAPI.Services.Projects;
+using FundHubAPI.Data.Repositories;
 using FundHubAPI.Services.Users;
 using Microsoft.EntityFrameworkCore;
 

@@ -48,6 +48,6 @@ public class DataContext : DbContext
     public DbSet<Project> Projects { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<News> News { get; set; }
-    public DbSet<FundLogs> PurchaseLogs { get; set; }
+    public DbSet<DonationLog> DonationLogs { get; set; }
     public DbSet<Category> Categories { get; set; }
 }

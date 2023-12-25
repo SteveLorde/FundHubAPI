@@ -1,7 +1,6 @@
 ﻿using FundHubAPI.Data.Models;
-using FundHubAPI.Data.Repositories;
 
-namespace FundHubAPI.Services.NewsRepository;
+namespace FundHubAPI.Data.Repositories;
 
 public interface INewsRepository : IGenericRepository<News>
 {

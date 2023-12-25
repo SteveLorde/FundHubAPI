@@ -2,7 +2,7 @@
 
 namespace FundHubAPI.Data.Models;
 
-public class FundLogs
+public class DonationLog
 {
     [Key]
     public Guid Id { get; set; }
@@ -10,6 +10,6 @@ public class FundLogs
     public Project? Project { get; set; }
     public Guid UserId { get; set; }
     public User? User { get; set; }
-    public bool accepted { get; set; }
-    public DateTime datetime { get; set; }
+    public decimal donationamount { get; set; }
+    public DateOnly datetime { get; set; }
 }

@@ -1,21 +1,19 @@
 ﻿using AutoMapper;
-using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
-using FundHubAPI.Data.Repositories;
+using FundHubAPI.Services.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace FundHubAPI.Services.Projects;
+namespace FundHubAPI.Data.Repositories;
 
 class ProjectsRepository :  GenericRepository<Project>, IProjectsRepository
 {
-    private readonly IWebHostEnvironment _hostingenv;
     
-    public ProjectsRepository(IWebHostEnvironment hostenv)
+    public ProjectsRepository(DataContext db, IMapper mapper, IWebHostEnvironment hostingEnvironment) : base(db, mapper, hostingEnvironment)
     {
-        _hostingenv = hostenv;
+        
     }
-    
+
     public async Task<List<Project>> GetProjectsOfCategory(string category)
     {
         return await _db.Projects.Where(x => x.category.name == category).ToListAsync();
@@ -28,7 +26,7 @@ class ProjectsRepository :  GenericRepository<Project>, IProjectsRepository
             List<Project> allprojects = await _db.Projects.ToListAsync();
             foreach (Project project in allprojects)
             {
-                var productfoldertocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Projects",
+                var productfoldertocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects",
                     $"{project.Id}", "Images");
                 Directory.CreateDirectory(productfoldertocreate); 
             }
@@ -44,12 +42,12 @@ class ProjectsRepository :  GenericRepository<Project>, IProjectsRepository
     {
         Project newproject = _mapper.Map<Project>(newprojecttocreate);
         newproject.Id = Guid.NewGuid();
-        var productfoldertocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
+        var productfoldertocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
         Directory.CreateDirectory(productfoldertocreate); 
         foreach (var imagefile in newprojecttocreate.imagefiles)
         {
             newproject.images.Append(imagefile.FileName);
-            var filetocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images", $"{imagefile.FileName}");
+            var filetocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images", $"{imagefile.FileName}");
             var stream = new FileStream(filetocreate, FileMode.Create);
             await imagefile.CopyToAsync(stream);
         }
@@ -90,6 +88,7 @@ public async Task<bool> RemoveProject(string projectid)
 }
 
  */
+
 
 
 }

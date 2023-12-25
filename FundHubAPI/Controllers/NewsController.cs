@@ -1,5 +1,5 @@
 ﻿using FundHubAPI.Data.Models;
-using FundHubAPI.Services.NewsRepository;
+using FundHubAPI.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
@@ -11,7 +11,7 @@ namespace FundHubAPI.Controllers;
 [Route("News")]
 public class NewsController : Controller
 {
-    private readonly INewsRepository _newsrepo;
+    private INewsRepository _newsrepo;
 
     public NewsController(INewsRepository newsrepo)
     {

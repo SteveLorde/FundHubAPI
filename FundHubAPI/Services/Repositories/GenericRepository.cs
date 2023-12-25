@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
+using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
+using FundHubAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace FundHubAPI.Data.Repositories;
+namespace FundHubAPI.Services.Repositories;
 
 class GenericRepository<T> : IGenericRepository<T> where T : class, new()
 {
-    public  DataContext _db;
-    public  IMapper _mapper;
-    
-    public GenericRepository()
-    {
-        
-    }
+    public DataContext _db;
+    public IMapper _mapper;
+    public  IWebHostEnvironment _hostenv;
 
-    public GenericRepository(DataContext db, IMapper mapper)
+    public GenericRepository(DataContext db, IMapper mapper, IWebHostEnvironment hostingEnvironment)
     {
         _db = db;
         _mapper = mapper;
+        _hostenv = hostingEnvironment;
     }
     
     public async Task<List<T>> GetAll()

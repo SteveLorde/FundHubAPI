@@ -15,8 +15,8 @@ public class User
     public string? pass_salt { get; set; }
     public string? hashedpassword { get; set; }
     public string usertype { get; set; }
-    public int? phonenumber { get; set; }
-    public string? email { get; set; }
+    public int phonenumber { get; set; }
+    public string email { get; set; }
     public string? facebook { get; set; }
     public string? x_socialmedia { get; set; }
     public string? instagram { get; set; }

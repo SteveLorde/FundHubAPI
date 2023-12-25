@@ -2,8 +2,8 @@
 
 public interface DonationDTO : TDTO
 {
-    public Guid userid { get; set; }
-    public Guid projectid { get; set; }
+    public string userid { get; set; }
+    public string projectid { get; set; }
     public DateOnly date { get; set; }
     public decimal donationamount { get; set; }
 }

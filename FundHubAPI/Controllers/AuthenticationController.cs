@@ -21,13 +21,13 @@ public class AuthenticationController : Controller
     }
 
     [HttpPost("Login")]
-    public async Task<LoginResponseDTO?> Login(UserDTO loginrequest)
+    public async Task<string?> Login(UserDTO loginrequest)
     {
         return await _auth.Login(loginrequest);
     }
     
     [HttpGet("LoginTest")]
-    public async Task<LoginResponseDTO?> LoginTest()
+    public async Task<string?> LoginTest()
     {
         return await _auth.LoginTest();
     }
