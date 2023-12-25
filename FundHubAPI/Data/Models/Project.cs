@@ -4,6 +4,12 @@ namespace FundHubAPI.Data.Models;
 
 public class Project
 {
+
+    public Project()
+    {
+        Id = Guid.NewGuid();
+    }
+    
     [Key]
     public Guid Id { get; set; }
     public string title { get; set; }

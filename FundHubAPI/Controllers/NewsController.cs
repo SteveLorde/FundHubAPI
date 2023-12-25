@@ -22,7 +22,7 @@ public class NewsController : Controller
     [HttpGet("GetNews")]
     public async Task<List<News>> GetNews()
     {
-        return await _newsrepo.GetNews();
+        return await _newsrepo.GetAll();
     }
     
     

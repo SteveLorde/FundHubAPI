@@ -2,5 +2,5 @@
 
 public interface TDTO
 {
-    
+    string id { get; set; }
 }

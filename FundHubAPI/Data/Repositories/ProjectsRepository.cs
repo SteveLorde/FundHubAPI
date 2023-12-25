@@ -2,34 +2,20 @@
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Services.Projects;
 
-class ProjectsRepository : IProjectsRepository
+class ProjectsRepository :  GenericRepository<Project>, IProjectsRepository
 {
-    private readonly DataContext _db;
     private readonly IWebHostEnvironment _hostingenv;
-    private readonly IMapper _mapper;
-
-    public ProjectsRepository(DataContext db, IWebHostEnvironment hostenv, IMapper mapper)
+    
+    public ProjectsRepository(IWebHostEnvironment hostenv)
     {
-        _db = db;
         _hostingenv = hostenv;
-        _mapper = mapper;
     }
     
-    public async Task<List<Project>> GetProjects()
-    {
-        return await _db.Projects.ToListAsync();
-    }
-
-    public async Task<Project> GetProject(string projectid)
-    {
-        Guid projectguid = Guid.Parse(projectid);
-        return await _db.Projects.FirstAsync(x => x.Id == projectguid);
-    }
-
     public async Task<List<Project>> GetProjectsOfCategory(string category)
     {
         return await _db.Projects.Where(x => x.category.name == category).ToListAsync();
@@ -56,7 +42,6 @@ class ProjectsRepository : IProjectsRepository
 
     public async Task<bool> CreateNewProject(ProjectDTO newprojecttocreate)
     {
-
         Project newproject = _mapper.Map<Project>(newprojecttocreate);
         newproject.Id = Guid.NewGuid();
         var productfoldertocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
@@ -68,26 +53,43 @@ class ProjectsRepository : IProjectsRepository
             var stream = new FileStream(filetocreate, FileMode.Create);
             await imagefile.CopyToAsync(stream);
         }
-        await _db.Projects.AddAsync(newproject);
-        await _db.SaveChangesAsync();
-        return true;
+        var check = await AddDirect(newproject);
+        return check;
     }
+    
+    
+    /*
+ 
+     public async Task<List<Project>> GetProjects()
+{
+    return await _db.Projects.ToListAsync();
+}
+
+public async Task<Project> GetProject(string projectid)
+{
+    Guid projectguid = Guid.Parse(projectid);
+    return await _db.Projects.FirstAsync(x => x.Id == projectguid);
+}
 
     public async Task<bool> UpdateProject(ProjectDTO projecttoupdate)
-    {
-        var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projecttoupdate.Id);
-        selectedproject = _mapper.Map<Project>(projecttoupdate);
-        _db.Projects.Update(selectedproject);
-        await _db.SaveChangesAsync();
-        return true;
-    }
+{
+    var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projecttoupdate.Id);
+    selectedproject = _mapper.Map<Project>(projecttoupdate);
+    _db.Projects.Update(selectedproject);
+    await _db.SaveChangesAsync();
+    return true;
+}
 
-    public async Task<bool> RemoveProject(string projectid)
-    {
-        var projectguid = Guid.Parse(projectid);
-        var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projectguid);
-        _db.Projects.Remove(selectedproject);
-        await _db.SaveChangesAsync();
-        return true;
-    }
+public async Task<bool> RemoveProject(string projectid)
+{
+    var projectguid = Guid.Parse(projectid);
+    var selectedproject = await _db.Projects.FirstAsync(x => x.Id == projectguid);
+    _db.Projects.Remove(selectedproject);
+    await _db.SaveChangesAsync();
+    return true;
+}
+
+ */
+
+
 }

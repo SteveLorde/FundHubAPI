@@ -1,6 +1,6 @@
 ﻿namespace FundHubAPI.Data.DTOs;
 
-public interface UserDTO
+public interface UserDTO : TDTO
 {
     public string username { get; set; }
     public string password { get; set; }

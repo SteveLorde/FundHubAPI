@@ -4,10 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Data.Repositories;
 
-class GenericRepository<T> : IGenericRepository<T> where T : class
+class GenericRepository<T> : IGenericRepository<T> where T : class, new()
 {
-    private readonly DataContext _db;
-    private readonly IMapper _mapper;
+    public  DataContext _db;
+    public  IMapper _mapper;
+    
+    public GenericRepository()
+    {
+        
+    }
 
     public GenericRepository(DataContext db, IMapper mapper)
     {
@@ -20,25 +25,39 @@ class GenericRepository<T> : IGenericRepository<T> where T : class
         return await _db.Set<T>().ToListAsync();
     }
 
-    public async Task<T?> Get(string entityidorname)
+    public async Task<T?> Get(string entityid)
     {
-        return await _db.Set<T>().FindAsync(entityidorname);
+        return await _db.Set<T>().FindAsync(Guid.Parse(entityid));
     }
 
-    public async Task<T> Add(TDTO entitydao)
+    public async Task<bool> Add(TDTO entitydto)
     {
-        T entity = _mapper.Map<T>(entitydao);
+        T newentity = new T();
+        newentity = _mapper.Map<T>(entitydto);
+        await _db.Set<T>().AddAsync(newentity);
+        await _db.SaveChangesAsync();
+        return true;
+    }
+    
+    public async Task<bool> AddDirect(T entity)
+    {
         await _db.Set<T>().AddAsync(entity);
         await _db.SaveChangesAsync();
+        return true;
+    }
+    
+    public async Task<bool> Update(TDTO entitydao)
+    {
+        var selectedentity = await _db.Set<T>().FindAsync(Guid.Parse(entitydao.id));
+        selectedentity = _mapper.Map<T>(entitydao);
+        await _db.SaveChangesAsync();
+        return true;
     }
 
-    public async Task<T> Update(T entitydao)
+    public async Task<bool> Remove(string entityid)
     {
-        
-    }
-
-    public async Task<T> Remove(T entityid)
-    {
-        throw new NotImplementedException();
+        var selectedentity = await _db.Set<T>().FindAsync(Guid.Parse(entityid));
+        _db.Set<T>().Remove(selectedentity);
+        return true;
     }
 }

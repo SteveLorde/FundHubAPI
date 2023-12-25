@@ -24,13 +24,13 @@ public class ProjectsController : Controller
     [HttpGet("GetProjects")]
     public async Task<List<Project>> GetProjects()
     {
-        return await _projectsservice.GetProjects();
+        return await _projectsservice.GetAll();
     }
     
         [HttpGet("GetProject/{projectid}")]
         public async Task<Project> GetProject(string projectid)
         {
-            return await _projectsservice.GetProject(projectid);
+            return await _projectsservice.Get(projectid);
         }
     
     [HttpPost("AddProject")]
@@ -42,13 +42,13 @@ public class ProjectsController : Controller
     [HttpPost("UpdateProject")]
     public async Task<bool> UpdateProject(ProjectDTO projecttoadd)
     {
-        return await _projectsservice.UpdateProject(projecttoadd);
+        return await _projectsservice.Update(projecttoadd);
     }
     
-        [HttpPost("RemoveProject")]
+    [HttpPost("RemoveProject")]
     public async Task<bool> RemoveProject(string projectid)
     {
-        return await _projectsservice.RemoveProject(projectid);
+        return await _projectsservice.Remove(projectid);
     }
     
     

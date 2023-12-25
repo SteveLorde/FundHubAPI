@@ -4,9 +4,10 @@ namespace FundHubAPI.Data.Repositories;
 
 public interface IGenericRepository<T>
 {
-    public Task<List<T>> GetAll();
-    public Task<T?> Get(string entityidorname);
-    public Task<T> Add(TDTO entitydao);
-    public Task<T> Update(TDTO entitydao);
-    public Task<T> Remove(string entityid);
+    Task<List<T>> GetAll();
+    Task<T?> Get(string entityidorname);
+    Task<bool> Add(TDTO entitydto);
+    Task<bool> AddDirect(T entity);
+    Task<bool> Update(TDTO entitydto);
+    Task<bool> Remove(string entityid);
 }
