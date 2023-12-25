@@ -86,7 +86,7 @@ export class AuthenticationService {
 
   async SetActiveUser(token : string) {
     try {
-      let response = await this.axiosapi.post( environment.backendurl + '/Authentication/GetUser')
+      let response = await this.axiosapi.get( environment.backendurl + '/Authentication/GetUser')
       this.activeuser = response.data
       this.authstatus = `Welcome ${this.activeuser.username}`
     }

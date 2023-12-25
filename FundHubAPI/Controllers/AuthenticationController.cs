@@ -43,7 +43,7 @@ public class AuthenticationController : Controller
     [HttpGet("GetUser")]
     public async Task<User> GetUserInfo()
     {
-        var userid = HttpContext.User.FindFirst("userid")?.Value;
+        string userid = HttpContext.User.FindFirst("userid").Value;
         return await _auth.GetUser(userid);
     }
 

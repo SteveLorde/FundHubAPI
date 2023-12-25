@@ -24,19 +24,21 @@ class Jwt : IJWT
         List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.username),
-            new Claim("userid", user.Id.ToString())
+            new Claim("userid", user.Id.ToString()),
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtseckey));
 
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
-        var token = new JwtSecurityToken(
+        var tokendata = new JwtSecurityToken(
             claims: claims,
+            issuer: "http://localhost:5116",
+            audience: "http://localhost:4200",
             expires: DateTime.Now.AddDays(1),
             signingCredentials: cred
         );
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        var jwt = new JwtSecurityTokenHandler().WriteToken(tokendata);
         return jwt;
     }
 
