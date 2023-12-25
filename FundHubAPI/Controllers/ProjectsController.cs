@@ -13,9 +13,9 @@ namespace FundHubAPI.Controllers;
 [Route("Projects")]
 public class ProjectsController : Controller
 {
-    private readonly IProjectService _projectsservice;
+    private readonly IProjectsRepository _projectsservice;
 
-    public ProjectsController(IProjectService projectsservice)
+    public ProjectsController(IProjectsRepository projectsservice)
     {
         _projectsservice = projectsservice;
     }

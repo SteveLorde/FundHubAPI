@@ -1,0 +1,4 @@
+{
+  "buildCommand": "ng build",
+  "devCommand": "node dist/server/main.js"
+}

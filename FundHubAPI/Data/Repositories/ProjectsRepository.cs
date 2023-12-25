@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Services.Projects;
 
-class ProjectService : IProjectService
+class ProjectsRepository : IProjectsRepository
 {
     private readonly DataContext _db;
     private readonly IWebHostEnvironment _hostingenv;
     private readonly IMapper _mapper;
 
-    public ProjectService(DataContext db, IWebHostEnvironment hostenv, IMapper mapper)
+    public ProjectsRepository(DataContext db, IWebHostEnvironment hostenv, IMapper mapper)
     {
         _db = db;
         _hostingenv = hostenv;

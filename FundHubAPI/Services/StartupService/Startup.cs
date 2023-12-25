@@ -31,7 +31,7 @@ public class Startup
         newsservice.CreateNewsFolders();
         var scope2 = _serviceprovider.CreateScope();
         var servicescoper2 = scope2.ServiceProvider;
-        var projectsservice = servicescoper2.GetRequiredService<IProjectService>();
+        var projectsservice = servicescoper2.GetRequiredService<IProjectsRepository>();
         projectsservice.CreateFolders();
         var scope3 = _serviceprovider.CreateScope();
         var servicescoper3 = scope3.ServiceProvider;

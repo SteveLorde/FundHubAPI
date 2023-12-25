@@ -19,7 +19,7 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped<IAuthentication,Authentication>();
 builder.Services.AddScoped<IJWT,Jwt>();
 builder.Services.AddScoped<IUsers,Users>();
-builder.Services.AddScoped<IProjectService,ProjectService>();
+builder.Services.AddScoped<IProjectsRepository,ProjectsRepository>();
 builder.Services.AddScoped<INewsRepository,NewsRepository>();
 builder.Services.AddScoped<Startup>();
 builder.Services.AddAutoMapper(typeof(AutoProfile));

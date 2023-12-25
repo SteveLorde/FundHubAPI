@@ -1,9 +1,10 @@
 ﻿using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Data.Repositories;
 
 namespace FundHubAPI.Services.Projects;
 
-public interface IProjectService
+public interface IProjectsRepository : IGenericRepository<Project>
 {
     public Task<List<Project>> GetProjects();
     public Task<Project> GetProject(string projectid);
