@@ -17,18 +17,17 @@ public class ProjectsController : Controller
         _projectsservice = projectsservice;
     }
     
-    
     [HttpGet("GetProjects")]
     public async Task<List<Project>> GetProjects()
     {
         return await _projectsservice.GetAll(x => x.category);
     }
     
-        [HttpGet("GetProject/{projectid}")]
-        public async Task<Project> GetProject(string projectid)
-        {
-            return await _projectsservice.Get(projectid);
-        }
+    [HttpGet("GetProject/{projectid}")]
+    public async Task<Project> GetProject(string projectid)
+    { 
+        return await _projectsservice.Get(projectid, e => e.User, e => e.category);
+    }
     
     [HttpPost("AddProject")]
     public async Task<bool> AddProject(ProjectDTO projecttoadd)

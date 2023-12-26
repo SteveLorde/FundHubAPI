@@ -31,10 +31,15 @@ class GenericRepository<T> : IGenericRepository<T> where T : class, new()
 
         return await query.ToListAsync();
     }
-
-    public async Task<T?> Get(string entityid)
+    
+    public async Task<T?> Get(string entityid, params Expression<Func<T, object>>[] includes)
     {
-        return await _db.Set<T>().FindAsync(Guid.Parse(entityid));
+        var query = _db.Set<T>().AsQueryable();
+        if (includes != null)
+        {
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        }
+        return await query.FirstAsync(entity => EF.Property<Guid>(entity, "Id") == Guid.Parse(entityid));
     }
 
     public async Task<bool> Add(TDTO entitydto)

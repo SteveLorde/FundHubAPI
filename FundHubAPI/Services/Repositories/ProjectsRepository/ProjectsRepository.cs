@@ -15,6 +15,11 @@ class ProjectsRepository :  GenericRepository<Project>, IProjectsRepository
         
     }
 
+    public async Task<Project> GetProjectDetails(string projectid)
+    {
+        return await _db.Projects.Include(project => project.User).Include(project => project.category).FirstAsync(project => project.Id == Guid.Parse(projectid));
+    }
+
     public async Task<List<Project>> GetProjectsOfCategory(string category)
     {
         return await _db.Projects.Where(x => x.category.name == category).ToListAsync();

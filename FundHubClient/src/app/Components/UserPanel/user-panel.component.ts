@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {Project} from "../../Data/Models/Project";
 import {User} from "../../Data/Models/User";
@@ -20,7 +20,7 @@ import {Donation} from "../../Data/Models/Donation";
   templateUrl: './user-panel.component.html',
   styleUrl: './user-panel.component.scss'
 })
-export class UserPanelComponent {
+export class UserPanelComponent implements OnInit{
   userownsproject : boolean = false;
 
   public project : Project = {
