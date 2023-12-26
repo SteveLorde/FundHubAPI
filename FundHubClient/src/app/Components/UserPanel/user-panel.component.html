@@ -23,6 +23,7 @@
 
     <div class="donationlogsection">
       <h2>Donation logs</h2>
+      <p *ngIf=" userdonations === [] " >no donation logs available</p>
       <div *ngFor="let donation of userdonations">
         <p>{{donation.donationamount}}</p>
         <p>donated to {{donation.project.title}}</p>
@@ -33,7 +34,7 @@
 
   <div class="projectsection">
     <div *ngIf="!userownsproject">
-      <button (click)="OpenFundForm()">No Project associated, would you like to create one...?</button>
+      <button class="projectrequestbutton" (click)="OpenFundForm()">No Project associated, would you like to create one...?</button>
       <app-fund-request-form *ngIf="openprojectform"></app-fund-request-form>
     </div>
     <div *ngIf="userownsproject">
