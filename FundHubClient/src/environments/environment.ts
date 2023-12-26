@@ -1,5 +1,5 @@
 export const environment = {
-  backendurl: "http://localhost:5116"
+  backendurl: "https://e-shopapi-730825c33287.herokuapp.com/"
 }
 
 export default environment
