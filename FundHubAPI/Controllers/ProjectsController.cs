@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-/*
-[Authorize]
-*/
 [ApiController]
 [Route("Projects")]
 public class ProjectsController : Controller
