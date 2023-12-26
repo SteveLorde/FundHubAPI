@@ -10,9 +10,8 @@ export interface Project {
   category : Category
   currentfund : number
   totalfundrequired : number
-  email? : string
-  socialmedia? : SocialMedia
-  images? : string[]
-  userId? : string
-  userowner? : User
+  email : string
+  images : string[]
+  userId : string
+  user : User
 }

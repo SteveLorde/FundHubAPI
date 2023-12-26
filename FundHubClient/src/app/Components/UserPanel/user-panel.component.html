@@ -1,26 +1,27 @@
-<div>
+<div class="userpanel">
 
-  <div class="userinfo">
-    <form [formGroup]="userform">
-      <img src="http://localhost:5116/storage/Users/{{user.id}}/Images/{{user.profileimage}}" />
-      <p>{{user.username}}</p>
+  <div class="userinfosection">
+    <h3>User Info</h3>
+    <form class="userinfo"[formGroup]="userform">
+      <img class="userpic" src="{{environment.backendurl}}/storage/Users/{{user.id}}/Images/{{user.profileimage}}" />
+      <p class="userinfotitle">Username</p>
       <input [disabled]="edituserinfo" type="text" placeholder="{{user.username}}" />
-      <p>{{user.description}}</p>
+      <p class="userinfotitle">Description</p>
       <input type="text" placeholder="{{user.description}}" />
-      <p>{{user.email}}</p>
+      <p class="userinfotitle">Email</p>
       <input type="text" placeholder="{{user.email}}" />
-      <p>{{user.facebook}}</p>
+      <p class="userinfotitle">Facebook</p>
       <input type="text" placeholder="{{user.facebook}}" />
-      <p>{{user.instagram}}</p>
+      <p class="userinfotitle">Instagram</p>
       <input type="text" placeholder="{{user.instagram}}" />
-      <p>{{user.x_socialmedia}}</p>
+      <p class="userinfotitle">X</p>
       <input type="text" placeholder="{{user.x_socialmedia}}" />
-      <p>{{user.phonenumber}}</p>
+      <p class="userinfotitle">Phone Number</p>
       <input type="text" placeholder="{{user.phonenumber}}" />
-      <input type="submit" value="Update User Info" />
+      <input class="userinfosubmitbutton" type="submit" value="Update User Info" />
     </form>
 
-    <div>
+    <div class="donationlogsection">
       <h2>Donation logs</h2>
       <div *ngFor="let donation of userdonations">
         <p>{{donation.donationamount}}</p>
@@ -30,13 +31,11 @@
     </div>
   </div>
 
-  <div class="projectinfo">
-
+  <div class="projectsection">
     <div *ngIf="!userownsproject">
       <button (click)="OpenFundForm()">No Project associated, would you like to create one...?</button>
       <app-fund-request-form *ngIf="openprojectform"></app-fund-request-form>
     </div>
-
     <div *ngIf="userownsproject">
       <img src="http://localhost:5116/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
       <form [formGroup]="projectform">
@@ -54,7 +53,6 @@
       </form>
       <button (click)="RemoveProject()">Remove Project</button>
     </div>
-
   </div>
 
 

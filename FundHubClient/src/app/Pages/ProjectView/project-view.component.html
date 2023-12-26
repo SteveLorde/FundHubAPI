@@ -12,9 +12,9 @@
 
     <div>
       <h1>{{project.title}}</h1>
-      <h2>Category: {{project.category}}</h2>
+      <h2>Category: {{project.category.name}}</h2>
       <p>{{project.description}}</p>
-      <p>total fund required: {{project.totalfundrequired}}</p>
+      <p>Funded: {{project.currentfund}} out of {{project.totalfundrequired}}</p>
     </div>
 
     <!--Donate -->
@@ -23,12 +23,12 @@
   <div class="projectownerinfo">
     <!--Project Owner Info -->
     <h3>About Me</h3>
-    <img class="projectownerimage" src="{{environment.backendurl}}/storage/Users/{{projectowner.id}}/Images/{{projectowner.profileimage}}" />
-    <h2>Project Owner: {{projectowner.username}}</h2>
+    <img class="projectownerimage" src="{{environment.backendurl}}/storage/Users/{{project.user.id}}/Images/{{project.user.profileimage}}" />
+    <h2>Project Owner: {{project.user.username}}</h2>
     <p>Description</p>
-    <p>{{projectowner.description}}</p>
+    <p>{{project.user.description}}</p>
     <p>contact info</p>
-    <p>Phone Number: {{projectowner.phonenumber}}</p>
+    <p>Phone Number: {{project.user.phonenumber}}</p>
 
   </div>
 

@@ -45,7 +45,7 @@ export class FundRequestFormComponent {
     {
       newproject.title = formvalues.title as string
       newproject.totalfundrequired = formvalues.totalfundrequired as number
-      newproject.userowner = await this.auth.GetActiveUser()
+      newproject.user = await this.auth.GetActiveUser()
       if (formvalues.category != undefined) {
         newproject.category = formvalues.category
       }

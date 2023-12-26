@@ -19,8 +19,12 @@ import environment from "../../../environments/environment";
 })
 export class ProjectViewComponent {
   public projectid: string | null = ""
-  public project : Project = {category: {id: "", name: ""}, currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
-  public projectowner : User = {usertype: "", description: "", password: "", username: "", id: " "}
+  public project : Project = {
+    email: "",
+    images: [],
+    userId: "",
+    category: {id: "", name: ""}, currentfund: 0, description: "", id: "", user: {} as User ,subtitle: "", title: "", totalfundrequired: 0}
+  //public projectowner : User | undefined = {usertype: "", description: "", password: "", username: "", id: " "}
 
   constructor(private router : Router,private route: ActivatedRoute, private backend: BackendService) {
 
@@ -34,7 +38,6 @@ export class ProjectViewComponent {
       this.SetProject(this.projectid)
     }
     let ownid = "c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"
-    this.SetProjectOwner(ownid)
   }
 
 
@@ -42,11 +45,12 @@ export class ProjectViewComponent {
   async SetProject(projectid : string) {
     let projecttoview : Project = await this.backend.GetProject(projectid)
     this.project = projecttoview
+    //this.projectowner = projecttoview.userowner
   }
 
   async SetProjectOwner(ownerid : string) {
       let projectowner: User = await this.backend.GetProjectOwnerInfo(ownerid)
-      this.projectowner = projectowner
+      //this.projectowner = projectowner
   }
 
   GoDonate() {

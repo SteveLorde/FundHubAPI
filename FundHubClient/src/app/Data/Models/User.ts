@@ -6,13 +6,13 @@ export interface User {
     password : string
     usertype : string
     description : string
-    phonenumber? : string
-    email? : string
-    facebook? : string
-    x_socialmedia? : string
-    instagram? : string
-    project? : Project
-    profileimage? : string
+    phonenumber : string
+    email : string
+    facebook : string
+    x_socialmedia : string
+    instagram : string
+    project : Project
+    profileimage : string
 
 
 }

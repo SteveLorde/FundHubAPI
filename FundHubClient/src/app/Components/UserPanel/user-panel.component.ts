@@ -7,6 +7,7 @@ import {AuthenticationService} from "../../Services/Authentication/authenticatio
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {FundRequestFormComponent} from "../FundProjectForm/fund-request-form.component";
 import {Donation} from "../../Data/Models/Donation";
+import environment from "../../../environments/environment";
 
 @Component({
   selector: 'app-user-panel',
@@ -24,9 +25,18 @@ export class UserPanelComponent implements OnInit{
   userownsproject : boolean = false;
 
   public project : Project = {
+    email: "", images: [], userId: "", user: {} as User,
     category: {id: "", name: ""},
     currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
-  public user : User = {usertype: "", description: "", id: "", password: "", username: ""}
+  public user : User = {
+    email: "",
+    facebook: "",
+    instagram: "",
+    phonenumber: "",
+    profileimage: "",
+    project: {} as Project,
+    x_socialmedia: "",
+    usertype: "", description: "", id: "", password: "", username: ""}
   edituserinfo : boolean = false
   editprojectinfo : boolean = false
   openprojectform : boolean = false
@@ -72,13 +82,12 @@ export class UserPanelComponent implements OnInit{
   }
 
   SetProject() {
-    if (this.user.project != null) {
-      this.project = this.user.project
-    }
+    this.project = this.user.project
   }
 
   onFileSelected(e : any) {
 
   }
 
+  protected readonly environment = environment;
 }
