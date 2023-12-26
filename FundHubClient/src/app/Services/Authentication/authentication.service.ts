@@ -4,17 +4,14 @@ import axios from "axios";
 import {AuthRequest} from "./DTO/AuthRequest";
 import {LoginResponse} from "./DTO/LoginResponse";
 import environment from "../../../environments/environment";
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-   axiosapi = axios.create({});
-
+  axiosapi = axios.create({});
   isloggedin : boolean = false
-  activeuser : User = {description: "", id: "", password: "", username: ""}
-  authstatus : string = 'Login/Register'
+  authstatus : string = "Login/Register"
 
   constructor() {
     this.axiosapi.interceptors.request.use(
@@ -36,11 +33,11 @@ export class AuthenticationService {
     )
   }
 
-  async Login(loginrequest: { password: string | null | undefined, username: string | null | undefined }): Promise<any> {
+  async Login(loginrequest: { password: string, username: string}) : Promise<any>{
     try {
       let response = await axios.post(environment.backendurl + '/Authentication/Login', loginrequest)
       let token = response.data
-      this.SetActiveUser(token)
+      this.GetActiveUser()
       return true
     }
     catch (err) {
@@ -48,25 +45,23 @@ export class AuthenticationService {
     }
   }
 
+  async LoginTest(): Promise<any> {
+        try {
+            let response = await axios.get(environment.backendurl + '/Authentication/LoginTest')
+            let token : string = response.data
+            localStorage.setItem("usertoken", token)
+            return true
+        }
+        catch (err) {
+            console.log(err)
+        }
+  }
+
   Logout() {
-    this.activeuser = {description: "", id: "", password: "", username: ""}
     this.isloggedin = false
     localStorage.removeItem("usertoken")
     this.authstatus = "Login/Register"
     return true
-  }
-
-  async LoginTest(): Promise<any> {
-    try {
-      let response = await axios.get(environment.backendurl + '/Authentication/LoginTest')
-      let token : string = response.data
-      localStorage.setItem("usertoken", token)
-      this.SetActiveUser(token)
-      return true
-    }
-    catch (err) {
-      console.log(err)
-    }
   }
 
   async Register(registerrequest : AuthRequest) : Promise<any> {
@@ -80,24 +75,13 @@ export class AuthenticationService {
     }
   }
 
-  async ChecKToken() {
-
-  }
-
-  async SetActiveUser(token : string) {
-    try {
-      let response = await this.axiosapi.get( environment.backendurl + '/Authentication/GetUser')
-      this.activeuser = response.data
-      this.authstatus = `Welcome ${this.activeuser.username}`
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-
   async GetActiveUser() {
-    return this.activeuser
+      let response = await this.axiosapi.get( environment.backendurl + '/Authentication/GetUser')
+      let userdata : User = response.data
+      this.authstatus = 'Welcome ' + userdata.username
+      return userdata
   }
+
 
 
 

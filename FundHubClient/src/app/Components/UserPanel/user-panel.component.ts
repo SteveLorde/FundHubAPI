@@ -26,7 +26,7 @@ export class UserPanelComponent {
   public project : Project = {
     category: {id: "", name: ""},
     currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
-  public user : User = {description: "", id: "", password: "", username: ""}
+  public user : User = {usertype: "", description: "", id: "", password: "", username: ""}
   edituserinfo : boolean = false
   editprojectinfo : boolean = false
   openprojectform : boolean = false
@@ -67,8 +67,8 @@ export class UserPanelComponent {
     this.backend.RemoveProject(this.project.id)
   }
 
-  SetUser() {
-    this.user = this.auth.activeuser
+  async SetUser() {
+    this.user = await this.auth.GetActiveUser()
   }
 
   SetProject() {

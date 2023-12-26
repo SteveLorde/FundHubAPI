@@ -11,15 +11,15 @@ import {AuthenticationService} from "../../Services/Authentication/authenticatio
 })
 export class NavbarComponent {
 
-  authstatus : string = " "
+  authstatus : string = this.authservice.authstatus
 
   constructor(private router: Router, private authservice : AuthenticationService) {
+
   }
 
   ngOnInit() {
     this.authstatus = this.authservice.authstatus
   }
-
 
   GoHome() {
     this.router.navigate([''])

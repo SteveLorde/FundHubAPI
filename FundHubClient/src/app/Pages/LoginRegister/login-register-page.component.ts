@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import axios from "axios";
 import {AuthenticationService} from "../../Services/Authentication/authentication.service";
 import {Router} from "@angular/router";
@@ -23,7 +23,6 @@ export class LoginRegisterPageComponent {
 
   constructor(private authservice : AuthenticationService, private router : Router) {
   }
-
 
   loginform = new FormGroup({
     username: new FormControl(''),
@@ -49,18 +48,23 @@ export class LoginRegisterPageComponent {
   }
 
    async Login() {
+    /*
     let loginrequst = {
-      username: this.loginform.value.username,
-      password : this.loginform.value.password
+      username: this.loginform.get('username')?.value,
+      password : this.loginform.get('password')?.value
     }
-    let check = await this.authservice.Login(loginrequst)
-     if (check) {
-       this.router.navigate(['/profile'])
-     }
-     else {
+    if (loginrequst.username && loginrequst.password != null)
+    {
+        let check = await this.authservice.Login(loginrequst)
+        if (check) {
+            this.router.navigate(['/profile'])
+        }
+        else {
 
-     }
+        }
+    }
 
+     */
   }
 
   async LoginTest() {
@@ -69,9 +73,8 @@ export class LoginRegisterPageComponent {
       this.router.navigate(['/profile'])
     }
     else {
-
+      return
     }
-
   }
 
   async Register() {

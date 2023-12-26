@@ -1,5 +1,6 @@
 <div>
   <a class="logoutbutton" (click)="Logout()" >Logout</a>
+  <p>user type is: {{user.usertype}} username: {{user.username}}</p>
   <app-user-panel *ngIf="showuserpanel"></app-user-panel>
   <app-admin-panel *ngIf="showadminpanel"></app-admin-panel>
 </div>
