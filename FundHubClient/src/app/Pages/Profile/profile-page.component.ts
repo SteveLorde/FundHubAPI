@@ -21,8 +21,7 @@ import {User} from "../../Data/Models/User";
 export class ProfilePageComponent implements OnInit{
   showuserpanel : boolean = false
   showadminpanel : boolean = false
-  usertype: string = "test"
-    user = {} as User
+  user = {} as User
 
   constructor(private router : Router,private backend: BackendService, private auth: AuthenticationService) {
 
@@ -39,13 +38,13 @@ export class ProfilePageComponent implements OnInit{
     }
   }
 
-  GetUserType() {
-    this.user =  this.auth.GetActiveUser()
-    if (this.auth.activeuser.usertype == "user") {
+  async GetUserType() {
+    this.user = await  this.auth.GetActiveUser()
+    if (this.user.usertype == "user") {
       this.showadminpanel = false
       this.showuserpanel = true
     }
-    else if (this.auth.activeuser.usertype == "admin") {
+    else if (this.user.usertype == "admin") {
       this.showadminpanel = true
       this.showuserpanel = false
     }

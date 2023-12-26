@@ -38,14 +38,14 @@ export class FundRequestFormComponent {
     email: new FormControl(''),
   });
 
-  SubmitNewProject() {
+  async SubmitNewProject() {
     //1-create project object and add in back
     let newproject : Project = {} as Project
     let formvalues = this.newprojectform.value
     {
       newproject.title = formvalues.title as string
       newproject.totalfundrequired = formvalues.totalfundrequired as number
-      newproject.userowner = this.auth.GetActiveUser()
+      newproject.userowner = await this.auth.GetActiveUser()
       if (formvalues.category != undefined) {
         newproject.category = formvalues.category
       }
