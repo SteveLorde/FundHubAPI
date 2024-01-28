@@ -4,6 +4,8 @@ import axios from "axios";
 import {AuthRequest} from "./DTO/AuthRequest";
 import {LoginResponse} from "./DTO/LoginResponse";
 import environment from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {firstValueFrom} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ export class AuthenticationService {
   isloggedin : boolean = false
   authstatus : string = "Login/Register"
 
-  constructor() {
+  constructor(private http : HttpClient) {
     this.axiosapi.interceptors.request.use(
       (config : any) =>  {
         const token = localStorage.getItem("usertoken")
@@ -34,27 +36,13 @@ export class AuthenticationService {
   }
 
   async Login(loginrequest: { password: string, username: string}) : Promise<any>{
-    try {
-      let response = await axios.post(environment.backendurl + '/Authentication/Login', loginrequest)
-      let token = response.data
+    let token : string = ""
+    this.http.post<string>(environment.backendurl + '/Authentication/Login', loginrequest).subscribe( res => {
+      token = res
+      localStorage.setItem('usertoken', token)
       this.GetActiveUser()
       return true
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-
-  async LoginTest(): Promise<any> {
-        try {
-            let response = await axios.get(environment.backendurl + '/Authentication/LoginTest')
-            let token : string = response.data
-            localStorage.setItem("usertoken", token)
-            return true
-        }
-        catch (err) {
-            console.log(err)
-        }
+    })
   }
 
   Logout() {
@@ -64,14 +52,15 @@ export class AuthenticationService {
     return true
   }
 
-  async Register(registerrequest : AuthRequest) : Promise<any> {
-    try {
-      let response = await axios.post(environment.backendurl + 'http://localhost:5116/Authentication/Register', registerrequest)
-      let check = response.data
-      return check
+  async Register(registerrequest : AuthRequest) {
+    this.http.post<string>(environment.backendurl + '/Authentication/Register', registerrequest).subscribe(res => {
+      localStorage.setItem('usertoken', res)
+    })
+    if (localStorage.getItem('usertoken') != null || "" || undefined) {
+      return true
     }
-    catch (err) {
-      console.log(err)
+    else {
+      return false
     }
   }
 

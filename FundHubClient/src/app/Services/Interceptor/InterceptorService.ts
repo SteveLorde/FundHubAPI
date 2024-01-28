@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 
 export function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   let usertoken = localStorage.getItem('usertoken')
-  if (usertoken != null) {
+  if (usertoken != null && undefined && "") {
     const reqWithHeaderToken = req.clone({
       headers: req.headers.set('token', usertoken ),
     });
