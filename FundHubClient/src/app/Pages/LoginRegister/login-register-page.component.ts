@@ -4,6 +4,7 @@ import axios from "axios";
 import {AuthenticationService} from "../../Services/Authentication/authentication.service";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login-register-page',
@@ -25,13 +26,14 @@ export class LoginRegisterPageComponent {
   }
 
   loginform = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('def', {nonNullable: true}),
+    password: new FormControl('def', {nonNullable: true}),
   })
 
   registerformm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required)
   })
 
   SwitchForm() {
@@ -48,37 +50,26 @@ export class LoginRegisterPageComponent {
   }
 
    async Login() {
-    /*
-    let loginrequst = {
-      username: this.loginform.get('username')?.value,
-      password : this.loginform.get('password')?.value
-    }
-    if (loginrequst.username && loginrequst.password != null)
-    {
-        let check = await this.authservice.Login(loginrequst)
-        if (check) {
-            this.router.navigate(['/profile'])
-        }
-        else {
-
-        }
-    }
-
-     */
+      let loginrequst = {username: this.loginform.get('username').value, password: this.loginform.get('password').value}
+      let check = await this.authservice.Login(loginrequst)
+      if (check) {
+        this.router.navigate(['/profile'])
+      }
+      else {
+        Swal.fire("Error Login + ")
+      }
   }
 
-  async LoginTest() {
-    let check = await this.authservice.LoginTest()
+
+  async Register() {
+    let registereq = {username: this.registerformm.controls.username.value , password: this.registerformm.controls.password.value , email: this.registerformm.controls.email.value}
+    let check = await this.authservice.Register(registereq)
     if (check) {
       this.router.navigate(['/profile'])
     }
     else {
-      return
+      Swal.fire("Error Registering + ")
     }
-  }
-
-  async Register() {
-
   }
 
 

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BackendService} from "../../Services/Backend/backend.service";
 import {AuthenticationService} from "../../Services/Authentication/authentication.service";
-import {UserPanelComponent} from "../../Components/UserPanel/user-panel.component";
+import {UserPanelComponent} from "../../Components/ProfilePanels/UserPanel/user-panel.component";
 import {NgIf} from "@angular/common";
-import {AdminPanelComponent} from "../../Components/AdminPanel/admin-panel.component";
+import {AdminPanelComponent} from "../../Components/ProfilePanels/AdminPanel/admin-panel.component";
 import {Router} from "@angular/router";
 import {User} from "../../Data/Models/User";
 

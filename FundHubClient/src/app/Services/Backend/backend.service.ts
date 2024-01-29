@@ -4,18 +4,17 @@ import {Project} from "../../Data/Models/Project";
 import {News} from "../../Data/Models/News";
 import {User} from "../../Data/Models/User";
 import environment from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
 
-  constructor() { }
+  constructor(private http : HttpClient) { }
 
-  async GetProjects() {
-    let response= await axios.get(environment.backendurl + '/Projects/GetProjects')
-    let projects : Project[] = response.data
-    return projects
+  GetProjects() {
+    return this.http.get(environment.backendurl + `/Projects/GetProject/GetProjects`)
   }
 
   async GetProject(projectid : string) {
@@ -38,7 +37,7 @@ export class BackendService {
 
   async AddProjectRequest(projecttoadd : Project, imagestoupload : File[]) {
     let responsecheck = await axios.post(environment.backendurl + '/Projects/AddProject', projecttoadd)
-    
+
     return responsecheck
   }
 

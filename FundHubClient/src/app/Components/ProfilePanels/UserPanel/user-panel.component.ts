@@ -1,13 +1,13 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {Project} from "../../Data/Models/Project";
-import {User} from "../../Data/Models/User";
-import {BackendService} from "../../Services/Backend/backend.service";
-import {AuthenticationService} from "../../Services/Authentication/authentication.service";
+import {Project} from "../../../Data/Models/Project";
+import {User} from "../../../Data/Models/User";
+import {BackendService} from "../../../Services/Backend/backend.service";
+import {AuthenticationService} from "../../../Services/Authentication/authentication.service";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {FundRequestFormComponent} from "../FundProjectForm/fund-request-form.component";
-import {Donation} from "../../Data/Models/Donation";
-import environment from "../../../environments/environment";
+import {FundRequestFormComponent} from "../../FundProjectForm/fund-request-form.component";
+import {Donation} from "../../../Data/Models/Donation";
+import environment from "../../../../environments/environment";
 
 @Component({
   selector: 'app-user-panel',

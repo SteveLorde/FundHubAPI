@@ -5,7 +5,7 @@ import {AuthRequest} from "./DTO/AuthRequest";
 import {LoginResponse} from "./DTO/LoginResponse";
 import environment from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +14,7 @@ export class AuthenticationService {
   axiosapi = axios.create({});
   isloggedin : boolean = false
   authstatus : string = "Login/Register"
+  test : Observable<string> = new Observable<string>()
 
   constructor(private http : HttpClient) {
     this.axiosapi.interceptors.request.use(
@@ -35,14 +36,17 @@ export class AuthenticationService {
     )
   }
 
-  async Login(loginrequest: { password: string, username: string}) : Promise<any>{
+  async Login(loginrequest: { password: string, username: string}){
     let token : string = ""
+    let check : boolean = false
     this.http.post<string>(environment.backendurl + '/Authentication/Login', loginrequest).subscribe( res => {
       token = res
-      localStorage.setItem('usertoken', token)
+      if (token != null && undefined && "") {
+        localStorage.setItem('usertoken', token)
+        check = true }
       this.GetActiveUser()
-      return true
     })
+    return check
   }
 
   Logout() {

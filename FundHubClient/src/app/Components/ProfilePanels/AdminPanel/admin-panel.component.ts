@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FundRequestFormComponent} from "../FundProjectForm/fund-request-form.component";
+import {FundRequestFormComponent} from "../../FundProjectForm/fund-request-form.component";
 
 @Component({
   selector: 'app-admin-panel',

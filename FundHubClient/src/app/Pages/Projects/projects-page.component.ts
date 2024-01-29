@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {CurrencyPipe, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
-import environment from "../../../environments/environment";
+import environment, {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-projects-page',
@@ -31,15 +31,13 @@ export class ProjectsPageComponent {
     this.GetProjects()
   }
 
-  async GetProjects() {
-    let projectz = await this.backend.GetProjects()
-    this.projects = projectz
+  GetProjects() {
+    this.backend.GetProjects().subscribe( (res : Project[]) => this.projects = res)
   }
 
   ViewProject(projectid : string) {
     this.router.navigate(['/viewproject', projectid])
   }
-
 
   protected readonly environment = environment;
 }
