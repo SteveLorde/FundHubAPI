@@ -6,7 +6,16 @@
     <input type="text" formControlName="description">
     <h3 class="formtitle">Category</h3>
     <select *ngFor="let category of categories" formControlName="categoryid">
-      <option value="{{category}}" >{{category.name}}</option>
+        <option value="{{category.id}}" >
+          <div>
+            <p>{{category.name}}</p>
+            @switch (category.name) {
+              @case ("product") {<img src="assets/ProductIcon.png" />}
+              @case ("society"){<img src="assets/SocietalProjectIcon.png" />}
+              @case ("environment"){<img src="assets/EnvironmentProject.png" />}
+            }
+          </div>
+        </option>
     </select>
     <h3 class="formtitle">Requested Funding</h3>
     <input type="number" formControlName="totalfundrequired">
