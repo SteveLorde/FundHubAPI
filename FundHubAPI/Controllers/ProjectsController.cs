@@ -30,7 +30,7 @@ public class ProjectsController : Controller
     }
     
     [HttpPost("AddProject")]
-    public async Task<bool> AddProject(ProjectDTO projecttoadd)
+    public async Task<bool> AddProject(ProjectRequestDTO projecttoadd)
     {
         return await _projectsservice.CreateNewProject(projecttoadd);
     }

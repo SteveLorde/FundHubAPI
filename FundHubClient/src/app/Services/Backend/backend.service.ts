@@ -5,6 +5,7 @@ import {News} from "../../Data/Models/News";
 import {User} from "../../Data/Models/User";
 import environment from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {ProjectRequest} from "../../Data/Models/ProjectRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,9 @@ export class BackendService {
     return parsednews
   }
 
-  async AddProjectRequest(projecttoadd : Project, imagestoupload : File[]) {
-    let responsecheck = await axios.post(environment.backendurl + '/Projects/AddProject', projecttoadd)
-
-    return responsecheck
+  async AddProjectRequest(projecttoadd : ProjectRequest) {
+    //return the newly created project id
+    return await axios.post<string>(environment.backendurl + '/Projects/AddProject', projecttoadd).then(res => res.data)
   }
 
   async RemoveProject(projectid : string) {

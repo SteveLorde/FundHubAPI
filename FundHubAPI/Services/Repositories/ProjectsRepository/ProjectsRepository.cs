@@ -38,13 +38,13 @@ class ProjectsRepository :  GenericRepository<Project>, IProjectsRepository
         }
     }
 
-    public async Task<bool> CreateNewProject(ProjectDTO newprojecttocreate)
+    public async Task<bool> CreateNewProject(ProjectRequestDTO newprojecttocreate)
     {
         Project newproject = _mapper.Map<Project>(newprojecttocreate);
         newproject.Id = Guid.NewGuid();
         var productfoldertocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
         Directory.CreateDirectory(productfoldertocreate); 
-        foreach (var imagefile in newprojecttocreate.imagefiles)
+        foreach (var imagefile in newprojecttocreate.ImagesFiles)
         {
             newproject.images.Append(imagefile.FileName);
             var filetocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images", $"{imagefile.FileName}");

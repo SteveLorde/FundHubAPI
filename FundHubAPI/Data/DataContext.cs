@@ -27,9 +27,9 @@ public class DataContext : DbContext
         );
         
         modelBuilder.Entity<Category>().HasData(
-            new Category {Id = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d") , name = "Product"},
-            new Category {Id = Guid.Parse("fafaad46-3fbe-40ac-ad63-c311829668a4") , name = "SocietalProject"},
-            new Category {Id = Guid.Parse("59cb7c8b-8e33-45d6-b066-214f3145a3c0") , name = "EnvironmentProject"}
+            new Category {Id = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d") , name = "product"},
+            new Category {Id = Guid.Parse("fafaad46-3fbe-40ac-ad63-c311829668a4") , name = "society"},
+            new Category {Id = Guid.Parse("59cb7c8b-8e33-45d6-b066-214f3145a3c0") , name = "environment"}
         );
         
         modelBuilder.Entity<Project>().HasData(

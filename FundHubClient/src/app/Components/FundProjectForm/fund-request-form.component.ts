@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Project} from "../../Data/Models/Project";
@@ -6,6 +6,9 @@ import {User} from "../../Data/Models/User";
 import {AuthenticationService} from "../../Services/Authentication/authentication.service";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {Category} from "../../Data/Models/Category";
+import {ProjectRequest} from "../../Data/Models/ProjectRequest";
+import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-fund-request-form',
@@ -23,13 +26,15 @@ export class FundRequestFormComponent {
   imagestoupload : File[] = []
   imagesurls : string[] = []
   categories: Category[] = []
+  @Input() userid : string
 
-  constructor(private auth: AuthenticationService, private backend: BackendService) {
+  constructor(private auth: AuthenticationService, private backend: BackendService, private router : Router) {
   }
 
   newprojectform = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    subtitle: new FormControl('',Validators.required),
     totalfundrequired: new FormControl(0, Validators.required),
     category: new FormControl( null, Validators.required),
     instagram: new FormControl(''),
@@ -40,25 +45,27 @@ export class FundRequestFormComponent {
 
   async SubmitNewProject() {
     //1-create project object and add in back
-    let newproject : Project = {} as Project
-    let formvalues = this.newprojectform.value
-    {
-      newproject.title = formvalues.title as string
-      newproject.totalfundrequired = formvalues.totalfundrequired as number
-      newproject.user = await this.auth.GetActiveUser()
-      if (formvalues.category != undefined) {
-        newproject.category = formvalues.category
-      }
-      newproject.email = formvalues.email as string
-      for (let i = 0; i < this.imagestoupload.length; i++) {
-        newproject.images?.push(this.imagestoupload[i].name)
-      }
-
+    let newproject : ProjectRequest = {
+      id: "",
+      title: this.newprojectform.controls.title.value,
+      categoryid: this.newprojectform.controls.category.value,
+      description: this.newprojectform.controls.description.value,
+      totalfundrequired: this.newprojectform.controls.totalfundrequired.value,
+      imagestoupload: this.imagestoupload,
+      userId: this.userid,
+      email: this.newprojectform.controls.email.value,
+      facebook: this.newprojectform.controls.facebook.value,
+      x: this.newprojectform.controls.x.value,
+      instagram: this.newprojectform.controls.instagram.value,
+      subtitle: this.newprojectform.controls.subtitle.value
     }
-    let projectid = this.backend.AddProjectRequest(newproject, this.imagestoupload)
-
-    //3-return true
-    return true
+    let projectid = await this.backend.AddProjectRequest(newproject)
+    if (projectid != null && undefined && "") {
+      await this.router.navigate(['/viewproject', projectid])
+    }
+    else {
+      Swal.fire("Adding Project Failed")
+    }
   }
 
   onFileChange(event: any) {

@@ -3,7 +3,7 @@ import {Project} from "../../Data/Models/Project";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {CurrencyPipe, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
-import environment, {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-projects-page',

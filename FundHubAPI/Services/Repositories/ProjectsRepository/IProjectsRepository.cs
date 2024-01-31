@@ -8,5 +8,5 @@ public interface IProjectsRepository : IGenericRepository<Project>
 {
     public Task<List<Project>> GetProjectsOfCategory(string category);
     public Task CreateFolders();
-    public Task<bool> CreateNewProject(ProjectDTO projecttoadd);
+    public Task<bool> CreateNewProject(ProjectRequestDTO projecttoadd);
 }

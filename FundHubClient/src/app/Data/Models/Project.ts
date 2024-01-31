@@ -12,6 +12,7 @@ export interface Project {
   totalfundrequired : number
   email : string
   images : string[]
+  imagestoupload? : File[]
   userId : string
   user : User
 }
