@@ -10,7 +10,7 @@ public class ControllersTest
     [Fact]
     public async void GetProjectsTest()
     {
-        var response = await _httpClient.GetAsync("").Result.Content.ReadFromJsonAsync<List<Project>>();
+        var response = await _httpClient.GetAsync("http://localhost:5116/Projects/GetProjects").Result.Content.ReadFromJsonAsync<List<Project>>();
         if (response.Count > 0)
         {
             foreach (var project in response)
@@ -19,7 +19,13 @@ public class ControllersTest
 
             }
         }
+        else
+        {
+            Assert.Fail("no projects in response");
+        }
     }
+    
+    
     
     
     
