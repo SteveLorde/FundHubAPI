@@ -13,8 +13,10 @@ public class AutoProfile : Profile
         //model to DTO
         CreateMap<User,UserDTO>();
         CreateMap<Project,ProjectResponseDTO>();
+        CreateMap<Donation, DonationResponseDTO>();
         //DTO to Model
         CreateMap<ProjectRequestDTO, Project>();
+        CreateMap<DonationResponseDTO, Donation >();
     }
     
 }

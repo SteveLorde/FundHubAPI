@@ -24,7 +24,7 @@ class Donate : IDonate
     {
         var user = await _usersrepo.GetUser(donationtolog.userid);
         var project = await _projectsrepo.GetProjectDirect(donationtolog.projectid);
-        DonationLog newdonationlog = new DonationLog
+        Donation newdonationlog = new Donation
         {
             Id = Guid.NewGuid(), UserId = user.Id, User = user, ProjectId = project.Id, Project = project,
             donationamount = donationtolog.donationamount, datetime = donationtolog.date

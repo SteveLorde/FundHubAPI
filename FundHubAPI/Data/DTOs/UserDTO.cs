@@ -2,7 +2,7 @@
 
 public class UserDTO
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; }
     public string username { get; set; }
     public string password { get; set; }
     public int? phonenumber { get; set; }

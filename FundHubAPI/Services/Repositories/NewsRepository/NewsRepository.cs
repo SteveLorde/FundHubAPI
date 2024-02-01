@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FundHubAPI.Data;
+using FundHubAPI.Data.DTOs.ResponseDTO;
 using FundHubAPI.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +19,17 @@ class NewsRepository : INewsRepository
         _hostenv = hostingEnvironment;
         _mapper = mapper;
     }
-    
+
+    public async Task<List<NewsResponseDTO>> GetNews()
+    {
+        return await _db.News.ProjectTo<NewsResponseDTO>(_mapper.ConfigurationProvider).ToListAsync();
+    }
+
+    public async Task<NewsResponseDTO> GetNewsArticle(string newsid)
+    {
+        return await _db.News.ProjectTo<NewsResponseDTO>(_mapper.ConfigurationProvider).FirstAsync(n => n.Id == Guid.Parse(newsid));
+    }
+
     public async Task CreateNewsFolders()
     {
         try
