@@ -1,8 +1,6 @@
-﻿using FundHubAPI.Data.Models;
+﻿namespace FundHubAPI.Services.Repositories.UsersRepository;
 
-namespace FundHubAPI.Data.Repositories;
-
-public interface IUserRepository : IGenericRepository<User>
+public interface IUserRepository
 {
     
 }

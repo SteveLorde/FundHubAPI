@@ -1,7 +1,6 @@
-﻿using API.Services.Authentication;
-using API.Services.JWT;
-using FundHubAPI.Data.DTOs;
+﻿using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Services.Authentication;
 using FundHubAPI.Services.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

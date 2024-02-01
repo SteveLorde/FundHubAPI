@@ -1,11 +1,10 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using API.Services.Authentication;
-using API.Services.Authentication.Model;
 using AutoMapper;
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Services.Authentication.Model;
 using FundHubAPI.Services.JWT;
 using Microsoft.EntityFrameworkCore;
 

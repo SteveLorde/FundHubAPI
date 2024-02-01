@@ -1,9 +1,7 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using API.Services.Authentication;
-using API.Services.JWT;
 using FundHubAPI.Data;
-using FundHubAPI.Data.Repositories;
+using FundHubAPI.Services;
 using FundHubAPI.Services.Authentication;
 using FundHubAPI.Services.AutoMapper;
 using FundHubAPI.Services.JWT;
@@ -24,9 +22,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });;
-builder.Services.AddDbContext<DataContext>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IAuthentication,Authentication>();
+builder.Services.AddServices();
 builder.Services.AddAuthentication().AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -39,14 +35,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["secretkey"]))
         };
     });
-builder.Services.AddScoped<IJWT,Jwt>();
-builder.Services.AddScoped<IUsers,Users>();
-builder.Services.AddScoped<IProjectsRepository,ProjectsRepository>();
-builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
-builder.Services.AddScoped<INewsRepository,NewsRepository>();
-builder.Services.AddScoped<IUserRepository,UserRepository>();
-builder.Services.AddScoped<Startup>();
-builder.Services.AddAutoMapper(typeof(AutoProfile));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(opt =>

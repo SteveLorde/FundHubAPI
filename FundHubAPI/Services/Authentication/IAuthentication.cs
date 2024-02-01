@@ -1,7 +1,7 @@
 ﻿using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.Models;
 
-namespace API.Services.Authentication;
+namespace FundHubAPI.Services.Authentication;
 
 public interface IAuthentication
 {

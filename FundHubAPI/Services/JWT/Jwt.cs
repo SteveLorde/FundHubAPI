@@ -2,10 +2,9 @@
 using System.Security.Claims;
 using System.Text;
 using FundHubAPI.Data.Models;
-using FundHubAPI.Services.JWT;
 using Microsoft.IdentityModel.Tokens;
 
-namespace API.Services.JWT;
+namespace FundHubAPI.Services.JWT;
 
 class Jwt : IJWT
 {

@@ -1,8 +1,9 @@
 ﻿using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
+using FundHubAPI.Data.DTOs.RequestDTO;
 using FundHubAPI.Data.Models;
-using FundHubAPI.Data.Repositories;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
+using FundHubAPI.Services.Repositories.UsersRepository;
 
 namespace FundHubAPI.Services.Donate;
 
@@ -19,10 +20,10 @@ class Donate : IDonate
         _db = db;
     }
     
-    public async Task DonateToProject(DonationDTO donationtolog)
+    public async Task DonateToProject(DonationRequestDTO donationtolog)
     {
-        var user = await _usersrepo.Get(donationtolog.userid);
-        var project = await _projectsrepo.Get(donationtolog.projectid);
+        var user = await _usersrepo.GetUser(donationtolog.userid);
+        var project = await _projectsrepo.GetProjectDirect(donationtolog.projectid);
         DonationLog newdonationlog = new DonationLog
         {
             Id = Guid.NewGuid(), UserId = user.Id, User = user, ProjectId = project.Id, Project = project,

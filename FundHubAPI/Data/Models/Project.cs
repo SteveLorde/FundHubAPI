@@ -14,8 +14,11 @@ public class Project
     public Category category { get; set; }
     public Guid? UserId { get; set; }
     public User? User { get; set; }
+    public string facebook { get; set; }
+    public string x { get; set; }
+    public string instagram { get; set; }
     public int currentfund { get; set; }
     public int totalfundrequired { get; set; }
-    public string[] images { get; set; }
+    public string[] imagesnames { get; set; }
 
 }

@@ -1,4 +1,4 @@
-﻿namespace API.Services.Authentication.Model;
+﻿namespace FundHubAPI.Services.Authentication.Model;
 
 public class Hash
 {

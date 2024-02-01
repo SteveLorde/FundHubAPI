@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using FundHubAPI.Data.Models;
-using FundHubAPI.Services.Repositories;
+using FundHubAPI.Data;
 
-namespace FundHubAPI.Data.Repositories;
+namespace FundHubAPI.Services.Repositories.UsersRepository;
 
-class UserRepository : GenericRepository<User>, IUserRepository
+class UserRepository : IUserRepository
 {
-    public UserRepository(DataContext db, IMapper mapper, IWebHostEnvironment hostingEnvironment) : base(db, mapper, hostingEnvironment)
+    public UserRepository(DataContext db, IMapper mapper, IWebHostEnvironment hostingEnvironment)
     {
         
     }
+    
+    
     
 }

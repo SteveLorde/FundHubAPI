@@ -1,6 +1,6 @@
 ﻿using FundHubAPI.Data.Models;
-using FundHubAPI.Data.Repositories;
 using FundHubAPI.Services.Repositories.CategoriesRepository;
+using FundHubAPI.Services.Repositories.NewsRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;

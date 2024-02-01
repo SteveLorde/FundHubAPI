@@ -1,8 +1,8 @@
 ﻿using FundHubAPI.Data.Models;
 
-namespace FundHubAPI.Data.Repositories;
+namespace FundHubAPI.Services.Repositories.NewsRepository;
 
-public interface INewsRepository : IGenericRepository<News>
+public interface INewsRepository
 {
     public Task CreateNewsFolders();
     public Task AddNews(News newstoadd);

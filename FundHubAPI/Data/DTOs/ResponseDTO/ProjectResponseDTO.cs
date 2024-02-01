@@ -1,0 +1,17 @@
+﻿using FundHubAPI.Data.Models;
+
+namespace FundHubAPI.Data.DTOs.ResponseDTO;
+
+public class ProjectResponseDTO
+{
+    public Guid Id { get; set; }
+    public string title { get; set; }
+    public string subtitle { get; set; }
+    public string description { get; set; }
+    public string category { get; set; }
+    public Guid UserId { get; set; }
+    public User User { get; set; }
+    public int currentfund { get; set; }
+    public int totalfundrequired { get; set; }
+    public string[] imagesnames { get; set; }
+}

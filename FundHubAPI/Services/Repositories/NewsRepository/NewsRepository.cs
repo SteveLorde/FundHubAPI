@@ -1,16 +1,21 @@
 ﻿using AutoMapper;
+using FundHubAPI.Data;
 using FundHubAPI.Data.Models;
-using FundHubAPI.Services.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace FundHubAPI.Data.Repositories;
+namespace FundHubAPI.Services.Repositories.NewsRepository;
 
-class NewsRepository : GenericRepository<News>,INewsRepository
+class NewsRepository : INewsRepository
 {
-    
-    public NewsRepository(DataContext db, IMapper mapper, IWebHostEnvironment hostingEnvironment) : base(db, mapper, hostingEnvironment)
+    private readonly DataContext _db;
+    private readonly IWebHostEnvironment _hostenv;
+    private readonly IMapper _mapper;
+
+    public NewsRepository(DataContext db, IMapper mapper, IWebHostEnvironment hostingEnvironment)
     {
-        
+        _db = db;
+        _hostenv = hostingEnvironment;
+        _mapper = mapper;
     }
     
     public async Task CreateNewsFolders()
