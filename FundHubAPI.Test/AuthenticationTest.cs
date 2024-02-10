@@ -21,8 +21,8 @@ public class AuthenticationTest
         
         string url = "http://localhost:5116/Authentication/Login";
         //receive token
-        var response = await _httpClient.PostAsync(url, js ).Result.Content.ReadFromJsonAsync<string>();
-        if (response != string.Empty)
+        var response = await _httpClient.PostAsJsonAsync(url, loginDto ).Result.Content.ReadFromJsonAsync<string>();
+        if (!string.IsNullOrEmpty(response))
         {
             _outputHelper.WriteLine(response);
         }

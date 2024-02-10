@@ -27,16 +27,16 @@ public class DataContext : DbContext
         );
         
         modelBuilder.Entity<Category>().HasData(
-            new Category {Id = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d") , name = "product"},
-            new Category {Id = Guid.Parse("fafaad46-3fbe-40ac-ad63-c311829668a4") , name = "society"},
-            new Category {Id = Guid.Parse("59cb7c8b-8e33-45d6-b066-214f3145a3c0") , name = "environment"}
+            new Category {Id = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d") , Name = "product"},
+            new Category {Id = Guid.Parse("fafaad46-3fbe-40ac-ad63-c311829668a4") , Name = "society"},
+            new Category {Id = Guid.Parse("59cb7c8b-8e33-45d6-b066-214f3145a3c0") , Name = "environment"}
         );
         
         modelBuilder.Entity<Project>().HasData(
-            new Project { Id = Guid.Parse("7e4788cd-77a9-4b03-9412-385a482cf489"), title = "Greener Egypt", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("59cb7c8b-8e33-45d6-b066-214f3145a3c0"), UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), currentfund = 500, totalfundrequired = 2000,images = new string[] {"1.jpg", "2.jpg" } },
-            new Project { Id = Guid.Parse("694d6683-d3e6-4bc1-ab5d-f2f67f887332"), title = "My Super Awesome Health Machine", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("fafaad46-3fbe-40ac-ad63-c311829668a4"), currentfund = 500, totalfundrequired = 1000000, UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), images = new string[] {"1.jpg", "2.jpg" } },
-            new Project { Id = Guid.Parse("a9437a37-1d37-4a9b-adbd-a18ef0490942"), title = "Electric Koshary Machine", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d"), currentfund = 500, totalfundrequired = 120000, UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), images = new string[] {"1.jpg", "2.jpg" } },
-            new Project { Id = Guid.Parse("e9c8eccf-76aa-42d6-be67-803d8622c951"), title = "Indie Egyptian Game", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d"), UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), currentfund = 500, totalfundrequired = 60000, images = new string[] {"1.jpg", "2.jpg" }}
+            new Project { Id = Guid.Parse("7e4788cd-77a9-4b03-9412-385a482cf489"), title = "Greener Egypt", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("59cb7c8b-8e33-45d6-b066-214f3145a3c0"), UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), currentfund = 500, totalfundrequired = 2000,imagesnames = new string[] {"1.jpg", "2.jpg" } },
+            new Project { Id = Guid.Parse("694d6683-d3e6-4bc1-ab5d-f2f67f887332"), title = "My Super Awesome Health Machine", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("fafaad46-3fbe-40ac-ad63-c311829668a4"), currentfund = 500, totalfundrequired = 1000000, UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), imagesnames = new string[] {"1.jpg", "2.jpg" } },
+            new Project { Id = Guid.Parse("a9437a37-1d37-4a9b-adbd-a18ef0490942"), title = "Electric Koshary Machine", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d"), currentfund = 500, totalfundrequired = 120000, UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), imagesnames = new string[] {"1.jpg", "2.jpg" } },
+            new Project { Id = Guid.Parse("e9c8eccf-76aa-42d6-be67-803d8622c951"), title = "Indie Egyptian Game", subtitle = "Subtitle Test", description = "Description Test", CategoryId = Guid.Parse("4a858ba2-cc64-4752-973a-2b1acba5d78d"), UserId = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), currentfund = 500, totalfundrequired = 60000, imagesnames = new string[] {"1.jpg", "2.jpg" }}
         );
 
         modelBuilder.Entity<User>().HasData(

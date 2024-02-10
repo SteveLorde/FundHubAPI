@@ -3,6 +3,7 @@ using FundHubAPI.Data.DTOs.RequestDTO;
 using FundHubAPI.Data.DTOs.ResponseDTO;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
@@ -30,10 +31,24 @@ public class ProjectsController : Controller
         return await _projectsservice.GetProject(projectid);
     }
     
+    [Authorize]
     [HttpPost("AddProject")]
     public async Task<bool> AddProject(ProjectRequestDTO projecttoadd)
     {
-        return await _projectsservice.AddProject(projecttoadd);
+        var authheader = HttpContext.Request.Headers["Authorization"];
+        string token = "";
+        if (authheader.ToString().StartsWith("Bearer"))
+        {
+            token = authheader.ToString().Substring("Bearer ".Length).Trim();
+        }
+        if (!string.IsNullOrEmpty(token))
+        {
+            return await _projectsservice.AddProject(projecttoadd);
+        }
+        else
+        {
+            return false;
+        }
     }
     
     [HttpPost("UpdateProject")]
