@@ -1,4 +1,5 @@
-﻿using FundHubAPI.Data.Models;
+﻿using FundHubAPI.Data.DTOs.ResponseDTO;
+using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Repositories.CategoriesRepository;
 using FundHubAPI.Services.Repositories.NewsRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ public class CategoriesController : Controller
     }
     
     [HttpGet("GetCategories")]
-    public async Task<List<Category>> GetCategories()
+    public async Task<List<CategoryResponseDTO>> GetCategories()
     {
         return await _categoryrepo.GetCategories();
     }
