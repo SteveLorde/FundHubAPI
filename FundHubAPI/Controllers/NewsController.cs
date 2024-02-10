@@ -1,4 +1,5 @@
-﻿using FundHubAPI.Data.Models;
+﻿using FundHubAPI.Data.DTOs.ResponseDTO;
+using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Repositories.NewsRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,9 @@ public class NewsController : Controller
     
     
     [HttpGet("GetNews")]
-    public async Task<List<News>> GetNews()
+    public async Task<List<NewsResponseDTO>> GetNews()
     {
-        return await _newsrepo.GetAll();
+        return await _newsrepo.GetNews();
     }
     
     

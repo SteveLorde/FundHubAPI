@@ -20,7 +20,7 @@ public class CategoriesController : Controller
     [HttpGet("GetCategories")]
     public async Task<List<Category>> GetCategories()
     {
-        return await _categoryrepo.GetAll();
+        return await _categoryrepo.GetCategories();
     }
     
     
