@@ -29,7 +29,7 @@ class ProjectsRepository : IProjectsRepository
     
     public async Task<List<Project>> GetProjectsOfCategory(string categoryid)
     {
-        return await _db.Projects.Where(x => x.category.Id == Guid.Parse(categoryid)).ToListAsync();
+        return await _db.Projects.Where(x => x.Category.Id == Guid.Parse(categoryid)).ToListAsync();
     }
 
     public async Task<ProjectResponseDTO> GetProject(string projectid)
@@ -51,7 +51,7 @@ class ProjectsRepository : IProjectsRepository
         foreach (var imagefile in projecttoadd.ImagesFiles)
         {
             bool checkimg = await AddProjectImage(newproject.Id.ToString(),imagefile);
-            if (checkimg) newproject.imagesnames.Append(imagefile.FileName);
+            if (checkimg) newproject.Imagesnames.Append(imagefile.FileName);
         }
         var check = _db.Projects.AddAsync(newproject).IsCompletedSuccessfully;
         return check;
@@ -65,9 +65,9 @@ class ProjectsRepository : IProjectsRepository
         foreach (var imgfile in projecttoupdate.ImagesFiles)
         {
             bool found = false;
-            for (int i = 0; i < selectedproject.imagesnames.Length; i++)
+            for (int i = 0; i < selectedproject.Imagesnames.Length; i++)
             {
-                if (selectedproject.imagesnames[i] == imgfile.FileName)
+                if (selectedproject.Imagesnames[i] == imgfile.FileName)
                 {
                     found = true;
                 }
@@ -76,7 +76,7 @@ class ProjectsRepository : IProjectsRepository
             if (!found)
             {
                 bool check = await AddProjectImage(selectedproject.Id.ToString(), imgfile);
-                if (check) selectedproject.imagesnames.Append(imgfile.FileName);
+                if (check) selectedproject.Imagesnames.Append(imgfile.FileName);
             }
         }
         _db.Projects.Update(selectedproject);
