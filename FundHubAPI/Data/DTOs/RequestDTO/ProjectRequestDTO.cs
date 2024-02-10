@@ -9,9 +9,9 @@ public class ProjectRequestDTO
     public Guid CategoryId { get; set; }
     public Guid? UserId { get; set; }
     public int Totalfundrequired { get; set; }
-    public string facebook { get; set; }
-    public string x { get; set; }
-    public string instagram { get; set; }
+    public string Facebook { get; set; }
+    public string X { get; set; }
+    public string Instagram { get; set; }
     public IFormFile[] ImagesFiles { get; set; }
     public bool IsAccepted { get; set; }
 }

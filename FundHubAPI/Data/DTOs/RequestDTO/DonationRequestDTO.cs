@@ -1,6 +1,6 @@
 ﻿namespace FundHubAPI.Data.DTOs.RequestDTO;
 
-public interface DonationRequestDTO
+public class DonationRequestDTO
 {
     public Guid UserId { get; set; }
     public Guid ProjectId { get; set; }

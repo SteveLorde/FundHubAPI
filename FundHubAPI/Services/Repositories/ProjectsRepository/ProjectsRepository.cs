@@ -46,8 +46,8 @@ class ProjectsRepository : IProjectsRepository
     {
         Project newproject = _mapper.Map<Project>(projecttoadd);
         newproject.Id = Guid.NewGuid();
-        var productfoldertocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
-        Directory.CreateDirectory(productfoldertocreate); 
+        //var productfoldertocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
+        Directory.CreateDirectory(Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images")); 
         foreach (var imagefile in projecttoadd.ImagesFiles)
         {
             bool checkimg = await AddProjectImage(newproject.Id.ToString(),imagefile);
