@@ -5,7 +5,7 @@ import {AuthRequest} from "./DTO/AuthRequest";
 import {LoginResponse} from "./DTO/LoginResponse";
 import environment from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom, Observable} from "rxjs";
+import {firstValueFrom, map, Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
@@ -37,16 +37,18 @@ export class AuthenticationService {
   }
 
   async Login(loginrequest: { password: string, username: string}){
-    let token : string = ""
-    let check : boolean = false
-    this.http.post<string>(environment.backendurl + '/Authentication/Login', loginrequest).subscribe( res => {
-      token = res
-      if (token != null && undefined && "") {
-        localStorage.setItem('usertoken', token)
-        check = true }
-      this.GetActiveUser()
-    })
-    return check
+    let logincheck : boolean
+    this.http.post<string>(environment.backendurl + '/Authentication/Login', loginrequest).pipe(
+      map( (token) => {
+        if (token != null && undefined && "") {
+          localStorage.setItem('usertoken', token)
+          logincheck = true
+        }
+        else {logincheck = false}
+      })
+
+    )
+    return logincheck
   }
 
   Logout() {
@@ -57,15 +59,17 @@ export class AuthenticationService {
   }
 
   async Register(registerrequest : AuthRequest) {
-    this.http.post<string>(environment.backendurl + '/Authentication/Register', registerrequest).subscribe(res => {
-      localStorage.setItem('usertoken', res)
-    })
-    if (localStorage.getItem('usertoken') != null || "" || undefined) {
-      return true
-    }
-    else {
-      return false
-    }
+    let registercheck : boolean
+    this.http.post<string>(environment.backendurl + '/Authentication/Register', registerrequest).pipe(
+      map( (token) => {
+        if (token != null && undefined && "") {
+          localStorage.setItem('usertoken', token)
+          registercheck = true
+        }
+        else {registercheck = false}
+      })
+    )
+    return registercheck
   }
 
   async GetActiveUser() {
