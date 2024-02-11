@@ -1,6 +1,16 @@
 <div class="projectspage">
+
+  <!---Categories Filter Buttons-->
+  <div class="flex flex-row gap-3 items-center">
+    <img class="w-20px" (click)="FilterProjects('')" src="" alt="" />
+    <img class="w-20px" (click)="FilterProjects('4a858ba2-cc64-4752-973a-2b1acba5d78d')" src="assets/ProductIcon.png" alt="" />
+    <img class="w-20px" (click)="FilterProjects('fafaad46-3fbe-40ac-ad63-c311829668a4')" src="assets/SocietalProjectIcon.png" alt="" />
+    <img class="w-20px" (click)="FilterProjects('59cb7c8b-8e33-45d6-b066-214f3145a3c0')" src="assets/EnvironmentProject.png" alt="" />
+  </div>
+
+  <!---Projects Grid--->
   <div class="projectsgrid">
-    <div class="projectcard" *ngFor="let project of projects">
+    <div class="projectcard" *ngFor="let project of projects | projectsViewCategoryFilter: selectedcategoryid">
       <img class="projectimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
       <div class="titleandcategoryimage">
         <h2 class="title">{{project.title}}</h2>
@@ -14,4 +24,6 @@
       <a class="viewbutton" (click)="ViewProject(project.id)">View</a>
     </div>
   </div>
+
+
 </div>

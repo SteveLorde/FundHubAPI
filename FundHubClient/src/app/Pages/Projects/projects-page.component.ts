@@ -4,6 +4,7 @@ import {BackendService} from "../../Services/Backend/backend.service";
 import {CurrencyPipe, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {environment} from "../../../environments/environment";
+import {ProjectsViewCategoryFilterPipe} from "../../Services/Pipes/projects-view-category-filter.pipe";
 
 @Component({
   selector: 'app-projects-page',
@@ -14,7 +15,8 @@ import {environment} from "../../../environments/environment";
     RouterLinkActive,
     CurrencyPipe,
     NgSwitch,
-    NgSwitchCase
+    NgSwitchCase,
+    ProjectsViewCategoryFilterPipe
   ],
   templateUrl: './projects-page.component.html',
   styleUrl: './projects-page.component.scss'
@@ -22,6 +24,7 @@ import {environment} from "../../../environments/environment";
 export class ProjectsPageComponent {
 
   public projects : Project[] = []
+  selectedcategoryid : string = ""
 
   constructor(private backend : BackendService, private router : Router) {
 
@@ -37,6 +40,10 @@ export class ProjectsPageComponent {
 
   ViewProject(projectid : string) {
     this.router.navigate(['/viewproject', projectid])
+  }
+
+  FilterProjects(categoryid : string) {
+    this.selectedcategoryid = categoryid
   }
 
   protected readonly environment = environment;

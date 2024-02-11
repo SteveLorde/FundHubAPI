@@ -44,27 +44,43 @@ export class FundRequestFormComponent {
   });
 
   async SubmitNewProject() {
-    //1-create project object and add in back
-    let newproject : ProjectRequest = {
-      id: "",
-      title: this.newprojectform.controls.title.value,
-      categoryid: this.newprojectform.controls.category.value,
-      description: this.newprojectform.controls.description.value,
-      totalfundrequired: this.newprojectform.controls.totalfundrequired.value,
-      imagestoupload: this.imagestoupload,
-      userId: this.userid,
-      email: this.newprojectform.controls.email.value,
-      facebook: this.newprojectform.controls.facebook.value,
-      x: this.newprojectform.controls.x.value,
-      instagram: this.newprojectform.controls.instagram.value,
-      subtitle: this.newprojectform.controls.subtitle.value
+    let check = this.CheckLogin()
+    if (check) {
+      //1-create project object and add in back
+      let newproject : ProjectRequest = {
+        id: "",
+        title: this.newprojectform.controls.title.value,
+        categoryid: this.newprojectform.controls.category.value,
+        description: this.newprojectform.controls.description.value,
+        totalfundrequired: this.newprojectform.controls.totalfundrequired.value,
+        imagestoupload: this.imagestoupload,
+        userId: this.userid,
+        email: this.newprojectform.controls.email.value,
+        facebook: this.newprojectform.controls.facebook.value,
+        x: this.newprojectform.controls.x.value,
+        instagram: this.newprojectform.controls.instagram.value,
+        subtitle: this.newprojectform.controls.subtitle.value
+      }
+      let projectid = await this.backend.AddProjectRequest(newproject)
+      if (projectid != null && undefined && "") {
+        await this.router.navigate(['/viewproject', projectid])
+      }
+      else {
+        Swal.fire("Adding Project Failed")
+      }
+    } else {
+
     }
-    let projectid = await this.backend.AddProjectRequest(newproject)
-    if (projectid != null && undefined && "") {
-      await this.router.navigate(['/viewproject', projectid])
+
+  }
+
+  CheckLogin() {
+    if (!this.auth.isloggedin) {
+      Swal.fire("Please Login")
+      return false
     }
     else {
-      Swal.fire("Adding Project Failed")
+      return true
     }
   }
 
