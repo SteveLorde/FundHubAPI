@@ -33,7 +33,7 @@ class Jwt : IJWT
         var tokendata = new JwtSecurityToken(
             claims: claims,
             issuer: "http://localhost:5116",
-            audience: "http://localhost:4200",
+            audience: "https://fund-hub.vercel.app/",
             expires: DateTime.Now.AddDays(1),
             signingCredentials: cred
         );

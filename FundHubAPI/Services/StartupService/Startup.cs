@@ -25,17 +25,17 @@ public class Startup
         var servicescopedb = scopedb.ServiceProvider;
         var dbservice = servicescopedb.GetRequiredService<DataContext>();
         dbservice.Database.Migrate();
+        
         var scope1 = _serviceprovider.CreateScope();
-        var servicescoper1 = scope1.ServiceProvider;
-        var newsservice = servicescoper1.GetRequiredService<INewsRepository>();
+        var newsservice = scope1.ServiceProvider.GetRequiredService<INewsRepository>();
         newsservice.CreateNewsFolders();
+        
         var scope2 = _serviceprovider.CreateScope();
-        var servicescoper2 = scope2.ServiceProvider;
-        var projectsservice = servicescoper2.GetRequiredService<IProjectsRepository>();
+        var projectsservice = scope2.ServiceProvider.GetRequiredService<IProjectsRepository>();
         projectsservice.CreateFolders();
+        
         var scope3 = _serviceprovider.CreateScope();
-        var servicescoper3 = scope3.ServiceProvider;
-        var usersservice = servicescoper3.GetRequiredService<IUsers>();
+        var usersservice = scope3.ServiceProvider.GetRequiredService<IUsers>();
         usersservice.CreateFolders();
 
     }

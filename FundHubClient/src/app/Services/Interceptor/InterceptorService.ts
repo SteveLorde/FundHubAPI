@@ -1,7 +1,7 @@
 import {HttpEvent, HttpHandlerFn, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-export function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+export function loggingInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
   let usertoken = localStorage.getItem('usertoken')
   if (usertoken != null && undefined && "") {
     const reqWithHeaderToken = req.clone({

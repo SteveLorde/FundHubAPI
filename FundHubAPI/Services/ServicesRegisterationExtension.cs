@@ -2,6 +2,7 @@
 using FundHubAPI.Services.Authentication;
 using FundHubAPI.Services.AutoMapper;
 using FundHubAPI.Services.JWT;
+using FundHubAPI.Services.Mail;
 using FundHubAPI.Services.Repositories.CategoriesRepository;
 using FundHubAPI.Services.Repositories.NewsRepository;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
@@ -19,6 +20,7 @@ public static class ServicesRegisterationExtension
         serviceCollection.AddScoped<IAuthentication,Authentication.Authentication>();
         serviceCollection.AddScoped<IJWT,Jwt>();
         serviceCollection.AddScoped<IUsers,Users.Users>();
+        serviceCollection.AddScoped<IMail,Mail.Mail>();
         serviceCollection.AddScoped<IProjectsRepository,ProjectsRepository>();
         serviceCollection.AddScoped<ICategoryRepository,CategoryRepository>();
         serviceCollection.AddScoped<INewsRepository,NewsRepository>();

@@ -28,7 +28,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateLifetime = true,
-            ValidateAudience = false,
+            ValidateAudience = true,
             ValidIssuer = "http://localhost:5116",
             ValidateIssuer = true,
             ValidateIssuerSigningKey = true,
@@ -73,5 +73,11 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
-app.Run();
+if (app.Environment.IsProduction())
+{
+    app.Run(builder.Configuration["URL"]);
+}
+else
+{
+    app.Run();
+}

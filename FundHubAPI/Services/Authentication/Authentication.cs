@@ -29,10 +29,10 @@ class Authentication : IAuthentication
         {
             string token = " ";
             //1st, check username in database
-            bool checkuser = await _db.Users.AnyAsync(x => x.username == usertologin.username);
+            bool checkuser = await _db.Users.AnyAsync(x => x.Username == usertologin.username);
             if (checkuser)
             {
-                var loginuser = await _db.Users.FirstAsync(x => x.username == usertologin.username);
+                var loginuser = await _db.Users.FirstAsync(x => x.Username == usertologin.username);
                 //2nd verify password
                 bool checkpassword = await VerifyPassword(usertologin);
 
@@ -51,7 +51,7 @@ class Authentication : IAuthentication
 
     public async Task<string> LoginTest()
     {
-        var testuser = await _db.Users.FirstAsync(user => user.username == "testuser");
+        var testuser = await _db.Users.FirstAsync(user => user.Username == "testuser");
         return _jwtservice.CreateToken(testuser);
     }
 
@@ -73,13 +73,6 @@ class Authentication : IAuthentication
         }
     }
 
-    public async Task<User> GetUser(string userid)
-    {
-        User user = await _db.Users.FirstAsync(x => x.Id == Guid.Parse(userid));
-        return user;
-    }
-    
-    
     private async Task<Hash> HashPassword(UserDTO user)
     {
         string salt = GenerateSalt();
@@ -109,7 +102,7 @@ class Authentication : IAuthentication
 
     private async Task<bool> VerifyPassword(UserDTO loginrequest)
     {
-        User usertoverfiy = await _db.Users.FirstAsync(x => x.username == loginrequest.username);
+        User usertoverfiy = await _db.Users.FirstAsync(x => x.Username == loginrequest.username);
         string passwordtoverify = GenerateHashedPassword(loginrequest.password, usertoverfiy.pass_salt);
 
         if (passwordtoverify == usertoverfiy.hashedpassword)
