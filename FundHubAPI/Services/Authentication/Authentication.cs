@@ -3,9 +3,13 @@ using System.Text;
 using AutoMapper;
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
+using FundHubAPI.Data.DTOs.RequestDTO;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Authentication.Model;
 using FundHubAPI.Services.JWT;
+using FundHubAPI.Services.JWT.DTO;
+using FundHubAPI.Services.PasswordHash;
+using FundHubAPI.Services.Repositories.UsersRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Services.Authentication;
@@ -15,97 +19,68 @@ class Authentication : IAuthentication
     private readonly DataContext _db;
     private readonly IJWT _jwtservice;
     private IMapper _mapper;
+    private readonly IPasswordHash _passwordhash;
+    private readonly IUserRepository _usersrepo;
 
-    public Authentication(DataContext db, IJWT jwtservice, IMapper mapper)
+    public Authentication(DataContext db, IJWT jwtservice, IMapper mapper, IPasswordHash passwordhash, IUserRepository usersrepo)
     {
         _db = db;
         _jwtservice = jwtservice;
         _mapper = mapper;
+        _passwordhash = passwordhash;
+        _usersrepo = usersrepo;
     }
     
-    public async Task<string> Login(UserDTO usertologin)
+    public async Task<string> Login(LoginRequest loginreq)
     {
-        try
+        string token = "";
+        //1st, check username in database
+        bool checkuser = await _db.Users.AnyAsync(x => x.Username == loginreq.Username);
+        if (!checkuser)
         {
-            string token = " ";
-            //1st, check username in database
-            bool checkuser = await _db.Users.AnyAsync(x => x.Username == usertologin.username);
-            if (checkuser)
+            return "username / password are wrong";
+        }
+        else
+        {
+            var loginuser = await _db.Users.FirstAsync(x => x.Username == loginreq.Username);
+            JWTRequestDTO userjwtreq = _mapper.Map<JWTRequestDTO>(loginuser);
+            //2nd verify password
+            bool checkpassword = await VerifyPassword(loginreq.Password, loginuser.Hashedpassword) ;
+            if (checkpassword)
             {
-                var loginuser = await _db.Users.FirstAsync(x => x.Username == usertologin.username);
-                //2nd verify password
-                bool checkpassword = await VerifyPassword(usertologin);
-
-                if (checkpassword)
-                {
-                    token  = _jwtservice.CreateToken(loginuser);
-                }
+                token  = _jwtservice.CreateToken(userjwtreq);
+                return token;
             }
-            return token;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    }
-
-    public async Task<string> LoginTest()
-    {
-        var testuser = await _db.Users.FirstAsync(user => user.Username == "testuser");
-        return _jwtservice.CreateToken(testuser);
-    }
-
-    public async Task<bool> Register(UserDTO usertoregister)
-    {
-        try
-        {
-            //1-hash password
-            Hash hashedpassword = await HashPassword(usertoregister);
-            //2-create new user
-            User newuser = _mapper.Map<User>(usertoregister);
-            //3-add to database
-            await _db.Users.AddAsync(newuser);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
+            else
+            {
+                return "username / password are wrong";
+            }
         }
     }
 
-    private async Task<Hash> HashPassword(UserDTO user)
-    {
-        string salt = GenerateSalt();
-        string hashedpassword = GenerateHashedPassword(user.password, salt);
-        Hash userhash = new Hash()
-        {
-            hash = hashedpassword,
-            salt = salt
-        };
-        return userhash;
-    }
-    
-    private string GenerateHashedPassword(string password, string salt)
-    {
-        byte[] passwordbytes = Encoding.UTF8.GetBytes(password);
-        byte[] saltbytes = Convert.FromBase64String(salt);
 
-        byte[] combinedbytes = new byte[saltbytes.Length + passwordbytes.Length];
-        Buffer.BlockCopy(saltbytes,0,combinedbytes, 0, saltbytes.Length);
-        Buffer.BlockCopy(passwordbytes,0,combinedbytes, saltbytes.Length, passwordbytes.Length);
-
-        SHA256 sha256 = SHA256.Create();
-        byte[] hashedbytes = sha256.ComputeHash(combinedbytes);
-        string hashedpassword = Convert.ToBase64String(hashedbytes);
-        return hashedpassword;
+    public async Task<bool> Register(RegisterRequestDTO registerreq)
+    {
+        //map a new userdto from authrequest
+        UserDTO  newuserdto = _mapper.Map<UserDTO>(registerreq);
+        //1-hash password
+        string hashedpassword =  _passwordhash.CreateHashedPassword(newuserdto.Hashedpassword);
+        //2-assign password
+        newuserdto.Hashedpassword = hashedpassword;
+        //3-add to database
+        return await _usersrepo.AddUser(newuserdto);
     }
 
-    private async Task<bool> VerifyPassword(UserDTO loginrequest)
+    private async Task<bool> VerifyPassword(string passwordtoverify, string hashedpassword)
     {
-        User usertoverfiy = await _db.Users.FirstAsync(x => x.Username == loginrequest.username);
-        string passwordtoverify = GenerateHashedPassword(loginrequest.password, usertoverfiy.pass_salt);
-
-        if (passwordtoverify == usertoverfiy.hashedpassword)
+        //1-extract salt from database user hashedpassword, pass string pattern SALT.HASHEDPASSWORD
+        var extractedsavedpassword = hashedpassword.Split(".");
+        var extractedsalt = extractedsavedpassword[0];
+        var extractedhashedpass = extractedsavedpassword[1];
+        //2-generate hashed password with given salt
+        var passwordtotest = _passwordhash.HashPasswordWithGivenSalt(passwordtoverify, extractedsalt);
+        //3-compare
+        if (passwordtotest == extractedhashedpass)
         {
             return true;
         }
@@ -114,16 +89,5 @@ class Authentication : IAuthentication
             return false;
         }
     }
-    
-    private static string GenerateSalt()
-    {
-        byte[] salt = new byte[16];
-        var rng = new RNGCryptoServiceProvider();
-        rng.GetBytes(salt);
-        string base64salt = Convert.ToBase64String(salt);
-        return base64salt;
-    }
-    
-    
     
 }

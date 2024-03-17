@@ -1,9 +1,9 @@
 ﻿using FundHubAPI.Data.Models;
+using FundHubAPI.Services.JWT.DTO;
 
 namespace FundHubAPI.Services.JWT;
 
 public interface IJWT
 {
-    public string CreateToken(User user);
-    public bool VerifyToken(string token);
+    public string CreateToken(JWTRequestDTO jwtrequest);
 }

@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using FundHubAPI.Data.Models;
+using FundHubAPI.Services.JWT.DTO;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FundHubAPI.Services.JWT;
@@ -9,66 +10,34 @@ namespace FundHubAPI.Services.JWT;
 class Jwt : IJWT
 {
     private IConfiguration _config;
-
+    private string apihost;
     private string jwtseckey;
 
     public Jwt(IConfiguration config)
     {
         _config = config;
         jwtseckey = _config["secretkey"];
+        apihost = _config["URL"];
     }
 
-    public string CreateToken(User user)
+    public string CreateToken(JWTRequestDTO jwtrequest)
     {
         List<Claim> claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.username),
-            new Claim("userid", user.Id.ToString()),
+            new Claim(ClaimTypes.Name, jwtrequest.username),
+            new Claim("userid", jwtrequest.Id.ToString()),
         };
-
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtseckey));
-
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
         var tokendata = new JwtSecurityToken(
             claims: claims,
-            issuer: "http://localhost:5116",
+            issuer: apihost,
             audience: "https://fund-hub.vercel.app/",
-            expires: DateTime.Now.AddDays(1),
+            expires: DateTime.Now.AddDays(2),
             signingCredentials: cred
         );
         var jwt = new JwtSecurityTokenHandler().WriteToken(tokendata);
         return jwt;
-    }
-
-    public bool VerifyToken(string token)
-    {
-        try
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var secretkey = Encoding.UTF8.GetBytes(jwtseckey);
-
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(secretkey),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero // You may adjust the clock skew as needed
-            };
-
-            ClaimsPrincipal principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
-
-            return true;
-
-        }
-        catch (Exception err)
-        {
-            throw err;
-        }
-
-
-
     }
     
 }
