@@ -12,16 +12,22 @@ class Jwt : IJWT
     private IConfiguration _config;
     private string apihost;
     private string jwtseckey;
+    private string audienceUrl;
+    private readonly IHttpContextAccessor _httpcontext;
 
-    public Jwt(IConfiguration config)
+    public Jwt(IConfiguration config, IHttpContextAccessor httpcontext)
     {
         _config = config;
         jwtseckey = _config["secretkey"];
-        apihost = _config["URL"];
+        audienceUrl = _config["audienceUrl"];
+        _httpcontext = httpcontext;
     }
 
     public string CreateToken(JWTRequestDTO jwtrequest)
     {
+        
+        string baseUrl = $"{_httpcontext.HttpContext.Request.Scheme}://{_httpcontext.HttpContext.Request.Host}{_httpcontext.HttpContext.Request.PathBase}";
+        
         List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, jwtrequest.username),
@@ -31,8 +37,8 @@ class Jwt : IJWT
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
         var tokendata = new JwtSecurityToken(
             claims: claims,
-            issuer: apihost,
-            audience: "https://fund-hub.vercel.app/",
+            issuer: baseUrl,
+            audience: audienceUrl,
             expires: DateTime.Now.AddDays(2),
             signingCredentials: cred
         );
