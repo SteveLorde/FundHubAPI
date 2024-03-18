@@ -1,7 +1,7 @@
 ﻿using FundHubAPI.Data;
 using FundHubAPI.Services.Repositories.NewsRepository;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
-using FundHubAPI.Services.Users;
+using FundHubAPI.Services.Repositories.UsersRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundHubAPI.Services.StartupService;
@@ -35,7 +35,7 @@ public class Startup
         projectsservice.CreateFolders();
         
         var scope3 = _serviceprovider.CreateScope();
-        var usersservice = scope3.ServiceProvider.GetRequiredService<IUsers>();
+        var usersservice = scope3.ServiceProvider.GetRequiredService<IUserRepository>();
         usersservice.CreateFolders();
 
     }

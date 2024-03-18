@@ -8,7 +8,7 @@ namespace FundHubAPI.Services.Repositories.ProjectsRepository;
 public interface IProjectsRepository
 {
     public Task<List<ProjectResponseDTO>> GetProjects();
-    public Task<List<Project>> GetProjectsOfCategory(string categoryid);
+    //public Task<List<Project>> GetProjectsOfCategory(string categoryid);
     public Task<ProjectResponseDTO> GetProject(string projectid);
     public Task<Project> GetProjectDirect(string projectid);
 

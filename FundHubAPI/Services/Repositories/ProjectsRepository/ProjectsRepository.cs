@@ -27,34 +27,35 @@ class ProjectsRepository : IProjectsRepository
         return await _db.Projects.ProjectTo<ProjectResponseDTO>(_mapper.ConfigurationProvider).ToListAsync();
     }
     
+    /*
     public async Task<List<Project>> GetProjectsOfCategory(string categoryid)
     {
         return await _db.Projects.Where(x => x.Category.Id == Guid.Parse(categoryid)).ToListAsync();
     }
+    */
 
     public async Task<ProjectResponseDTO> GetProject(string projectid)
     {
-        return await _db.Projects.ProjectTo<ProjectResponseDTO>(_mapper.ConfigurationProvider).FirstAsync(p => p.Id == Guid.Parse(projectid));
+        return await _db.Projects.Include(p => p.User).ProjectTo<ProjectResponseDTO>(_mapper.ConfigurationProvider).FirstAsync(p => p.Id == Guid.Parse(projectid));
     }
 
     public async Task<Project> GetProjectDirect(string projectid)
     {
-        return await _db.Projects.FirstAsync(p => p.Id == Guid.Parse(projectid));
+        return await _db.Projects.Include(p => p.User).FirstAsync(p => p.Id == Guid.Parse(projectid));
     }
 
     public async Task<bool> AddProject(ProjectRequestDTO projecttoadd)
     {
         Project newproject = _mapper.Map<Project>(projecttoadd);
-        newproject.Id = Guid.NewGuid();
-        //var productfoldertocreate = Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images");
         Directory.CreateDirectory(Path.Combine(_hostenv.ContentRootPath, "Storage", "Projects", $"{newproject.Id}", "Images")); 
         foreach (var imagefile in projecttoadd.ImagesFiles)
         {
             bool checkimg = await AddProjectImage(newproject.Id.ToString(),imagefile);
             if (checkimg) newproject.Imagesnames.Append(imagefile.FileName);
         }
-        var check = _db.Projects.AddAsync(newproject).IsCompletedSuccessfully;
-        return check;
+        await _db.Projects.AddAsync(newproject);
+        await _db.SaveChangesAsync();
+        return true;
     }
 
     public async Task<bool> UpdateProject(ProjectRequestDTO projecttoupdate)

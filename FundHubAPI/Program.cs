@@ -1,16 +1,7 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using FundHubAPI.Data;
 using FundHubAPI.Services;
-using FundHubAPI.Services.Authentication;
-using FundHubAPI.Services.AutoMapper;
-using FundHubAPI.Services.JWT;
-using FundHubAPI.Services.Repositories;
-using FundHubAPI.Services.Repositories.CategoriesRepository;
-using FundHubAPI.Services.Repositories.ProjectsRepository;
 using FundHubAPI.Services.StartupService;
-using FundHubAPI.Services.Users;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 

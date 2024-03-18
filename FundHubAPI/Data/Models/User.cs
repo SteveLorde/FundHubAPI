@@ -10,7 +10,6 @@ public class User
     [Key]
     public Guid Id { get; set; }
     public string Username { get; set; }
-    public string Pass_salt { get; set; }
     public string Hashedpassword { get; set; }
     public string Usertype { get; set; }
     public int Phonenumber { get; set; }

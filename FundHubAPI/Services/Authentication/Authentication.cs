@@ -31,7 +31,7 @@ class Authentication : IAuthentication
         _usersrepo = usersrepo;
     }
     
-    public async Task<string> Login(LoginRequest loginreq)
+    public async Task<string> Login(LoginRequestDTO loginreq)
     {
         string token = "";
         //1st, check username in database
@@ -78,7 +78,7 @@ class Authentication : IAuthentication
         var extractedsalt = extractedsavedpassword[0];
         var extractedhashedpass = extractedsavedpassword[1];
         //2-generate hashed password with given salt
-        var passwordtotest = _passwordhash.HashPasswordWithGivenSalt(passwordtoverify, extractedsalt);
+        var passwordtotest = _passwordhash.HashPasswordWithGivenSalt( extractedsalt, passwordtoverify);
         //3-compare
         if (passwordtotest == extractedhashedpass)
         {

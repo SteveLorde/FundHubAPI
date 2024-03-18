@@ -31,14 +31,21 @@ class UserRepository : IUserRepository
         return await _db.Users.Include(u => u.Projects).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
-    public async Task AddUser(UserDTO usertoadd)
+    public async Task<bool> AddUser(UserDTO usertoadd)
     {
-        throw new NotImplementedException();
+        User newuser = _mapper.Map<User>(usertoadd);
+        await _db.Users.AddAsync(newuser);
+        await _db.SaveChangesAsync();
+        return true;
     }
 
-    public async Task UpdateUser(UserDTO usertoupdate)
+    public async Task<bool> UpdateUser(UserDTO usertoupdate)
     {
-        throw new NotImplementedException();
+        User querieduser = await _db.Users.Include(u => u.Projects).Include(u => u.Donations).FirstAsync(u => u.Id == usertoupdate.Id);
+        querieduser = _mapper.Map<User>(usertoupdate);
+        _db.Users.Update(querieduser);
+        await _db.SaveChangesAsync();
+        return true;
     }
 
     public async Task<bool> RemoveUser(string userid)
@@ -63,7 +70,7 @@ class UserRepository : IUserRepository
             List<User> allusers = await _db.Users.ToListAsync();
             foreach (User user in allusers)
             {
-                var usersfoldertocreate = Path.Combine(_hostingenv.ContentRootPath, "Storage", "Users",
+                var usersfoldertocreate = Path.Combine(_webhostenv.ContentRootPath, "Storage", "Users",
                     $"{user.Id}", "Images");
                 Directory.CreateDirectory(usersfoldertocreate); 
             }

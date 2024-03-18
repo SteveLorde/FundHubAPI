@@ -10,19 +10,14 @@ class PasswordHash : IPasswordHash
     {
         string salt = GenerateSalt();
         string hashedpassword = GenerateHashedPassword(password, salt);
-        Hash hash = new Hash()
-        {
-            hash = hashedpassword,
-            salt = salt
-        };
         //create a string of pattern [SALT.HASHEDPASSWORD]
         string hashedpass = salt + "." + hashedpassword;
         return hashedpass;
     }
 
-    public string HashPasswordWithGivenSalt(string password, string salt)
+    public string HashPasswordWithGivenSalt(string salt, string password)
     {
-        return GenerateHashedPassword(password, salt);
+        return GenerateHashedPassword(salt, password);
     }
     
     private string GenerateSalt()
@@ -34,7 +29,7 @@ class PasswordHash : IPasswordHash
         return base64salt;
     }
     
-    private string GenerateHashedPassword(string password, string salt)
+    private string GenerateHashedPassword(string salt, string password)
     {
         byte[] passwordbytes = Encoding.UTF8.GetBytes(password);
         byte[] saltbytes = Convert.FromBase64String(salt);

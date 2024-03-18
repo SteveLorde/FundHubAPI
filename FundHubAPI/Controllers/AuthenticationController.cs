@@ -1,7 +1,8 @@
 ﻿using FundHubAPI.Data.DTOs;
-using FundHubAPI.Data.Models;
+using FundHubAPI.Data.DTOs.RequestDTO;
 using FundHubAPI.Services.Authentication;
 using FundHubAPI.Services.JWT;
+using FundHubAPI.Services.Repositories.UsersRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,51 +14,33 @@ public class AuthenticationController : Controller
 {
     private readonly IAuthentication _auth;
     private readonly IJWT _jwt;
+    private readonly IUserRepository _userepo;
 
-    public AuthenticationController(IAuthentication auth, IJWT jwt)
+    public AuthenticationController(IAuthentication auth, IUserRepository userrepo ,IJWT jwt)
     {
         _auth = auth;
         _jwt = jwt;
+        _userepo = userrepo;
     }
 
     [HttpPost("Login")]
-    public async Task<string?> Login(UserDTO loginrequest)
+    public async Task<string?> Login(LoginRequestDTO loginrequest)
     {
         return await _auth.Login(loginrequest);
     }
-    
-    [HttpGet("LoginTest")]
-    public async Task<string?> LoginTest()
-    {
-        return await _auth.LoginTest();
-    }
-    
+
     [HttpPost("Register")]
-    public async Task<bool> Register(UserDTO registerrequest)
+    public async Task<bool> Register(RegisterRequestDTO registerrequest)
     {
         return await _auth.Register(registerrequest);
     }
     
     [Authorize]
-    [HttpGet("GetUser")]
-    public async Task<User> GetUserInfo()
+    [HttpGet("GetLoggedUser")]
+    public async Task<UserDTO> GetUserInfo()
     {
         string userid = HttpContext.User.FindFirst("userid").Value;
-        return await _auth.GetUser(userid);
-    }
-
-    [HttpPost("CheckToken")]
-    public async Task<bool> CheckToken(string token)
-    {
-        var check = _jwt.VerifyToken(token);
-            if (check)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        return await _userepo.GetUser(userid);
     }
     
 }

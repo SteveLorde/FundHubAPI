@@ -6,6 +6,6 @@ namespace FundHubAPI.Services.Authentication;
 
 public interface IAuthentication
 {
-    public Task<string> Login(LoginRequest loginreq);
+    public Task<string> Login(LoginRequestDTO loginreq);
     public Task<bool> Register(RegisterRequestDTO registerreq);
 }

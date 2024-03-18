@@ -8,7 +8,6 @@ using FundHubAPI.Services.Repositories.NewsRepository;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
 using FundHubAPI.Services.Repositories.UsersRepository;
 using FundHubAPI.Services.StartupService;
-using FundHubAPI.Services.Users;
 
 namespace FundHubAPI.Services;
 
@@ -19,7 +18,7 @@ public static class ServicesRegisterationExtension
         serviceCollection.AddDbContext<DataContext>();
         serviceCollection.AddScoped<IAuthentication,Authentication.Authentication>();
         serviceCollection.AddScoped<IJWT,Jwt>();
-        serviceCollection.AddScoped<IUsers,Users.Users>();
+        serviceCollection.AddScoped<IUserRepository,UserRepository>();
         serviceCollection.AddScoped<IMail,Mail.Mail>();
         serviceCollection.AddScoped<IProjectsRepository,ProjectsRepository>();
         serviceCollection.AddScoped<ICategoryRepository,CategoryRepository>();

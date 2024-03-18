@@ -41,7 +41,7 @@ public class DataContext : DbContext
 
         modelBuilder.Entity<User>().HasData(
             new User
-            { Id = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), username = "testuser", password = "1234", pass_salt = null, hashedpassword = null, usertype = "user", phonenumber = 123456789, email = "test@gmail.com", facebook = "", profileimage = "profile.jpg"}
+            { Id = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), Username = "testuser", Hashedpassword = "1234", Usertype = "user", Phonenumber = 123456789, Email = "test@gmail.com", Facebook = "", Profileimage = "profile.jpg"}
         );
     }
 
