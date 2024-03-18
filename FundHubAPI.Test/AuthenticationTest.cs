@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json.Nodes;
 using FundHubAPI.Data.DTOs;
+using FundHubAPI.Data.DTOs.RequestDTO;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -16,7 +17,7 @@ public class AuthenticationTest
     [Fact]
     public async void LoginTest()
     {
-        UserDTO loginDto = new UserDTO {username = "testuser", password = "1234"} ;
+        LoginRequestDTO loginDto = new LoginRequestDTO {Username = "testuser", Password = "1234"} ;
         var jsonloginrequest = JsonConvert.SerializeObject(loginDto);
         
         string url = "http://localhost:5116/Authentication/Login";
