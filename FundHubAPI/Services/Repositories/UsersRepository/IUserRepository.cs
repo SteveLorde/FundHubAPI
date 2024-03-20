@@ -6,6 +6,7 @@ namespace FundHubAPI.Services.Repositories.UsersRepository;
 public interface IUserRepository
 {
     public Task<UserDTO> GetUser(string userid);
+    public Task<User> GetUserDirect(string userid);
     public Task<List<UserDTO>> GetUers();
     public Task<bool> AddUser(UserDTO usertoadd);
     public Task CreateFolders();

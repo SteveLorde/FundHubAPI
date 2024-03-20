@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {AuthenticationService} from "../../Services/Authentication/authentication.service";
 
@@ -9,16 +9,16 @@ import {AuthenticationService} from "../../Services/Authentication/authenticatio
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  authstatus : string = this.authservice.authstatus
+  authstatus : string = ""
 
   constructor(private router: Router, private authservice : AuthenticationService) {
 
   }
 
   ngOnInit() {
-    this.authstatus = this.authservice.authstatus
+    this.authservice.currentAuthStatus.subscribe(res => this.authstatus = res)
   }
 
   GoHome() {

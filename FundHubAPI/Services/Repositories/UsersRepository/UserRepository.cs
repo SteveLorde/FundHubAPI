@@ -26,6 +26,11 @@ class UserRepository : IUserRepository
         return await _db.Users.Include(u => u.Projects).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).FirstAsync(u => u.Id == Guid.Parse(userid));
     }
 
+    public async Task<User> GetUserDirect(string userid)
+    {
+        return await _db.Users.FirstAsync(u => u.Id == Guid.Parse(userid));
+    }
+
     public async Task<List<UserDTO>> GetUers()
     {
         return await _db.Users.Include(u => u.Projects).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();

@@ -5,14 +5,15 @@ import {AuthRequest} from "./DTO/AuthRequest";
 import {LoginResponse} from "./DTO/LoginResponse";
 import environment from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {firstValueFrom, map, Observable} from "rxjs";
+import {BehaviorSubject, firstValueFrom, map, Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
   isloggedin : boolean = false
-  authstatus : string = "Login/Register"
+  authstatus = new BehaviorSubject("Login/Register")
+  currentAuthStatus = this.authstatus.asObservable()
 
   constructor(private http : HttpClient) {}
 
@@ -34,7 +35,7 @@ export class AuthenticationService {
   Logout() {
     this.isloggedin = false
     localStorage.removeItem("usertoken")
-    this.authstatus = "Login/Register"
+    this.authstatus.next("Login/Register")
     return true
   }
 
@@ -56,7 +57,7 @@ export class AuthenticationService {
     let userdata : User = {} as User
       this.http.get( environment.backendurl + '/Authentication/GetUser').pipe(
         map( (userdatares : User) => {
-          this.authstatus = 'Welcome ' + userdatares.username
+          this.authstatus.next(`Welcome ${userdatares.username}`)
           userdata = userdatares
           })
       )
