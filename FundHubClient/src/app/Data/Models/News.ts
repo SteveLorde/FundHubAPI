@@ -4,5 +4,5 @@ export interface News {
   subtitle : string
   description : string
   published : string
-  image : string
+  imagecovername : string
 }

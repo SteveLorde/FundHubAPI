@@ -1,6 +1,7 @@
 import {User} from "./User";
 import {SocialMedia} from "./SocialMedia";
 import {Category} from "./Category";
+import {Donation} from "./Donation";
 
 export interface Project {
   id : string
@@ -11,8 +12,9 @@ export interface Project {
   currentfund : number
   totalfundrequired : number
   email : string
-  images : string[]
+  imagesnames : string[]
   imagestoupload? : File[]
   userId : string
   user : User
+  donations : Donation[]
 }

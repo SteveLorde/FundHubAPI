@@ -1,16 +1,16 @@
-<div class="homepage">
+<div class="">
 
-  <div class="titles">
-    <h1 class="headtitle">Welcome to FundHub</h1>
-    <h2 class="subtitle">our goal is to provide funding through donations, for people's projects they wish to achieve</h2>
+  <div class="flex flex-col items-center m-12 gap-2">
+    <h1 class="text-4xl text-center font-extrabold">Welcome to FundHub</h1>
+    <h2 class="text-2xl text-center text-gray-600">Community funding platform, to enable people achieve their dreams</h2>
   </div>
 
-  <div class="newsgrid">
-    <div class="newselement" *ngFor="let news of allnews">
-      <img #newsimage id="image-{{news.id}}" class="newsimage" src="{{environment.backendurl}}/storage/News/{{news.id}}/Images/{{news.image}}" (error)="handleImageError(news)" />
-      <p class="newsdate">{{news.published}}</p>
-      <h2 class="newstitle">{{news.title}}</h2>
-    </div>
+  <div class="flex flex-col items-center m-12 lg:grid lg:grid-cols-3 place-items-center center gap-8">
+    <a routerLink="/news/{{news.id}}" class="flex flex-col max-w-[400px] gap-2 bg-gray-200" *ngFor="let news of allnews">
+      <img class="h-[300px] " src="{{environment.backendurl}}/storage/News/{{news.id}}/Images/{{news.imagecovername}}" appFallbackimage/>
+      <p class="text-black m-2">{{news.published}}</p>
+      <h2 class="text-black text-2xl mt-1 ml-2 mr-2 mb-2">{{news.title}}</h2>
+    </a>
   </div>
 
 

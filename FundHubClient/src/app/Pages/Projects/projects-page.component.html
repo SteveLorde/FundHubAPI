@@ -1,28 +1,31 @@
-<div class="projectspage">
+<div class="projectspage h-[2500px]">
 
   <!---Categories Filter Buttons-->
-  <div class="flex flex-row gap-3 items-center">
-    <img class="w-20px" (click)="FilterProjects('')" src="" alt="" />
-    <img class="w-20px" (click)="FilterProjects('4a858ba2-cc64-4752-973a-2b1acba5d78d')" src="assets/ProductIcon.png" alt="" />
-    <img class="w-20px" (click)="FilterProjects('fafaad46-3fbe-40ac-ad63-c311829668a4')" src="assets/SocietalProjectIcon.png" alt="" />
-    <img class="w-20px" (click)="FilterProjects('59cb7c8b-8e33-45d6-b066-214f3145a3c0')" src="assets/EnvironmentProject.png" alt="" />
+  <div class="flex flex-row gap-6 items-center m-4">
+    <img class="selectcategoryicon" (click)="FilterProjects('')" src="assets/AllCategory.svg" alt="" />
+    <img class="selectcategoryicon" (click)="FilterProjects('4a858ba2-cc64-4752-973a-2b1acba5d78d')" src="assets/ProductIcon.svg" alt="" />
+    <img class="selectcategoryicon" (click)="FilterProjects('fafaad46-3fbe-40ac-ad63-c311829668a4')" src="assets/SocietalProjectIcon.svg" alt="" />
+    <img class="selectcategoryicon" (click)="FilterProjects('59cb7c8b-8e33-45d6-b066-214f3145a3c0')" src="assets/EnvironmentProject.svg" alt="" />
   </div>
 
   <!---Projects Grid--->
-  <div class="projectsgrid">
+  <div class="flex flex-col items-center lg:grid grid-cols-4 gap-12">
     <div class="projectcard" *ngFor="let project of projects | projectsViewCategoryFilter: selectedcategoryid">
-      <img class="projectimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
-      <div class="titleandcategoryimage">
+      <img class="projectimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.imagesnames?.[0]}}" />
+
+      <div class="flex flex-row flex-wrap items-center justify-center gap-4">
         <h2 class="title">{{project.title}}</h2>
         <div [ngSwitch]="project.category.name">
-          <img class="categoryicon" *ngSwitchCase=" 'product' "  src="assets/ProductIcon.png"/>
-          <img class="categoryicon" *ngSwitchCase=" 'societalproject' "  src="assets/SocietalProjectIcon.png"/>
-          <img class="categoryicon" *ngSwitchCase=" 'environmentproject' "  src="assets/EnvironmentProject.png"/>
+          <img class="w-[30px] h-[30px]" *ngSwitchCase=" 'product' "  src="assets/ProductIcon.png"/>
+          <img class="w-[30px] h-[30px]"  *ngSwitchCase=" 'society' "  src="assets/SocietalProjectIcon.png"/>
+          <img class="w-[30px] h-[30px]"  *ngSwitchCase=" 'environment' "  src="assets/EnvironmentProject.png"/>
         </div>
       </div>
-      <p class="funding">{{project.currentfund | currency : "EGP"}} / {{project.totalfundrequired | currency : "EGP"}}</p>
+
+      <p class="font-semibold text-[20px] text-black">{{project.currentfund | currency : "EGP"}} / {{project.totalfundrequired | currency : "EGP"}}</p>
       <a class="viewbutton" (click)="ViewProject(project.id)">View</a>
     </div>
+
   </div>
 
 

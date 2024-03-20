@@ -1,12 +1,10 @@
-import {Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {News} from "../../Data/Models/News";
-import axios from "axios";
 import {NgForOf} from "@angular/common";
 import {BackendService} from "../../Services/Backend/backend.service";
-import {Project} from "../../Data/Models/Project";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 import environment from "../../../environments/environment";
+import {FallbackimageDirective} from "../../Utilities/FallBackImage/fallbackimage.directive";
 
 @Component({
   selector: 'app-home-page',
@@ -14,13 +12,15 @@ import environment from "../../../environments/environment";
   imports: [
     NgForOf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    FallbackimageDirective
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
 
+  readonly environment = environment
   public allnews : News[] = []
   // @ts-ignore
   @ViewChildren('newsimage') imageElements: QueryList<ElementRef>;
@@ -30,21 +30,13 @@ export class HomePageComponent {
     this.GetNews()
   }
 
-  ngoninit() {
+  ngOnInit(): void {
     this.GetNews()
   }
 
   async GetNews() {
-    let news : News[] = await this.backend.GetNews()
-    this.allnews = news
+    this.allnews = await this.backend.GetNews()
   }
 
-  handleImageError(news : News): void {
-    const targetImageElement = this.imageElements.find((el: { nativeElement: { id: string; }; }) => el.nativeElement.id === `image-${news.id}`);
-    if (targetImageElement) {
-      targetImageElement.nativeElement.src = this.fallbackImageUrl;
-    }
-  }
 
-  protected readonly environment = environment;
 }

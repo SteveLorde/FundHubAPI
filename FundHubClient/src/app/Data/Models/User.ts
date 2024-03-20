@@ -1,4 +1,5 @@
 import {Project} from "./Project";
+import {Donation} from "./Donation";
 
 export interface User {
     id : string
@@ -12,6 +13,7 @@ export interface User {
     x_socialmedia : string
     instagram : string
     project : Project
+    donations: Donation[]
     profileimage : string
 
 

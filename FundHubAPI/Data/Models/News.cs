@@ -10,6 +10,6 @@ public class News
     public string Subtitle { get; set; }
     public string Description { get; set; }
     public DateOnly Published { get; set; }
-    public string ImageCoverName { get; set; }
+    public string Imagecovername { get; set; }
     
 }

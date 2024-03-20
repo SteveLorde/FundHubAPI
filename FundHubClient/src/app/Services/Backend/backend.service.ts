@@ -15,13 +15,11 @@ export class BackendService {
   constructor(private http : HttpClient) { }
 
   GetProjects() {
-    return this.http.get(environment.backendurl + `/Projects/GetProject/GetProjects`)
+    return this.http.get<Project[]>(environment.backendurl + `/Projects/GetProjects`)
   }
 
-  async GetProject(projectid : string) {
-    let response = await axios.get(environment.backendurl + `/Projects/GetProject/${projectid}`)
-    let project : Project = response.data
-    return project
+  GetProject(projectid : string) {
+    return this.http.get<Project>(environment.backendurl + `/Projects/GetProject/${projectid}`)
   }
 
   async GetProjectOwnerInfo(ownerid : string) {

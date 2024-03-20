@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {CurrencyPipe, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {environment} from "../../../environments/environment";
-import {ProjectsViewCategoryFilterPipe} from "../../Services/Pipes/projects-view-category-filter.pipe";
+import {ProjectsViewCategoryFilterPipe} from "../../Utilities/Pipes/projects-view-category-filter.pipe";
 
 @Component({
   selector: 'app-projects-page',
@@ -21,7 +21,7 @@ import {ProjectsViewCategoryFilterPipe} from "../../Services/Pipes/projects-view
   templateUrl: './projects-page.component.html',
   styleUrl: './projects-page.component.scss'
 })
-export class ProjectsPageComponent {
+export class ProjectsPageComponent implements OnInit{
 
   public projects : Project[] = []
   selectedcategoryid : string = ""

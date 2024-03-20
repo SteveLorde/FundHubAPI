@@ -11,30 +11,10 @@ import {firstValueFrom, map, Observable} from "rxjs";
 })
 export class AuthenticationService {
 
-  axiosapi = axios.create({});
   isloggedin : boolean = false
   authstatus : string = "Login/Register"
-  test : Observable<string> = new Observable<string>()
 
-  constructor(private http : HttpClient) {
-    this.axiosapi.interceptors.request.use(
-      (config : any) =>  {
-        const token = localStorage.getItem("usertoken")
-        const clonedReq = {
-          ...config,
-          headers: {
-            ...config.headers,
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        return clonedReq;
-      },
-      (error) => {
-        // Handle request error
-        return Promise.reject(error);
-      }
-    )
-  }
+  constructor(private http : HttpClient) {}
 
   async Login(loginrequest: { password: string, username: string}){
     let logincheck : boolean
@@ -73,13 +53,14 @@ export class AuthenticationService {
   }
 
   async GetActiveUser() {
-      let response = await this.axiosapi.get( environment.backendurl + '/Authentication/GetUser')
-      let userdata : User = response.data
-      this.authstatus = 'Welcome ' + userdata.username
-      return userdata
+    let userdata : User = {} as User
+      this.http.get( environment.backendurl + '/Authentication/GetUser').pipe(
+        map( (userdatares : User) => {
+          this.authstatus = 'Welcome ' + userdatares.username
+          userdata = userdatares
+          })
+      )
+    return userdata
   }
-
-
-
 
 }

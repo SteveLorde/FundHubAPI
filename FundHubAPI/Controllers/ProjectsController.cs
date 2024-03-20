@@ -51,12 +51,14 @@ public class ProjectsController : Controller
         }
     }
     
+    [Authorize]
     [HttpPost("UpdateProject")]
     public async Task<bool> UpdateProject(ProjectRequestDTO projecttoadd)
     {
         return await _projectsservice.UpdateProject(projecttoadd);
     }
     
+    [Authorize]
     [HttpPost("RemoveProject")]
     public async Task<bool> RemoveProject(string projectid)
     {

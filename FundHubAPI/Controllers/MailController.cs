@@ -15,7 +15,6 @@ public class MailController : Controller
         _mailservice = mailservice;
     }
     
-    
     [HttpGet("sendmail")]
     public async Task<bool> SendMail(MailRequest mailtosend)
     {

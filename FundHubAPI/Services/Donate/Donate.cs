@@ -33,7 +33,7 @@ class Donate : IDonate
         Donation newdonationlog = new Donation
         {
             Id = Guid.NewGuid(), UserId = user.Id, User = _mapper.Map<User>(user), ProjectId = project.Id, Project = project,
-            DonationAmount = donationtolog.DonationAmount, Date = donationtolog.Date
+            Donationamount = donationtolog.DonationAmount, Date = donationtolog.Date
         };
         await _db.DonationLogs.AddAsync(newdonationlog);
         await MailNotifyProjectOwner(project.User.Email, project, newdonationlog);
@@ -42,14 +42,14 @@ class Donate : IDonate
 
     private async Task MailNotifyProjectOwner(string projectowneremail, Project project ,Donation donation)
     {
-        string messagebody = $"Dear {project.User.Username}, your project {project.Title} has just received a donation of amount {donation.DonationAmount}";
+        string messagebody = $"Dear {project.User.Username}, your project {project.Title} has just received a donation of amount {donation.Donationamount}";
         MailRequest projectownermailnotify = new MailRequest {Emailto = projectowneremail, Subject = "Received Donation", Message = messagebody};
         await _mailservice.SendMail(projectownermailnotify);
     }
     
     private async Task MailNotifyDonator(Donation donation,User donator ,Project project)
     {
-        string messagebody = $"Dear {donator.Username}, you have just donated amount of {donation.DonationAmount} to project {project.Title}, Thank You for Supporting your community";
+        string messagebody = $"Dear {donator.Username}, you have just donated amount of {donation.Donationamount} to project {project.Title}, Thank You for Supporting your community";
         MailRequest donatornotifymail = new MailRequest {Emailto = donator.Email , Subject = "Donation Accepted", Message = messagebody};
         await _mailservice.SendMail(donatornotifymail);
     }

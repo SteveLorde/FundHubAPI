@@ -25,9 +25,9 @@ export class UserPanelComponent implements OnInit{
   userownsproject : boolean = false;
 
   public project : Project = {
-    email: "", images: [], userId: "", user: {} as User,
+    email: "", imagesnames: [], userId: "", user: {} as User,
     category: {id: "", name: ""},
-    currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0}
+    currentfund: 0, description: "", id: "", subtitle: "", title: "", totalfundrequired: 0, donations: []}
   public user : User = {
     email: "",
     facebook: "",
@@ -36,7 +36,8 @@ export class UserPanelComponent implements OnInit{
     profileimage: "",
     project: {} as Project,
     x_socialmedia: "",
-    usertype: "", description: "", id: "", password: "", username: ""}
+    usertype: "", description: "", id: "", password: "", username: "", donations: []
+  }
   edituserinfo : boolean = false
   editprojectinfo : boolean = false
   openprojectform : boolean = false

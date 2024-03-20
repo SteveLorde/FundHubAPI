@@ -20,8 +20,9 @@ import environment from "../../../environments/environment";
 export class ProjectViewComponent {
   public projectid: string | null = ""
   public project : Project = {
+    donations: [],
     email: "",
-    images: [],
+    imagesnames: [],
     userId: "",
     category: {id: "", name: ""}, currentfund: 0, description: "", id: "", user: {} as User ,subtitle: "", title: "", totalfundrequired: 0}
   //public projectowner : User | undefined = {usertype: "", description: "", password: "", username: "", id: " "}
@@ -42,10 +43,8 @@ export class ProjectViewComponent {
 
 
 
-  async SetProject(projectid : string) {
-    let projecttoview : Project = await this.backend.GetProject(projectid)
-    this.project = projecttoview
-    //this.projectowner = projecttoview.userowner
+  SetProject(projectid : string) {
+    this.backend.GetProject(projectid).subscribe( (projectres : Project) => this.project = projectres)
   }
 
   async SetProjectOwner(ownerid : string) {

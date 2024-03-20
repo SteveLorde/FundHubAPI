@@ -22,10 +22,10 @@ export class DonationPageComponent {
   public project = signal<Project>({
     currentfund: 0,
      category: {id: "", name: ""},
-    subtitle: "",
+    subtitle: "", donations: [],
     userId: "",
     totalfundrequired: 0,
-    email: "", id: "", description: "", title: "",user : {} as User, images: []})
+    email: "", id: "", description: "", title: "",user : {} as User, imagesnames: []})
   public donationreceiptnumber : string = ''
   public donationamountview : number = 0
 
@@ -49,9 +49,8 @@ export class DonationPageComponent {
     donationamount: new FormControl(''),
   })
 
-  async GetSelectedProject(projectid : string) {
-    let projecttodonate = await this.backend.GetProject(projectid)
-    this.project.set(projecttodonate)
+  GetSelectedProject(projectid : string) {
+    this.backend.GetProject(projectid).subscribe( (projectres : Project) => this.project.set(projectres))
   }
 
   SubmitDonation() {

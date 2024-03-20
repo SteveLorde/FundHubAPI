@@ -20,10 +20,10 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<News>().HasData(
-            new News { Id = Guid.Parse("0f97ea1d-e247-4cf5-a6d9-5f9d3265e220"), Title = "Innovative Breakthroughs: College Students Secure Funding for Groundbreaking Projects", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), ImageCoverName = "newscover.jpg"},
-            new News { Id = Guid.Parse("1a55b12e-65b8-4542-b4c1-6676c30311e7"), Title = "Empowering Tomorrow's Leaders: College Projects Receive Major Funding Boost", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), ImageCoverName = "newscover.jpg" },
-            new News { Id = Guid.Parse("93097c20-6558-4ed9-a27e-8bf07fb59b8a"), Title = "From Campus to Capital: Student-Led Ventures Garner Investment for Impactful Initiatives", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), ImageCoverName = "newscover.jpg" },
-            new News { Id = Guid.Parse("598004de-bc37-4300-8271-3c1c0bb5c430"), Title = "Shaping the Future: College Students' Ambitious Projects Win Substantial Funding", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), ImageCoverName = "newscover.jpg" }
+            new News { Id = Guid.Parse("0f97ea1d-e247-4cf5-a6d9-5f9d3265e220"), Title = "Innovative Breakthroughs: College Students Secure Funding for Groundbreaking Projects", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), Imagecovername = "newscover.jpg"},
+            new News { Id = Guid.Parse("1a55b12e-65b8-4542-b4c1-6676c30311e7"), Title = "Empowering Tomorrow's Leaders: College Projects Receive Major Funding Boost", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), Imagecovername = "newscover.jpg" },
+            new News { Id = Guid.Parse("93097c20-6558-4ed9-a27e-8bf07fb59b8a"), Title = "From Campus to Capital: Student-Led Ventures Garner Investment for Impactful Initiatives", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), Imagecovername = "newscover.jpg" },
+            new News { Id = Guid.Parse("598004de-bc37-4300-8271-3c1c0bb5c430"), Title = "Shaping the Future: College Students' Ambitious Projects Win Substantial Funding", Subtitle = "", Description = "Desc Test", Published = new DateOnly(2024,1,1), Imagecovername = "newscover.jpg" }
         );
         
         modelBuilder.Entity<Category>().HasData(
@@ -41,7 +41,7 @@ public class DataContext : DbContext
 
         modelBuilder.Entity<User>().HasData(
             new User
-            { Id = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), Username = "testuser", Hashedpassword = "1234", Usertype = "user", Phonenumber = 123456789, Email = "test@gmail.com", Facebook = "", Profileimage = "profile.jpg"}
+            { Id = Guid.Parse("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), Username = "testuser", Hashedpassword = "1234", Usertype = "user", Phonenumber = 123456789, Email = "test@gmail.com", Facebook = "", Instagram = "", X = "",Profileimage = "profile.jpg"}
         );
     }
 

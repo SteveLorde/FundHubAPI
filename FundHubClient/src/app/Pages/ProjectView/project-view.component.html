@@ -2,9 +2,9 @@
 
   <div class="projectinfo">
     <!--Images Carousel -->
-    <img class="selectedimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.images?.[0]}}" />
+    <img class="selectedimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.imagesnames?.[0]}}" />
     <div class="projectgallery">
-      <div  *ngFor="let image of project.images">
+      <div  *ngFor="let image of project.imagesnames">
         <img class="galleryimage"  src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{image}}" />
       </div>
     </div>
