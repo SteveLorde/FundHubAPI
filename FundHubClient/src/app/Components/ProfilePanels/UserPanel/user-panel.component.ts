@@ -48,7 +48,7 @@ export class UserPanelComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.SetUser()
+    this.GetUserData()
     this.SetProject()
   }
 
@@ -78,8 +78,8 @@ export class UserPanelComponent implements OnInit{
     this.backend.RemoveProject(this.project.id)
   }
 
-  async SetUser() {
-    this.user = await this.auth.GetActiveUser()
+  GetUserData() {
+    this.auth.GetActiveUser().subscribe(userdatares => this.user = userdatares)
   }
 
   SetProject() {
