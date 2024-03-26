@@ -26,7 +26,7 @@ class Jwt : IJWT
     public string CreateToken(JWTRequestDTO jwtrequest)
     {
         
-        string baseUrl = $"{_httpcontext.HttpContext.Request.Scheme}://{_httpcontext.HttpContext.Request.Host}{_httpcontext.HttpContext.Request.PathBase}";
+        //string baseUrl = $"{_httpcontext.HttpContext.Request.Scheme}://{_httpcontext.HttpContext.Request.Host}{_httpcontext.HttpContext.Request.PathBase}";
         
         List<Claim> claims = new List<Claim>
         {
@@ -37,7 +37,7 @@ class Jwt : IJWT
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
         var tokendata = new JwtSecurityToken(
             claims: claims,
-            issuer: baseUrl,
+            issuer: _config["URL"],
             audience: audienceUrl,
             expires: DateTime.Now.AddDays(2),
             signingCredentials: cred

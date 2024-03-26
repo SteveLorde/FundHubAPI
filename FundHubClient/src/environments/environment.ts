@@ -1,5 +1,5 @@
 export const environment = {
-  backendurl: "https://myapi.thegenericcompany.xyz"
+  backendurl: "https://fundhub.thegenericcompany.xyz"
 }
 
 export default environment

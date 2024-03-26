@@ -51,27 +51,31 @@ export class LoginRegisterPageComponent {
 
    async Login() {
       let loginrequst = {username: this.loginform.get('username').value, password: this.loginform.get('password').value}
-      let check = await this.authservice.Login(loginrequst)
-      if (check) {
-        this.router.navigate(['/profile'])
+      this.authservice.Login(loginrequst).subscribe(res => {
+        if (res) {
+          this.router.navigate(["profile"])
+        }
+        else {
+          Swal.fire("Error Login")
+        }
+      })
+  }
+
+
+  Register() {
+    let registereq = {
+      username: this.registerformm.controls.username.value,
+      password: this.registerformm.controls.password.value,
+      email: this.registerformm.controls.email.value
+    }
+    this.authservice.Register(registereq).subscribe(res => {
+      if (res) {
+        this.router.navigate(["profile"])
       }
       else {
-        Swal.fire("Error Login + ")
+        Swal.fire("Error Registering")
       }
+    })
   }
-
-
-  async Register() {
-    let registereq = {username: this.registerformm.controls.username.value , password: this.registerformm.controls.password.value , email: this.registerformm.controls.email.value}
-    let check = await this.authservice.Register(registereq)
-    if (check) {
-      this.router.navigate(['/profile'])
-    }
-    else {
-      Swal.fire("Error Registering + ")
-    }
-  }
-
-
 
 }

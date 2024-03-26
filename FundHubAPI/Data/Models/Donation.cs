@@ -11,5 +11,6 @@ public class Donation
     public User User { get; set; }
     public decimal Donationamount { get; set; }
     public DateOnly Date { get; set; }
+    public string Paymenttype { get; set; }
     public bool Status { get; set; }
 }

@@ -9,7 +9,7 @@ class PasswordHash : IPasswordHash
     public string CreateHashedPassword(string password)
     {
         string salt = GenerateSalt();
-        string hashedpassword = GenerateHashedPassword(password, salt);
+        string hashedpassword = GenerateHashedPassword(salt, password);
         //create a string of pattern [SALT.HASHEDPASSWORD]
         string hashedpass = salt + "." + hashedpassword;
         return hashedpass;

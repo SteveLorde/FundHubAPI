@@ -18,7 +18,7 @@ public class User
     public string X { get; set; }
     public string Instagram { get; set; }
     public string Profileimage { get; set; }
-    public List<Project> Projects { get; set; }
+    public Project? Project { get; set; }
     public List<Donation> Donations { get; set; }
 
 }

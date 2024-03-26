@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from "../../Data/Models/User";
-import axios from "axios";
 import {AuthRequest} from "./DTO/AuthRequest";
-import {LoginResponse} from "./DTO/LoginResponse";
 import environment from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, firstValueFrom, map, Observable} from "rxjs";
@@ -17,19 +15,18 @@ export class AuthenticationService {
 
   constructor(private http : HttpClient) {}
 
-  async Login(loginrequest: { password: string, username: string}){
-    let logincheck : boolean
-    this.http.post<string>(environment.backendurl + '/Authentication/Login', loginrequest).pipe(
-      map( (token) => {
-        if (token != null && undefined && "") {
-          localStorage.setItem('usertoken', token)
-          logincheck = true
+   Login(loginrequest: { password: string, username: string}){
+    return this.http.post<string>(environment.backendurl + '/Authentication/Login', loginrequest).pipe(
+      map( (tokenres : string) => {
+        localStorage.setItem('usertoken', tokenres)
+        if (localStorage.getItem('usertoken') !== null) {
+          return true
         }
-        else {logincheck = false}
+        else {
+          return false
+        }
       })
-
     )
-    return logincheck
   }
 
   Logout() {
@@ -39,29 +36,33 @@ export class AuthenticationService {
     return true
   }
 
-  async Register(registerrequest : AuthRequest) {
+  Register(registerrequest : AuthRequest) {
     let registercheck : boolean
-    this.http.post<string>(environment.backendurl + '/Authentication/Register', registerrequest).pipe(
+    return this.http.post<string>(environment.backendurl + '/Authentication/Register', registerrequest).pipe(
       map( (token) => {
-        if (token != null && undefined && "") {
+        if (token !== null && token !== 'undefined') {
           localStorage.setItem('usertoken', token)
           registercheck = true
+          return registercheck
         }
-        else {registercheck = false}
+        else {
+          registercheck = false
+          return registercheck
+        }
       })
     )
-    return registercheck
   }
 
-  async GetActiveUser() {
+  GetActiveUser() {
     let userdata : User = {} as User
-      this.http.get( environment.backendurl + '/Authentication/GetUser').pipe(
+    //TOKEN WILL BE APPENDED AUTOMATICALLY IN REQUEST HEADERS
+      return this.http.get( environment.backendurl + '/Authentication/GetUser').pipe(
         map( (userdatares : User) => {
-          this.authstatus.next(`Welcome ${userdatares.username}`)
+          this.authstatus.next(`${userdatares.username}`)
           userdata = userdatares
+          return userdata
           })
       )
-    return userdata
   }
 
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FundHubAPI.Data;
 using FundHubAPI.Data.DTOs;
 using FundHubAPI.Data.DTOs.RequestDTO;
+using FundHubAPI.Data.DTOs.ResponseDTO;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Mail;
 using FundHubAPI.Services.Repositories.ProjectsRepository;
@@ -27,9 +29,9 @@ class Donate : IDonate
         _mailservice = mailservice;
     }
 
-    public async Task<List<Donation>> GetDonations()
+    public async Task<List<DonationResponseDTO>> GetDonations()
     {
-        return await _db.DonationLogs.ToListAsync();
+        return await _db.DonationLogs.ProjectTo<DonationResponseDTO>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
     public async Task<bool> DecideDonation(string donationid, bool decision)

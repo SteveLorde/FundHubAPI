@@ -9,5 +9,5 @@ export interface Donation {
   project : Project
   paymenttype : string
   donationamount : number
-
+  status : boolean
 }

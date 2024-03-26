@@ -23,7 +23,7 @@ class UserRepository : IUserRepository
 
     public async Task<UserDTO> GetUser(string userid)
     {
-        return await _db.Users.Include(u => u.Projects).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).FirstAsync(u => u.Id == Guid.Parse(userid));
+        return await _db.Users.Include(u => u.Project).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).FirstAsync(u => u.Id == Guid.Parse(userid));
     }
 
     public async Task<User> GetUserDirect(string userid)
@@ -33,7 +33,7 @@ class UserRepository : IUserRepository
 
     public async Task<List<UserDTO>> GetUers()
     {
-        return await _db.Users.Include(u => u.Projects).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();
+        return await _db.Users.Include(u => u.Project).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
     public async Task<bool> AddUser(UserDTO usertoadd)
@@ -46,7 +46,7 @@ class UserRepository : IUserRepository
 
     public async Task<bool> UpdateUser(UserDTO usertoupdate)
     {
-        User querieduser = await _db.Users.Include(u => u.Projects).Include(u => u.Donations).FirstAsync(u => u.Id == usertoupdate.Id);
+        User querieduser = await _db.Users.Include(u => u.Project).Include(u => u.Donations).FirstAsync(u => u.Id == usertoupdate.Id);
         querieduser = _mapper.Map<User>(usertoupdate);
         _db.Users.Update(querieduser);
         await _db.SaveChangesAsync();

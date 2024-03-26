@@ -34,7 +34,7 @@ namespace FundHubAPI.Data.Migrations
                     Subtitle = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Published = table.Column<DateOnly>(type: "date", nullable: false),
-                    ImageCoverName = table.Column<string>(type: "text", nullable: false)
+                    Imagecovername = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,7 +102,7 @@ namespace FundHubAPI.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProjectId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DonationAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    Donationamount = table.Column<decimal>(type: "numeric", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -135,7 +135,7 @@ namespace FundHubAPI.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "News",
-                columns: new[] { "Id", "Description", "ImageCoverName", "Published", "Subtitle", "Title" },
+                columns: new[] { "Id", "Description", "Imagecovername", "Published", "Subtitle", "Title" },
                 values: new object[,]
                 {
                     { new Guid("0f97ea1d-e247-4cf5-a6d9-5f9d3265e220"), "Desc Test", "newscover.jpg", new DateOnly(2024, 1, 1), "", "Innovative Breakthroughs: College Students Secure Funding for Groundbreaking Projects" },
@@ -147,17 +147,25 @@ namespace FundHubAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Facebook", "Hashedpassword", "Instagram", "Phonenumber", "Profileimage", "Username", "Usertype", "X" },
-                values: new object[] { new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "test@gmail.com", "", "1234", "", 123456789, "profile.jpg", "testuser", "user", "" });
+                values: new object[,]
+                {
+                    { new Guid("2e445054-8f22-4812-adb7-38cd849c976b"), "test@gmail.com", "", "N4WKpgyCPJ2kbh5V2hA3Lg==.5NmvuIMf4vNiobnSJ8BfMubU89a/xGvqck00YhZa/JY=", "", 123456789, "profile.jpg", "testuser3", "user", "" },
+                    { new Guid("913eedbd-a304-478e-beee-4c8db66bd86a"), "test@gmail.com", "", "xKxRXjZPE5eRjeYyut0AjA==.5FmgksD5GBZFKno1kuNP14h8DPo4sc4HlxuLA+EYXGU=", "", 123456789, "profile.jpg", "testuser2", "user", "" },
+                    { new Guid("9bdfe044-4b02-40a7-ade7-4570e68af19c"), "test@gmail.com", "", "7mmR3jvXz1jvOtdOhTq2Mw==.OL4hVwtTbRrs7k+sOK9CX19uqkysQOGmBsjpV7FMzXA=", "", 123456789, "profile.jpg", "testuser5", "user", "" },
+                    { new Guid("a5379337-e6a4-4222-aa88-233358bda6e9"), "test@gmail.com", "", "yetxGNGDt69i8s6F4kRifg==.KQo5skRtWLfkK7tlh1ttqP/cFlpUInV+kSz0cJXVTF8=", "", 123456789, "profile.jpg", "testuser4", "user", "" },
+                    { new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "test@gmail.com", "", "tNt9z7cleFMm2HphcmtLxg==.k8PKwXzyPKNeWEy5gV2uQJPS2FswnyxFdpFYMlW5Wjc=", "", 123456789, "profile.jpg", "testuser1", "user", "" },
+                    { new Guid("c8b590f1-c920-4c1b-9237-852bc0b43518"), "test@gmail.com", "", "4JjobeF1CzdWECYu7ra7nw==.r+vPL+4VtXlchQ6kLYrBtCJSo6PgDWnR+ljxFSrMiqE=", "", 123456789, "profile.jpg", "testadmin", "admin", "" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Projects",
                 columns: new[] { "Id", "CategoryId", "Currentfund", "Description", "Facebook", "Imagesnames", "Instagram", "Subtitle", "Title", "Totalfundrequired", "UserId", "X" },
                 values: new object[,]
                 {
-                    { new Guid("694d6683-d3e6-4bc1-ab5d-f2f67f887332"), new Guid("fafaad46-3fbe-40ac-ad63-c311829668a4"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "My Super Awesome Health Machine", 1000000, new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "" },
+                    { new Guid("694d6683-d3e6-4bc1-ab5d-f2f67f887332"), new Guid("fafaad46-3fbe-40ac-ad63-c311829668a4"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "My Super Awesome Health Machine Research Paper", 1000000, new Guid("913eedbd-a304-478e-beee-4c8db66bd86a"), "" },
                     { new Guid("7e4788cd-77a9-4b03-9412-385a482cf489"), new Guid("59cb7c8b-8e33-45d6-b066-214f3145a3c0"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "Greener Egypt", 2000, new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "" },
-                    { new Guid("a9437a37-1d37-4a9b-adbd-a18ef0490942"), new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "Electric Koshary Machine", 120000, new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "" },
-                    { new Guid("e9c8eccf-76aa-42d6-be67-803d8622c951"), new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "Indie Egyptian Game", 60000, new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "" }
+                    { new Guid("a9437a37-1d37-4a9b-adbd-a18ef0490942"), new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "Electric Koshary Machine", 120000, new Guid("2e445054-8f22-4812-adb7-38cd849c976b"), "" },
+                    { new Guid("e9c8eccf-76aa-42d6-be67-803d8622c951"), new Guid("4a858ba2-cc64-4752-973a-2b1acba5d78d"), 500, "Description Test", "", new[] { "1.jpg", "2.jpg" }, "", "Subtitle Test", "Indie Egyptian Game", 60000, new Guid("a5379337-e6a4-4222-aa88-233358bda6e9"), "" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -178,7 +186,8 @@ namespace FundHubAPI.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_UserId",
                 table: "Projects",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />

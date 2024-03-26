@@ -1,18 +1,21 @@
 import {Component, signal, WritableSignal} from '@angular/core';
 import {Project} from "../../Data/Models/Project";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {selectedproject, setSelectedProject} from "../../Services/GlobalMemoryStorage";
 import {User} from "../../Data/Models/User";
 import {BackendService} from "../../Services/Backend/backend.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
 import environment from "../../../environments/environment";
+import {FallbackimageDirective} from "../../Utilities/FallBackImage/fallbackimage.directive";
 
 @Component({
   selector: 'app-project-view',
   standalone: true,
   imports: [
     RouterLink,
-    NgForOf
+    NgForOf,
+    FallbackimageDirective,
+    NgSwitchCase,
+    NgSwitch
   ],
   templateUrl: './project-view.component.html',
   styleUrl: './project-view.component.scss'
@@ -25,7 +28,6 @@ export class ProjectViewComponent {
     imagesnames: [],
     userId: "",
     category: {id: "", name: ""}, currentfund: 0, description: "", id: "", user: {} as User ,subtitle: "", title: "", totalfundrequired: 0}
-  //public projectowner : User | undefined = {usertype: "", description: "", password: "", username: "", id: " "}
 
   constructor(private router : Router,private route: ActivatedRoute, private backend: BackendService) {
 
@@ -36,20 +38,15 @@ export class ProjectViewComponent {
       this.projectid = params.get('id')
     })
     if (this.projectid != null) {
-      this.SetProject(this.projectid)
+      this.GetProject(this.projectid)
     }
     let ownid = "c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"
   }
 
 
 
-  SetProject(projectid : string) {
+  GetProject(projectid : string) {
     this.backend.GetProject(projectid).subscribe( (projectres : Project) => this.project = projectres)
-  }
-
-  async SetProjectOwner(ownerid : string) {
-      let projectowner: User = await this.backend.GetProjectOwnerInfo(ownerid)
-      //this.projectowner = projectowner
   }
 
   GoDonate() {

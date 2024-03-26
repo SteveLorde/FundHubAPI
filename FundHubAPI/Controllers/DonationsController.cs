@@ -1,4 +1,5 @@
 ﻿using FundHubAPI.Data.DTOs.RequestDTO;
+using FundHubAPI.Data.DTOs.ResponseDTO;
 using FundHubAPI.Data.Models;
 using FundHubAPI.Services.Donate;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,7 @@ public class DonationsController : Controller
     }
 
     [HttpGet("getdonations")]
-    public async Task<List<Donation>> GetDonations()
+    public async Task<List<DonationResponseDTO>> GetDonations()
     {
         return await _donationservice.GetDonations();
     }

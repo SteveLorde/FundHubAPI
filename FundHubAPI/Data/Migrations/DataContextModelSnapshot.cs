@@ -202,7 +202,8 @@ namespace FundHubAPI.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Projects");
 
@@ -232,9 +233,9 @@ namespace FundHubAPI.Data.Migrations
                             Imagesnames = new[] { "1.jpg", "2.jpg" },
                             Instagram = "",
                             Subtitle = "Subtitle Test",
-                            Title = "My Super Awesome Health Machine",
+                            Title = "My Super Awesome Health Machine Research Paper",
                             Totalfundrequired = 1000000,
-                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            UserId = new Guid("913eedbd-a304-478e-beee-4c8db66bd86a"),
                             X = ""
                         },
                         new
@@ -249,7 +250,7 @@ namespace FundHubAPI.Data.Migrations
                             Subtitle = "Subtitle Test",
                             Title = "Electric Koshary Machine",
                             Totalfundrequired = 120000,
-                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            UserId = new Guid("2e445054-8f22-4812-adb7-38cd849c976b"),
                             X = ""
                         },
                         new
@@ -264,7 +265,7 @@ namespace FundHubAPI.Data.Migrations
                             Subtitle = "Subtitle Test",
                             Title = "Indie Egyptian Game",
                             Totalfundrequired = 60000,
-                            UserId = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
+                            UserId = new Guid("a5379337-e6a4-4222-aa88-233358bda6e9"),
                             X = ""
                         });
                 });
@@ -320,12 +321,77 @@ namespace FundHubAPI.Data.Migrations
                             Id = new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"),
                             Email = "test@gmail.com",
                             Facebook = "",
-                            Hashedpassword = "1234",
+                            Hashedpassword = "tNt9z7cleFMm2HphcmtLxg==.k8PKwXzyPKNeWEy5gV2uQJPS2FswnyxFdpFYMlW5Wjc=",
                             Instagram = "",
                             Phonenumber = 123456789,
                             Profileimage = "profile.jpg",
-                            Username = "testuser",
+                            Username = "testuser1",
                             Usertype = "user",
+                            X = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("913eedbd-a304-478e-beee-4c8db66bd86a"),
+                            Email = "test@gmail.com",
+                            Facebook = "",
+                            Hashedpassword = "xKxRXjZPE5eRjeYyut0AjA==.5FmgksD5GBZFKno1kuNP14h8DPo4sc4HlxuLA+EYXGU=",
+                            Instagram = "",
+                            Phonenumber = 123456789,
+                            Profileimage = "profile.jpg",
+                            Username = "testuser2",
+                            Usertype = "user",
+                            X = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("2e445054-8f22-4812-adb7-38cd849c976b"),
+                            Email = "test@gmail.com",
+                            Facebook = "",
+                            Hashedpassword = "N4WKpgyCPJ2kbh5V2hA3Lg==.5NmvuIMf4vNiobnSJ8BfMubU89a/xGvqck00YhZa/JY=",
+                            Instagram = "",
+                            Phonenumber = 123456789,
+                            Profileimage = "profile.jpg",
+                            Username = "testuser3",
+                            Usertype = "user",
+                            X = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("a5379337-e6a4-4222-aa88-233358bda6e9"),
+                            Email = "test@gmail.com",
+                            Facebook = "",
+                            Hashedpassword = "yetxGNGDt69i8s6F4kRifg==.KQo5skRtWLfkK7tlh1ttqP/cFlpUInV+kSz0cJXVTF8=",
+                            Instagram = "",
+                            Phonenumber = 123456789,
+                            Profileimage = "profile.jpg",
+                            Username = "testuser4",
+                            Usertype = "user",
+                            X = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("9bdfe044-4b02-40a7-ade7-4570e68af19c"),
+                            Email = "test@gmail.com",
+                            Facebook = "",
+                            Hashedpassword = "7mmR3jvXz1jvOtdOhTq2Mw==.OL4hVwtTbRrs7k+sOK9CX19uqkysQOGmBsjpV7FMzXA=",
+                            Instagram = "",
+                            Phonenumber = 123456789,
+                            Profileimage = "profile.jpg",
+                            Username = "testuser5",
+                            Usertype = "user",
+                            X = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("c8b590f1-c920-4c1b-9237-852bc0b43518"),
+                            Email = "test@gmail.com",
+                            Facebook = "",
+                            Hashedpassword = "4JjobeF1CzdWECYu7ra7nw==.r+vPL+4VtXlchQ6kLYrBtCJSo6PgDWnR+ljxFSrMiqE=",
+                            Instagram = "",
+                            Phonenumber = 123456789,
+                            Profileimage = "profile.jpg",
+                            Username = "testadmin",
+                            Usertype = "admin",
                             X = ""
                         });
                 });
@@ -358,8 +424,8 @@ namespace FundHubAPI.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("FundHubAPI.Data.Models.User", "User")
-                        .WithMany("Projects")
-                        .HasForeignKey("UserId")
+                        .WithOne("Project")
+                        .HasForeignKey("FundHubAPI.Data.Models.Project", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -377,7 +443,7 @@ namespace FundHubAPI.Data.Migrations
                 {
                     b.Navigation("Donations");
 
-                    b.Navigation("Projects");
+                    b.Navigation("Project");
                 });
 #pragma warning restore 612, 618
         }

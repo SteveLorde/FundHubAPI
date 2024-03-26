@@ -6,6 +6,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+//HttpContextAccessor _httpContextAccessor = new HttpContextAccessor();
+//string issuer = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.PathBase}";
 
 // Add services to the container.
 
@@ -20,7 +22,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         {
             ValidateLifetime = true,
             ValidateAudience = true,
-            ValidIssuer = "http://localhost:5116",
+            ValidIssuer = builder.Configuration["URL"],
             ValidateIssuer = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["secretkey"]))
@@ -64,11 +66,5 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-if (app.Environment.IsProduction())
-{
-    app.Run(builder.Configuration["URL"]);
-}
-else
-{
-    app.Run();
-}
+app.Run(builder.Configuration["URL"]);
+

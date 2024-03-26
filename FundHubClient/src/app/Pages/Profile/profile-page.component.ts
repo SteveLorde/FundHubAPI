@@ -37,17 +37,19 @@ export class ProfilePageComponent implements OnInit{
       this.router.navigate(['/'])
     }
   }
+   GetUserType() {
+    this.auth.GetActiveUser().subscribe( userdatares => {
+      this.user = userdatares
+      if (this.user.usertype == "user") {
+        this.showadminpanel = false
+        this.showuserpanel = true
+      }
+      else if (this.user.usertype == "admin") {
+        this.showadminpanel = true
+        this.showuserpanel = false
+      }
+    })
 
-  async GetUserType() {
-    this.user = await  this.auth.GetActiveUser()
-    if (this.user.usertype == "user") {
-      this.showadminpanel = false
-      this.showuserpanel = true
-    }
-    else if (this.user.usertype == "admin") {
-      this.showadminpanel = true
-      this.showuserpanel = false
-    }
   }
 
 }
