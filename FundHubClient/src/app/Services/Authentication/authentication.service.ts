@@ -9,9 +9,10 @@ import {BehaviorSubject, firstValueFrom, map, Observable} from "rxjs";
 })
 export class AuthenticationService {
 
-  isloggedin : boolean = false
+  isloggedin = new BehaviorSubject(false)
   authstatus = new BehaviorSubject("Login/Register")
   currentAuthStatus = this.authstatus.asObservable()
+  currentIsLoggedIn = this.isloggedin.asObservable()
 
   constructor(private http : HttpClient) {}
 

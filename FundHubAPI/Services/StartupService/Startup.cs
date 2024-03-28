@@ -21,9 +21,7 @@ public class Startup
     {
         var storagefolder = Path.Combine(_webenv.ContentRootPath, "Storage");
         Directory.CreateDirectory(storagefolder);
-        var scopedb = _serviceprovider.CreateScope();
-        var servicescopedb = scopedb.ServiceProvider;
-        var dbservice = servicescopedb.GetRequiredService<DataContext>();
+        var dbservice = _serviceprovider.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
         dbservice.Database.Migrate();
         
         var scope1 = _serviceprovider.CreateScope();
