@@ -18,7 +18,7 @@
       <img class="projectimage" src="{{environment.backendurl}}/storage/Projects/{{project.id}}/Images/{{project.imagesnames?.[0]}}" />
 
       <div class="flex flex-row flex-wrap items-center justify-center gap-4">
-        <h2 class="title">{{project.title}}</h2>
+        <h2 class="title text-center">{{project.title}}</h2>
         <div [ngSwitch]="project.category.name">
           <img class="w-[30px] h-[30px]" *ngSwitchCase=" 'product' "  src="assets/ProductIcon.png"/>
           <img class="w-[30px] h-[30px]"  *ngSwitchCase=" 'society' "  src="assets/SocietalProjectIcon.png"/>
