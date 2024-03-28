@@ -31,7 +31,7 @@ export class AuthenticationService {
   }
 
   Logout() {
-    this.isloggedin = false
+    this.isloggedin.next(false)
     localStorage.removeItem("usertoken")
     this.authstatus.next("Login/Register")
     return true
@@ -60,6 +60,7 @@ export class AuthenticationService {
       return this.http.get( environment.backendurl + '/Authentication/GetUser').pipe(
         map( (userdatares : User) => {
           this.authstatus.next(`${userdatares.username}`)
+          this.isloggedin.next(true)
           userdata = userdatares
           return userdata
           })
