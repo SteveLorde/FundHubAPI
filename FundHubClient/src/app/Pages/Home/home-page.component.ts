@@ -3,7 +3,7 @@ import {News} from "../../Data/Models/News";
 import {NgForOf} from "@angular/common";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import environment from "../../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {FallbackimageDirective} from "../../Utilities/FallBackImage/fallbackimage.directive";
 
 @Component({

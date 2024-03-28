@@ -3,7 +3,7 @@ import axios from "axios";
 import {Project} from "../../Data/Models/Project";
 import {News} from "../../Data/Models/News";
 import {User} from "../../Data/Models/User";
-import environment from "../../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ProjectRequest} from "../../Data/Models/ProjectRequest";
 

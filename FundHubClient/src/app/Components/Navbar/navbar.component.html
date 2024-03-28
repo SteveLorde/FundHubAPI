@@ -13,11 +13,11 @@
 <!-----Mobile Navbar----->
 <nav class="lg:hidden flex flex-row items-center justify-between p-4 gap-4">
 
-  <img class="w-[40px] hover:cursor-pointer" src="assets/MobileMenuIcon.svg" (click)="OpenMobileMenu()" alt="mobilenavmenu"/>
+  <img #MobileMenu class="w-[40px] hover:cursor-pointer" src="assets/MobileMenuIcon.svg" (click)="OpenMobileMenu()" alt="mobilenavmenu"/>
   <a class="" routerLink="/">
     <img class="logo" src="assets/logo.png"  alt="homepagelink"/>
   </a>
-  <a class="authlink" routerLink="/loginregister">
+  <a class="p-2 bg-green-500 rounded-[500px]" routerLink="/loginregister">
     @if (isLoggedIn) {
       <img class="w-[40px] hover:cursor-pointer" src="assets/ActiveLogin.svg" alt=""/>
     } @else {

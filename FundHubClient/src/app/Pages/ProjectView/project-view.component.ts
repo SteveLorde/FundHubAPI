@@ -4,7 +4,7 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {User} from "../../Data/Models/User";
 import {BackendService} from "../../Services/Backend/backend.service";
 import {NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
-import environment from "../../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {FallbackimageDirective} from "../../Utilities/FallBackImage/fallbackimage.directive";
 
 @Component({

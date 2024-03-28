@@ -7,7 +7,7 @@ import {AuthenticationService} from "../../../Services/Authentication/authentica
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {FundRequestFormComponent} from "../../FundProjectForm/fund-request-form.component";
 import {Donation} from "../../../Data/Models/Donation";
-import environment from "../../../../environments/environment";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-user-panel',

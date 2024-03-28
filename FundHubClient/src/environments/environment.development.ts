@@ -1,3 +1,3 @@
 export const environment = {
-  //backendurl: "https://fundhub.thegenericcompany.xyz"
+  backendurl: "http://localhost:5116"
 };
