@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundHub.API", "FundHub.API\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundHub.Test", "FundHub.Test\FundHub.Test.csproj", "{1FB8F7B1-00D1-46A1-AAED-5CEC36E8A0E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundHub.Data", "FundHub.Data\FundHub.Data.csproj", "{54559A12-1847-4CA8-AE41-B5C02960B5CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +24,5 @@ Global
 		{1FB8F7B1-00D1-46A1-AAED-5CEC36E8A0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB8F7B1-00D1-46A1-AAED-5CEC36E8A0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB8F7B1-00D1-46A1-AAED-5CEC36E8A0E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54559A12-1847-4CA8-AE41-B5C02960B5CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54559A12-1847-4CA8-AE41-B5C02960B5CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54559A12-1847-4CA8-AE41-B5C02960B5CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54559A12-1847-4CA8-AE41-B5C02960B5CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

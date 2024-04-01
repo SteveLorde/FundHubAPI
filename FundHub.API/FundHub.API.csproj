@@ -32,8 +32,4 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\FundHub.Data\FundHub.Data.csproj" />
-    </ItemGroup>
-
 </Project>
