@@ -1,5 +1,4 @@
-﻿/API/bin/
-obj/
-FundHub.API/bin/
+﻿FundHub.API/bin/
 FundHub.API/obj/
-/FundHubAPI/bin/
+FundHub.Test/bin/
+FundHub.Test/obj/
