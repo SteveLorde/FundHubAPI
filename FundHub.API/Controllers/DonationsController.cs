@@ -1,7 +1,6 @@
-﻿using FundHubAPI.Data.DTOs.RequestDTO;
-using FundHubAPI.Data.DTOs.ResponseDTO;
-using FundHubAPI.Data.Models;
-using FundHubAPI.Services.Donate;
+﻿using FundHub.Data.Data.DTOs.RequestDTO;
+using FundHub.Data.Data.DTOs.ResponseDTO;
+using FundHub.Services.Services.Donate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

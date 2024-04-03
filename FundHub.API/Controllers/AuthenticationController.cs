@@ -1,8 +1,8 @@
-﻿using FundHubAPI.Data.DTOs;
-using FundHubAPI.Data.DTOs.RequestDTO;
-using FundHubAPI.Services.Authentication;
-using FundHubAPI.Services.JWT;
-using FundHubAPI.Services.Repositories.UsersRepository;
+﻿using FundHub.Data.Data.DTOs;
+using FundHub.Data.Data.DTOs.RequestDTO;
+using FundHub.Services.Services.Authentication;
+using FundHub.Services.Services.JWT;
+using FundHub.Services.Services.Repositories.UsersRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

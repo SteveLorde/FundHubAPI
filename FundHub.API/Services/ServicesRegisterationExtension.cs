@@ -1,14 +1,15 @@
-﻿using FundHubAPI.Data;
-using FundHubAPI.Services.Authentication;
-using FundHubAPI.Services.AutoMapper;
-using FundHubAPI.Services.JWT;
-using FundHubAPI.Services.Mail;
-using FundHubAPI.Services.PasswordHash;
-using FundHubAPI.Services.Repositories.CategoriesRepository;
-using FundHubAPI.Services.Repositories.NewsRepository;
-using FundHubAPI.Services.Repositories.ProjectsRepository;
-using FundHubAPI.Services.Repositories.UsersRepository;
-using FundHubAPI.Services.StartupService;
+﻿using FundHub.Data.Data;
+using FundHub.Services.Services.Authentication;
+using FundHub.Services.Services.AutoMapper;
+using FundHub.Services.Services.JWT;
+using FundHub.Services.Services.Mail;
+using FundHub.Services.Services.PasswordHash;
+using FundHub.Services.Services.Repositories.CategoriesRepository;
+using FundHub.Services.Services.Repositories.NewsRepository;
+using FundHub.Services.Services.Repositories.ProjectsRepository;
+using FundHub.Services.Services.Repositories.UsersRepository;
+using FundHub.Services.Services.StartupService;
+using FundHubAPI.Data;
 
 namespace FundHubAPI.Services;
 
@@ -18,11 +19,11 @@ public static class ServicesRegisterationExtension
     {
         serviceCollection.AddDbContext<DataContext>();
         serviceCollection.AddHttpContextAccessor();
-        serviceCollection.AddScoped<IPasswordHash, PasswordHash.PasswordHash>();
-        serviceCollection.AddScoped<IAuthentication,Authentication.Authentication>();
+        serviceCollection.AddScoped<IPasswordHash, PasswordHash>();
+        serviceCollection.AddScoped<IAuthentication,Authentication>();
         serviceCollection.AddScoped<IJWT,Jwt>();
         serviceCollection.AddScoped<IUserRepository,UserRepository>();
-        serviceCollection.AddScoped<IMail,Mail.Mail>();
+        serviceCollection.AddScoped<IMail,Mail>();
         serviceCollection.AddScoped<IProjectsRepository,ProjectsRepository>();
         serviceCollection.AddScoped<ICategoryRepository,CategoryRepository>();
         serviceCollection.AddScoped<INewsRepository,NewsRepository>();

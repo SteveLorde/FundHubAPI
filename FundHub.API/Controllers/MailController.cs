@@ -1,5 +1,5 @@
-﻿using FundHubAPI.Data.Models;
-using FundHubAPI.Services.Mail;
+﻿using FundHub.Data.Data.Models;
+using FundHub.Services.Services.Mail;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;

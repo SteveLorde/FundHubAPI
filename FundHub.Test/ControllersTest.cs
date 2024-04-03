@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Json;
-using FundHubAPI.Data.DTOs.RequestDTO;
-using FundHubAPI.Data.Models;
+using FundHub.Data.Data.DTOs.RequestDTO;
+using FundHub.Data.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Xunit.Abstractions;
 using Xunit.Sdk;

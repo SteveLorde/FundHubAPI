@@ -1,8 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json.Nodes;
-using FundHubAPI.Data.DTOs;
-using FundHubAPI.Data.DTOs.RequestDTO;
+using FundHub.Data.Data.DTOs.RequestDTO;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
 using Xunit.Sdk;

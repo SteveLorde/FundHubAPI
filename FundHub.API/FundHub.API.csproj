@@ -32,4 +32,8 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FundHub.Services\FundHub.Services.csproj" />
+    </ItemGroup>
+
 </Project>
