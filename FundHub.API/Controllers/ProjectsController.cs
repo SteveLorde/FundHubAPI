@@ -17,10 +17,29 @@ public class ProjectsController : Controller
         _projectsservice = projectsservice;
     }
     
-    [HttpGet("GetProjects")]
-    public async Task<List<ProjectResponseDTO>> GetProjects()
+    [HttpGet("GetProjects/{pagenumber}")]
+    public async Task<IActionResult> GetProjects(int? pagenumber)
     {
-        return await _projectsservice.GetProjects();
+        int pageSize = 10;
+
+        if (pagenumber == null)
+        {
+            return Ok(await _projectsservice.GetProjects());
+        }
+        else
+        {
+            var allProjects = await _projectsservice.GetProjects();
+            int totalPages = (int)Math.Ceiling((decimal)(allProjects.Count / pageSize));
+            var projectsRes = allProjects.Skip((int)((pagenumber - 1) * pageSize)).Take(pageSize).ToList();
+
+            var response = new
+            {
+                totalPages,
+                projects = projectsRes
+            };
+            return Ok(response);
+        }
+
     }
     
     [HttpGet("GetProject/{projectid}")]
