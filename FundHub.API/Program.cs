@@ -21,9 +21,10 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateLifetime = true,
+            ValidateIssuer = true,
             ValidateAudience = true,
             ValidIssuer = builder.Configuration["URL"],
-            ValidateIssuer = true,
+            ValidAudience = builder.Configuration["clientURL"],
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["secretkey"]))
         };

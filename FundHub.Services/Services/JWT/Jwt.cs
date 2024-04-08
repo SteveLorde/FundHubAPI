@@ -19,8 +19,8 @@ public class Jwt : IJWT
     public Jwt(IConfiguration config, IHttpContextAccessor httpcontext)
     {
         _config = config;
-        jwtseckey = _config["secretkey"];
-        audienceUrl = _config["audienceUrl"];
+        jwtseckey = _config["secretkey"]!;
+        audienceUrl = _config["clientURL"]!;
         _httpcontext = httpcontext;
     }
 
