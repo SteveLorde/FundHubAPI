@@ -9,9 +9,8 @@ using FundHub.Services.Services.Repositories.NewsRepository;
 using FundHub.Services.Services.Repositories.ProjectsRepository;
 using FundHub.Services.Services.Repositories.UsersRepository;
 using FundHub.Services.Services.StartupService;
-using FundHubAPI.Data;
 
-namespace FundHubAPI.Services;
+namespace FundHubAPI;
 
 public static class ServicesRegisterationExtension
 {
