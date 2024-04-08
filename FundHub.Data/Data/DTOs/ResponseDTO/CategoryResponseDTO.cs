@@ -2,6 +2,6 @@
 
 public record CategoryResponseDTO
 {
-    public Guid Id;
-    public string Name;
+    public Guid Id { get; init; }
+    public string Name { get; init; }
 }

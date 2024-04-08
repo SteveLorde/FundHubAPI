@@ -2,14 +2,14 @@
 
 namespace FundHub.Data.Data.DTOs.ResponseDTO;
 
-public class DonationResponseDTO
+public record DonationResponseDTO
 {
-    public Guid Id { get; set; }
-    public Guid ProjectId { get; set; }
-    public Project Project { get; set; }
-    public Guid UserId { get; set; }
-    public User User { get; set; }
-    public decimal Donationamount { get; set; }
-    public DateOnly Date { get; set; }
-    public bool Status { get; set; }
+    public Guid Id { get; init; }
+    public Guid ProjectId { get; init; }
+    public Project Project { get; init; }
+    public Guid UserId { get; init; }
+    public User User { get; init; }
+    public decimal Donationamount { get; init; }
+    public DateOnly Date { get; init; }
+    public bool Status { get; init; }
 }
