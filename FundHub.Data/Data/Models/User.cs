@@ -18,6 +18,6 @@ public class User
     public string Instagram { get; set; }
     public string Profileimage { get; set; }
     public Project? Project { get; set; }
-    public List<Donation> Donations { get; set; }
+    public IList<Donation> Donations { get; set; }
 
 }

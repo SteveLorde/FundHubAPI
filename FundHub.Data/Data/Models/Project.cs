@@ -20,6 +20,6 @@ public class Project
     public int Currentfund { get; set; }
     public int Totalfundrequired { get; set; }
     public string[] Imagesnames { get; set; }
-    public List<Donation> Donations { get; set; }
+    public IList<Donation> Donations { get; set; }
 
 }
