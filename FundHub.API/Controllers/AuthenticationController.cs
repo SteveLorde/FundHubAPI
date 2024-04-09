@@ -30,6 +30,13 @@ public class AuthenticationController : Controller
         return await _auth.Login(loginrequest);
     }
 
+    [HttpGet("CheckToken")]
+    [Authorize]
+    public async Task<bool> CheckToken()
+    {
+        return true;
+    }
+
     [HttpPost("Register")]
     public async Task<bool> Register(RegisterRequestDTO registerrequest)
     {

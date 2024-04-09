@@ -2,6 +2,7 @@
 using FundHub.Data.Data;
 using FundHub.Data.Data.DTOs;
 using FundHub.Data.Data.DTOs.RequestDTO;
+using FundHub.Data.Data.Models;
 using FundHub.Services.Services.JWT;
 using FundHub.Services.Services.JWT.DTO;
 using FundHub.Services.Services.PasswordHash;
@@ -12,15 +13,13 @@ namespace FundHub.Services.Services.Authentication;
 
 public class Authentication : IAuthentication
 {
-    private readonly DataContext _db;
     private readonly IJWT _jwtservice;
     private IMapper _mapper;
     private readonly IPasswordHash _passwordhash;
     private readonly IUserRepository _usersrepo;
 
-    public Authentication(DataContext db, IJWT jwtservice, IMapper mapper, IPasswordHash passwordhash, IUserRepository usersrepo)
+    public Authentication(IJWT jwtservice, IMapper mapper, IPasswordHash passwordhash, IUserRepository usersrepo)
     {
-        _db = db;
         _jwtservice = jwtservice;
         _mapper = mapper;
         _passwordhash = passwordhash;
@@ -31,14 +30,14 @@ public class Authentication : IAuthentication
     {
         string token = "";
         //1st, check username in database
-        bool checkuser = await _db.Users.AnyAsync(x => x.Username == loginreq.Username);
+        bool checkuser = await _usersrepo.CheckUser(loginreq.Username);
         if (!checkuser)
         {
             return "username / password are wrong";
         }
         else
         {
-            var loginuser = await _db.Users.FirstAsync(x => x.Username == loginreq.Username);
+            var loginuser = await _usersrepo.GetUserByName(loginreq.Username);
             JWTRequestDTO userjwtreq = _mapper.Map<JWTRequestDTO>(loginuser);
             //2nd verify password
             bool checkpassword = await VerifyPassword(loginreq.Password, loginuser.Hashedpassword) ;
@@ -57,14 +56,14 @@ public class Authentication : IAuthentication
 
     public async Task<bool> Register(RegisterRequestDTO registerreq)
     {
-        //map a new userdto from authrequest
-        UserDTO  newuserdto = _mapper.Map<UserDTO>(registerreq);
+        //map new user data from registerreq
+        UserDTO  newUserDto = _mapper.Map<UserDTO>(registerreq);
         //1-hash password
-        string hashedpassword =  _passwordhash.CreateHashedPassword(newuserdto.Hashedpassword);
-        //2-assign password
-        newuserdto.Hashedpassword = hashedpassword;
+        string hashedpassword =  _passwordhash.CreateHashedPassword(newUserDto.Hashedpassword);
+        //2-assign hashedpassword to A NEW COPY OF newUserDTO
+        newUserDto = newUserDto with { Hashedpassword = hashedpassword };
         //3-add to database
-        return await _usersrepo.AddUser(newuserdto);
+        return await _usersrepo.AddUser(newUserDto);
     }
 
     private async Task<bool> VerifyPassword(string passwordtoverify, string hashedpassword)

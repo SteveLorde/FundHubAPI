@@ -17,7 +17,7 @@ public class ProjectsController : Controller
         _projectsservice = projectsservice;
     }
     
-    [HttpGet("GetProjects/{pagenumber}")]
+    [HttpGet("GetProjects/{pagenumber?}")]
     public async Task<IActionResult> GetProjects(int? pagenumber)
     {
         int pageSize = 10;
