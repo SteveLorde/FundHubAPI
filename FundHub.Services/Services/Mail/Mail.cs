@@ -41,8 +41,6 @@ public class Mail : IMail
         {
             return false;
         }
-        
-
     }
     
     

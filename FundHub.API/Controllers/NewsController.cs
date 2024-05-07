@@ -4,12 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-/*
-[Authorize]
-*/
-[ApiController]
 [Route("News")]
-public class NewsController : Controller
+public class NewsController : BaseController
 {
     private INewsRepository _newsrepo;
 

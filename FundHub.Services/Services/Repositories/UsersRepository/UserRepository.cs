@@ -50,8 +50,8 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> AddUser(UserDTO usertoadd)
     {
-        User newuser = _mapper.Map<User>(usertoadd);
-        await _db.Users.AddAsync(newuser);
+        User newUser = _mapper.Map<User>(usertoadd);
+        await _db.Users.AddAsync(newUser);
         await _db.SaveChangesAsync();
         return true;
     }

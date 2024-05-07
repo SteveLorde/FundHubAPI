@@ -14,12 +14,14 @@ public class Project
     public Category Category { get; set; }
     public Guid UserId { get; set; }
     public User User { get; set; }
-    public string Facebook { get; set; }
-    public string X { get; set; }
-    public string Instagram { get; set; }
     public int Currentfund { get; set; }
     public int Totalfundrequired { get; set; }
     public string[] Imagesnames { get; set; }
+    
     public IList<Donation> Donations { get; set; }
+    public string Facebook { get; set; }
+    public string X { get; set; }
+    public string Instagram { get; set; }
+
 
 }

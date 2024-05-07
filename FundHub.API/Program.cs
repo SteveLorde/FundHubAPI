@@ -36,7 +36,7 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy(name: "CorsPolicy", builder =>
     {
-        builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+        builder.WithOrigins("https://fund-hub.vercel.app","http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
     });
 });
 

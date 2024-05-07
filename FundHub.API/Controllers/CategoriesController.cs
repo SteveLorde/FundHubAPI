@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-[ApiController]
 [Route("Categories")]
-public class CategoriesController : Controller
+public class CategoriesController : BaseController
 {
     private INewsRepository _newsrepo;
     private readonly ICategoryRepository _categoryrepo;

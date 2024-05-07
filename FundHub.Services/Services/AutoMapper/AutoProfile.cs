@@ -17,12 +17,17 @@ public class AutoProfile : Profile
         CreateMap<Donation, DonationResponseDTO>();
         CreateMap<News,NewsResponseDTO>();
         CreateMap<User,JWTRequestDTO>();
+        CreateMap<RegisterRequestDTO, UserDTO>();
+        CreateMap<Category,CategoryResponseDTO>();
 
         //DTO to Model
         CreateMap<ProjectRequestDTO, Project>();
         CreateMap<DonationRequestDTO, Donation>();
         CreateMap<DonationResponseDTO, Donation >();
-        CreateMap<UserDTO, User>();
+        CreateMap<UserDTO,User>();
+        
+        //DTO to DTO
+        CreateMap<UserDTO, JWTRequestDTO>();
     }
     
 }

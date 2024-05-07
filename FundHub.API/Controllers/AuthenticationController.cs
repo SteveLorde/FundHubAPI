@@ -4,13 +4,14 @@ using FundHub.Services.Services.Authentication;
 using FundHub.Services.Services.JWT;
 using FundHub.Services.Services.Repositories.UsersRepository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-[ApiController]
+
 [Route("Authentication")]
-public class AuthenticationController : Controller
+public class AuthenticationController : BaseController
 {
     private readonly IAuthentication _auth;
     private readonly IJWT _jwt;

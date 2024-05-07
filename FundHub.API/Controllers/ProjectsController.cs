@@ -2,13 +2,14 @@
 using FundHub.Data.Data.DTOs.ResponseDTO;
 using FundHub.Services.Services.Repositories.ProjectsRepository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-[ApiController]
+
 [Route("Projects")]
-public class ProjectsController : Controller
+public class ProjectsController : BaseController
 {
     private readonly IProjectsRepository _projectsservice;
 

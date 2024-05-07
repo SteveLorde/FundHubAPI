@@ -72,10 +72,18 @@ class Donate : IDonate
         };
         await _db.DonationLogs.AddAsync(newdonationlog);
         await MailNotifyProjectOwner(project.User.Email, project, newdonationlog);
+        await MailNotifyDonator(user.Email, project, newdonationlog);
         await _db.SaveChangesAsync();
         return true;
     }
 
+    private async Task MailNotifyDonator(string donatorEmail, Project project ,Donation donation)
+    {
+        string messagebody = $"Dear {project.User.Username}, your donation of amount {donation.Donationamount} to project  {project.Title} has been registered and awaiting confirmation";
+        MailRequest donatorMailNotify = new MailRequest {Emailto = donatorEmail, Subject = "Donation request registered", Message = messagebody};
+        await _mailservice.SendMail(donatorMailNotify);
+    }
+    
     private async Task MailNotifyProjectOwner(string projectowneremail, Project project ,Donation donation)
     {
         string messagebody = $"Dear {project.User.Username}, your project {project.Title} has just received a donation of amount {donation.Donationamount}";

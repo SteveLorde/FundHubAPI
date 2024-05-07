@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-[ApiController]
 [Route("donations")]
-public class DonationsController : Controller
+public class DonationsController : BaseController
 {
     private readonly IDonate _donationservice;
 

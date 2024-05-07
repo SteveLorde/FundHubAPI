@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FundHubAPI.Controllers;
 
-[ApiController]
 [Route("Mail")]
-public class MailController : Controller
+public class MailController : BaseController
 {
     private readonly IMail _mailservice;
 
