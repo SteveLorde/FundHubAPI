@@ -63,16 +63,16 @@ class Donate : IDonate
 
     public async Task<bool> DonateToProject(DonationRequestDTO donationtolog)
     {
-        User user = await _usersrepo.GetUserDirect(donationtolog.UserId.ToString());
+        User donator = await _usersrepo.GetUserDirect(donationtolog.UserId.ToString());
         Project project = await _projectsrepo.GetProjectDirect(donationtolog.ProjectId.ToString());
         Donation newdonationlog = new Donation
         {
-            Id = donationtolog.Id , UserId = user.Id, User = user, ProjectId = project.Id, Project = project,
+            Id = donationtolog.Id , UserId = donator.Id, User = donator, ProjectId = project.Id, Project = project,
             Donationamount = donationtolog.DonationAmount, Date = donationtolog.Date
         };
         await _db.DonationLogs.AddAsync(newdonationlog);
         await _mailservice.MailNotifyProjectOwner(project.User.Email, project, newdonationlog);
-        await _mailservice.MailNotifyDonator(user.Email, project, newdonationlog);
+        await _mailservice.MailNotifyDonator(donator.Email, project, newdonationlog);
         await _db.SaveChangesAsync();
         return true;
     }
