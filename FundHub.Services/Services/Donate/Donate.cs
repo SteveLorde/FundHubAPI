@@ -44,7 +44,7 @@ class Donate : IDonate
             querieddonationlog.Status = true;
             _db.DonationLogs.Update(querieddonationlog);
             await _db.SaveChangesAsync();
-            await MailNotifyApproveDonator(querieddonationlog, donator, queriedproject);
+            await _mailservice.MailNotifyApproveDonator(querieddonationlog, donator, queriedproject);
             return true;
         }
         else if (!decision)
@@ -52,7 +52,7 @@ class Donate : IDonate
             querieddonationlog.Status = false;
             _db.DonationLogs.Update(querieddonationlog);
             await _db.SaveChangesAsync();
-            await MailNotifyRejectDonator(querieddonationlog, donator, queriedproject);
+            await _mailservice.MailNotifyRejectDonator(querieddonationlog, donator, queriedproject);
             return true;
         }
         else
@@ -71,38 +71,12 @@ class Donate : IDonate
             Donationamount = donationtolog.DonationAmount, Date = donationtolog.Date
         };
         await _db.DonationLogs.AddAsync(newdonationlog);
-        await MailNotifyProjectOwner(project.User.Email, project, newdonationlog);
-        await MailNotifyDonator(user.Email, project, newdonationlog);
+        await _mailservice.MailNotifyProjectOwner(project.User.Email, project, newdonationlog);
+        await _mailservice.MailNotifyDonator(user.Email, project, newdonationlog);
         await _db.SaveChangesAsync();
         return true;
     }
 
-    private async Task MailNotifyDonator(string donatorEmail, Project project ,Donation donation)
-    {
-        string messagebody = $"Dear {project.User.Username}, your donation of amount {donation.Donationamount} to project  {project.Title} has been registered and awaiting confirmation";
-        MailRequest donatorMailNotify = new MailRequest {Emailto = donatorEmail, Subject = "Donation request registered", Message = messagebody};
-        await _mailservice.SendMail(donatorMailNotify);
-    }
-    
-    private async Task MailNotifyProjectOwner(string projectowneremail, Project project ,Donation donation)
-    {
-        string messagebody = $"Dear {project.User.Username}, your project {project.Title} has just received a donation of amount {donation.Donationamount}";
-        MailRequest projectownermailnotify = new MailRequest {Emailto = projectowneremail, Subject = "Received Donation", Message = messagebody};
-        await _mailservice.SendMail(projectownermailnotify);
-    }
-    
-    private async Task MailNotifyApproveDonator(Donation donation,User donator ,Project project)
-    {
-        string messagebody = $"Dear {donator.Username}, you have just donated amount of {donation.Donationamount} to project {project.Title}, Thank You for Supporting your community";
-        MailRequest donatornotifymail = new MailRequest {Emailto = donator.Email , Subject = "Donation Accepted", Message = messagebody};
-        await _mailservice.SendMail(donatornotifymail);
-    }
-    
-    private async Task MailNotifyRejectDonator(Donation donation,User donator ,Project project)
-    {
-        string messagebody = $"Dear {donator.Username}, your donation of {donation.Donationamount} to project {project.Title}, has been rejected. Please try again at different time";
-        MailRequest donatornotifymail = new MailRequest {Emailto = donator.Email , Subject = "Donation Rejected", Message = messagebody};
-        await _mailservice.SendMail(donatornotifymail);
-    }
+
 
 }

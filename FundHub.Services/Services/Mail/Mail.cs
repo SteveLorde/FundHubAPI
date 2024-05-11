@@ -44,5 +44,33 @@ public class Mail : IMail
         }
     }
     
+    public async Task MailNotifyDonator(string donatorEmail, Project project ,Donation donation)
+    {
+        string messagebody = $"Dear {project.User.Username}, your donation of amount {donation.Donationamount} to project  {project.Title} has been registered and awaiting confirmation";
+        MailRequest donatorMailNotify = new MailRequest {Emailto = donatorEmail, Subject = "Donation request registered", Message = messagebody};
+        await SendMail(donatorMailNotify);
+    }
+    
+    public async Task MailNotifyProjectOwner(string projectowneremail, Project project ,Donation donation)
+    {
+        string messagebody = $"Dear {project.User.Username}, your project {project.Title} has just received a donation of amount {donation.Donationamount}";
+        MailRequest projectownermailnotify = new MailRequest {Emailto = projectowneremail, Subject = "Received Donation", Message = messagebody};
+        await SendMail(projectownermailnotify);
+    }
+    
+    public async Task MailNotifyApproveDonator(Donation donation,User donator ,Project project)
+    {
+        string messagebody = $"Dear {donator.Username}, you have just donated amount of {donation.Donationamount} to project {project.Title}, Thank You for Supporting your community";
+        MailRequest donatornotifymail = new MailRequest {Emailto = donator.Email , Subject = "Donation Accepted", Message = messagebody};
+        await SendMail(donatornotifymail);
+    }
+    
+    public async Task MailNotifyRejectDonator(Donation donation,User donator ,Project project)
+    {
+        string messagebody = $"Dear {donator.Username}, your donation of {donation.Donationamount} to project {project.Title}, has been rejected. Please try again at different time";
+        MailRequest donatornotifymail = new MailRequest {Emailto = donator.Email , Subject = "Donation Rejected", Message = messagebody};
+        await SendMail(donatornotifymail);
+    }
+    
     
 }
