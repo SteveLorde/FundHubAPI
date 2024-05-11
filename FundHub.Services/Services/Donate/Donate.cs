@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FundHub.Services.Services.Donate;
 
-class Donate : IDonate
+public class Donate : IDonate
 {
     private readonly IProjectsRepository _projectsrepo;
     private readonly IUserRepository _usersrepo;

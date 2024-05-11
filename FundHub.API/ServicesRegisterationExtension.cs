@@ -1,6 +1,7 @@
 ﻿using FundHub.Data.Data;
 using FundHub.Services.Services.Authentication;
 using FundHub.Services.Services.AutoMapper;
+using FundHub.Services.Services.Donate;
 using FundHub.Services.Services.JWT;
 using FundHub.Services.Services.Mail;
 using FundHub.Services.Services.PasswordHash;
@@ -22,6 +23,7 @@ public static class ServicesRegisterationExtension
         serviceCollection.AddScoped<IAuthentication,Authentication>();
         serviceCollection.AddScoped<IJWT,Jwt>();
         serviceCollection.AddScoped<IUserRepository,UserRepository>();
+        serviceCollection.AddScoped<IDonate,Donate>();
         serviceCollection.AddScoped<IMail,Mail>();
         serviceCollection.AddScoped<IProjectsRepository,ProjectsRepository>();
         serviceCollection.AddScoped<ICategoryRepository,CategoryRepository>();
