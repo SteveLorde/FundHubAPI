@@ -9,11 +9,13 @@ public class Mail : IMail
 {
     private readonly IConfiguration _config;
     private IConfigurationSection _emailsettings;
+    private SmtpClient _client;
 
     public Mail(IConfiguration config)
     {
         _config = config;
         _emailsettings =_config.GetSection("EmailSettings");
+        _client = new SmtpClient();
     }
     
     public async Task<bool> SendMail(MailRequest mailRequest)
@@ -27,14 +29,13 @@ public class Mail : IMail
         {
             Text = mailRequest.Message
         };
-
-        var client = new SmtpClient();
-        await client.ConnectAsync(_emailsettings["SmtpServer"], Int16.Parse(_emailsettings["Port"]), bool.Parse(_emailsettings["IsSSL"]));
-        await client.AuthenticateAsync(_emailsettings["Username"], _emailsettings["Password"]);
-        bool check = client.SendAsync(emailmessage).IsCompletedSuccessfully;
+        
+        await _client.ConnectAsync(_emailsettings["SmtpServer"], Int16.Parse(_emailsettings["Port"]), bool.Parse(_emailsettings["IsSSL"]));
+        await _client.AuthenticateAsync(_emailsettings["CompanyMail"], _emailsettings["CompanyPassword"]);
+        bool check = _client.SendAsync(emailmessage).IsCompletedSuccessfully;
         if (check)
         {
-            await client.DisconnectAsync(true);
+            await _client.DisconnectAsync(true);
             return true;
         }
         else
