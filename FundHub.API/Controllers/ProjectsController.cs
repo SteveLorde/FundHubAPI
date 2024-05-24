@@ -30,8 +30,8 @@ public class ProjectsController : BaseController
         else
         {
             var projects = await _projectsservice.GetProjects();
-            decimal totalPagesDecimal = (decimal)projects.Count / (decimal)pageSize;
             int totalPages = 0;
+            decimal totalPagesDecimal = (decimal)projects.Count / (decimal)pageSize;
             if (totalPagesDecimal % 1 == 0)
             {
                 totalPages = (int)totalPagesDecimal;
