@@ -18,11 +18,11 @@ public class ProjectsController : BaseController
         _projectsservice = projectsservice;
     }
     
-    [HttpGet("GetProjects/{pagenumber?}")]
-    public async Task<IActionResult> GetProjects(int? pagenumber)
+    [HttpGet("GetProjects/{pagenumber}")]
+    public async Task<IActionResult> GetProjects(int pagenumber)
     {
         int pageSize = 10;
-        if (pagenumber == null)
+        if (pagenumber == 0)
         {
             List<ProjectResponseDTO> projects = await _projectsservice.GetProjects();
             return Ok(projects);
@@ -30,16 +30,17 @@ public class ProjectsController : BaseController
         else
         {
             var projects = await _projectsservice.GetProjects();
-            decimal totalPages = (decimal)projects.Count / (decimal)pageSize;
-            if (totalPages % 1 == 0)
+            decimal totalPagesDecimal = (decimal)projects.Count / (decimal)pageSize;
+            int totalPages = 0;
+            if (totalPagesDecimal % 1 == 0)
             {
-                totalPages = (int)totalPages;
+                totalPages = (int)totalPagesDecimal;
             }
             else
             {
-                totalPages = (int)totalPages + 1;
+                totalPages = (int)totalPagesDecimal + 1;
             }
-            var projectsRes = projects.Skip((int)((pagenumber - 1) * pageSize)).Take(pageSize).ToList();
+            var projectsRes = projects.Skip((pagenumber - 1) * pageSize).Take(pageSize).ToList();
             var response = new
             {
                 totalPages,
