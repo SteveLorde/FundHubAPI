@@ -2,11 +2,12 @@
 
 namespace FundHub.Data.Data.DTOs;
 
-public record UserDTO
+public record UserToAddDTO
 {
 
     public Guid Id { get; init; }
     public string Username { get; init; } = "";
+    public string Hashedpassword { get; set; } = "";
     public string Usertype { get; init; } = "";
     public int Phonenumber { get; init; } = 0;
     public string Email { get; init; } = "";

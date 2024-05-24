@@ -7,8 +7,8 @@ public class Donation
     public Project Project { get; set; }
     public Guid UserId { get; set; }
     public User User { get; set; }
-    public decimal Donationamount { get; set; }
+    public decimal DonationAmount { get; set; }
     public DateOnly Date { get; set; }
-    public string Paymenttype { get; set; }
+    public string PaymentType { get; set; }
     public bool Status { get; set; }
 }

@@ -17,6 +17,7 @@ public class ControllersTest
     public async void GetProjectsTest()
     {
         var response = await _httpClient.GetAsync("http://localhost:5116/Projects/GetProjects").Result.Content.ReadFromJsonAsync<List<Project>>();
+        _outputHelper.WriteLine("projects: " + response);
     }
     
     [Theory]
@@ -25,7 +26,6 @@ public class ControllersTest
     {
         var response = await _httpClient.GetAsync($"http://localhost:5116/Projects/GetProject/{projectid}").Result.Content.ReadFromJsonAsync<Project>();
         _outputHelper.WriteLine("response: ", response);
-
     }
     
     [Fact]

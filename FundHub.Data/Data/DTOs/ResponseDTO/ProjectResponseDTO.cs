@@ -11,7 +11,7 @@ public record ProjectResponseDTO
     public Guid CategoryId { get; init; }
     public Category Category { get; init; }
     public Guid UserId { get; init; }
-    public User User { get; init; }
+    public UserDTO User { get; init; }
     public string Facebook { get; init; }
     public string X { get; init; }
     public string Instagram { get; init; }

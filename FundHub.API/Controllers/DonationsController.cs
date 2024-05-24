@@ -30,7 +30,7 @@ public class DonationsController : BaseController
     }
 
     [Authorize]
-    [HttpPost]
+    [HttpPost("donate")]
     public async Task<bool> Donate(DonationRequestDTO donationrequest)
     {
         return await _donationservice.DonateToProject(donationrequest);

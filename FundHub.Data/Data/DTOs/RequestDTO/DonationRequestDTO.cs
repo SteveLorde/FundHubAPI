@@ -2,9 +2,8 @@
 
 public record DonationRequestDTO
 {
-    public Guid Id { get; init;}
     public Guid UserId { get; init; }
     public Guid ProjectId { get; init; }
-    public DateOnly Date { get; init; }
+    public string PaymentType { get; set; }
     public decimal DonationAmount { get; init; }
 }

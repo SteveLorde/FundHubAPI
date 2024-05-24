@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace FundHubAPI.Data.Migrations
+namespace FundHub.Data.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -71,12 +71,12 @@ namespace FundHubAPI.Data.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Facebook = table.Column<string>(type: "text", nullable: false),
-                    X = table.Column<string>(type: "text", nullable: false),
-                    Instagram = table.Column<string>(type: "text", nullable: false),
                     Currentfund = table.Column<int>(type: "integer", nullable: false),
                     Totalfundrequired = table.Column<int>(type: "integer", nullable: false),
-                    Imagesnames = table.Column<string[]>(type: "text[]", nullable: false)
+                    Imagesnames = table.Column<string[]>(type: "text[]", nullable: false),
+                    Facebook = table.Column<string>(type: "text", nullable: false),
+                    X = table.Column<string>(type: "text", nullable: false),
+                    Instagram = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,8 +102,9 @@ namespace FundHubAPI.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProjectId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Donationamount = table.Column<decimal>(type: "numeric", nullable: false),
+                    DonationAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    PaymentType = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -149,12 +150,12 @@ namespace FundHubAPI.Data.Migrations
                 columns: new[] { "Id", "Email", "Facebook", "Hashedpassword", "Instagram", "Phonenumber", "Profileimage", "Username", "Usertype", "X" },
                 values: new object[,]
                 {
-                    { new Guid("2e445054-8f22-4812-adb7-38cd849c976b"), "test@gmail.com", "", "N4WKpgyCPJ2kbh5V2hA3Lg==.5NmvuIMf4vNiobnSJ8BfMubU89a/xGvqck00YhZa/JY=", "", 123456789, "profile.jpg", "testuser3", "user", "" },
-                    { new Guid("913eedbd-a304-478e-beee-4c8db66bd86a"), "test@gmail.com", "", "xKxRXjZPE5eRjeYyut0AjA==.5FmgksD5GBZFKno1kuNP14h8DPo4sc4HlxuLA+EYXGU=", "", 123456789, "profile.jpg", "testuser2", "user", "" },
-                    { new Guid("9bdfe044-4b02-40a7-ade7-4570e68af19c"), "test@gmail.com", "", "7mmR3jvXz1jvOtdOhTq2Mw==.OL4hVwtTbRrs7k+sOK9CX19uqkysQOGmBsjpV7FMzXA=", "", 123456789, "profile.jpg", "testuser5", "user", "" },
-                    { new Guid("a5379337-e6a4-4222-aa88-233358bda6e9"), "test@gmail.com", "", "yetxGNGDt69i8s6F4kRifg==.KQo5skRtWLfkK7tlh1ttqP/cFlpUInV+kSz0cJXVTF8=", "", 123456789, "profile.jpg", "testuser4", "user", "" },
-                    { new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "test@gmail.com", "", "tNt9z7cleFMm2HphcmtLxg==.k8PKwXzyPKNeWEy5gV2uQJPS2FswnyxFdpFYMlW5Wjc=", "", 123456789, "profile.jpg", "testuser1", "user", "" },
-                    { new Guid("c8b590f1-c920-4c1b-9237-852bc0b43518"), "test@gmail.com", "", "4JjobeF1CzdWECYu7ra7nw==.r+vPL+4VtXlchQ6kLYrBtCJSo6PgDWnR+ljxFSrMiqE=", "", 123456789, "profile.jpg", "testadmin", "admin", "" }
+                    { new Guid("2e445054-8f22-4812-adb7-38cd849c976b"), "test@gmail.com", "", "oXFbbQQobrIbmUtFpYGszQ==.3mDp1D3VXZQSEw4OU641t083g6DyJ0slwZAX6u7yHWs=", "", 123456789, "profile.jpg", "testuser3", "user", "" },
+                    { new Guid("913eedbd-a304-478e-beee-4c8db66bd86a"), "test@gmail.com", "", "7hSmeUC0KT1PAVKQ1rR69w==.ywsTWK6zAUzua86GYr3akqaT4gWmSXEI9fQyqmD7I7I=", "", 123456789, "profile.jpg", "testuser2", "user", "" },
+                    { new Guid("9bdfe044-4b02-40a7-ade7-4570e68af19c"), "test@gmail.com", "", "UEi36lmIDWwA8t7BkrdQng==.+rtzatRTFbuMJPn0upq9fEZRGvYqvWGTQ1/M/PTSky4=", "", 123456789, "profile.jpg", "testuser5", "user", "" },
+                    { new Guid("a5379337-e6a4-4222-aa88-233358bda6e9"), "test@gmail.com", "", "wSyLm4mMYVUJrWNttUOIZQ==.Rwiimrp/JfgY8KDJz5UfDhaymRCKWc7gCXpgQpMx1d0=", "", 123456789, "profile.jpg", "testuser4", "user", "" },
+                    { new Guid("c0c343f3-a9d0-4ae6-93e4-0d1923b04e60"), "test@gmail.com", "", "l7KlGmDy9VjpekaMMqffjA==.Ar9EOmtuXvV32e2NO+l722/vROY9S/FpqzBgIumYsik=", "", 123456789, "profile.jpg", "testuser1", "user", "" },
+                    { new Guid("c8b590f1-c920-4c1b-9237-852bc0b43518"), "test@gmail.com", "", "7qxsRaxVZ+elPOfiRD0rwQ==.Iaw8WmYOtJSLk7JeoySALdokrMmR2R+BNbiAWr1BHb8=", "", 123456789, "profile.jpg", "testadmin", "admin", "" }
                 });
 
             migrationBuilder.InsertData(

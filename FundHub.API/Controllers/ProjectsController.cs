@@ -22,16 +22,16 @@ public class ProjectsController : BaseController
     public async Task<IActionResult> GetProjects(int? pagenumber)
     {
         int pageSize = 10;
-
         if (pagenumber == null)
         {
-            return Ok(await _projectsservice.GetProjects());
+            List<ProjectResponseDTO> projects = await _projectsservice.GetProjects();
+            return Ok(projects);
         }
         else
         {
-            var allProjects = await _projectsservice.GetProjects();
-            int totalPages = (int)Math.Ceiling((decimal)(allProjects.Count / pageSize));
-            var projectsRes = allProjects.Skip((int)((pagenumber - 1) * pageSize)).Take(pageSize).ToList();
+            var projects = await _projectsservice.GetProjects();
+            int totalPages = projects.Count / pageSize;
+            var projectsRes = projects.Skip((int)((pagenumber - 1) * pageSize)).Take(pageSize).ToList();
 
             var response = new
             {
@@ -40,7 +40,6 @@ public class ProjectsController : BaseController
             };
             return Ok(response);
         }
-
     }
     
     [HttpGet("GetProject/{projectid}")]

@@ -28,9 +28,9 @@ public class UserRepository : IUserRepository
         return await _db.Users.Include(u => u.Project).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).FirstAsync(u => u.Id == Guid.Parse(userid));
     }
 
-    public async Task<UserDTO> GetUserByName(string username)
+    public async Task<User> GetUserByName(string username)
     {
-        return await _db.Users.ProjectTo<UserDTO>(_mapper.ConfigurationProvider).FirstAsync(u => u.Username == username);
+        return await _db.Users.FirstAsync(u => u.Username == username);
     }
 
     public async Task<bool> CheckUser(string username)
@@ -48,7 +48,7 @@ public class UserRepository : IUserRepository
         return await _db.Users.Include(u => u.Project).ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
-    public async Task<bool> AddUser(UserDTO usertoadd)
+    public async Task<bool> AddUser(UserToAddDTO usertoadd)
     {
         User newUser = _mapper.Map<User>(usertoadd);
         await _db.Users.AddAsync(newUser);

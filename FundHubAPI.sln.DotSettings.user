@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f8b44f6_002D17fd_002D40e2_002D84d3_002Dd39d069b9b4d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="DonateTest(userId: &amp;quot;a5379337-e6a4-4222-aa88-233358bda6e9&amp;quot;, projectId: &amp;quot;694d6683-d3e6-4bc1-ab5d-f2f67f887332&amp;quot;, paymenttype: &amp;quot;visa&amp;quot;, donationAmount: 5000)" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Not&gt;&#xD;
+    &lt;Project Location="D:\Apps\Projects\FundHubAPI\FundHub.Test" Presentation="&amp;lt;FundHub.Test&amp;gt;" /&gt;&#xD;
+  &lt;/Not&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

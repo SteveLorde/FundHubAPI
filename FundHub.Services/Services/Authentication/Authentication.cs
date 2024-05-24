@@ -40,7 +40,7 @@ public class Authentication : IAuthentication
         }
         else
         {
-            UserDTO loginuser = await _usersRepo.GetUserByName(loginreq.Username);
+            User loginuser = await _usersRepo.GetUserByName(loginreq.Username);
             JWTRequestDTO userjwtreq = _mapper.Map<JWTRequestDTO>(loginuser);
             //2nd verify password
             bool checkpassword = await VerifyPassword(loginreq.Password, loginuser.Hashedpassword) ;
@@ -66,7 +66,7 @@ public class Authentication : IAuthentication
         else
         {
             //map new user data from registerreq
-            UserDTO  newUserDto = _mapper.Map<UserDTO>(registerreq);
+            UserToAddDTO  newUserDto = _mapper.Map<UserToAddDTO>(registerreq);
             //1-hash password
             string hashedpassword =  _passwordHashService.CreateHashedPassword(registerreq.Password);
             //2-assign hashedpassword to A NEW COPY OF newUserDTO

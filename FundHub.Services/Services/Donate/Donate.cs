@@ -67,8 +67,8 @@ public class Donate : IDonate
         Project project = await _projectsrepo.GetProjectDirect(donationtolog.ProjectId.ToString());
         Donation newdonationlog = new Donation
         {
-            Id = donationtolog.Id , UserId = donator.Id, User = donator, ProjectId = project.Id, Project = project,
-            Donationamount = donationtolog.DonationAmount, Date = donationtolog.Date
+            Id = Guid.NewGuid() , UserId = donator.Id, User = donator, ProjectId = project.Id, Project = project,
+            DonationAmount = donationtolog.DonationAmount, Date = DateOnly.FromDateTime(DateTime.Now)
         };
         await _db.DonationLogs.AddAsync(newdonationlog);
         await _mailservice.MailNotifyProjectOwner(project.User.Email, project, newdonationlog);

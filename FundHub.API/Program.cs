@@ -22,7 +22,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         {
             ValidateLifetime = true,
             ValidateIssuer = true,
-            ValidateAudience = true,
+            ValidateAudience = false,
             ValidIssuer = builder.Configuration["URL"],
             ValidAudience = builder.Configuration["clientURL"],
             ValidateIssuerSigningKey = true,
