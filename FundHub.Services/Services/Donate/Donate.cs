@@ -68,7 +68,7 @@ public class Donate : IDonate
         Donation newdonationlog = new Donation
         {
             Id = Guid.NewGuid() , UserId = donator.Id, User = donator, ProjectId = project.Id, Project = project,
-            DonationAmount = donationtolog.DonationAmount, Date = DateOnly.FromDateTime(DateTime.Now)
+            DonationAmount = donationtolog.DonationAmount, Date = DateOnly.FromDateTime(DateTime.Now), PaymentType = donationtolog.PaymentType
         };
         await _db.DonationLogs.AddAsync(newdonationlog);
         await _mailservice.MailNotifyProjectOwner(project.User.Email, project, newdonationlog);
